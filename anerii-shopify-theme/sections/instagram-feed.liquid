@@ -1,0 +1,215 @@
+<section class="instagram-section">
+  <div class="instagram-layout">
+    
+    <div class="instagram-left-side">
+      <span class="section-subtitle">Join The Community</span>
+      <h2>Follow us on <a href="{{ section.settings.instagram_url | default: 'https://instagram.com/anerii_' }}" target="_blank" rel="noopener">@{{ section.settings.handle | default: 'anerii_' }}</a></h2>
+      <p style="font-size:0.9rem; color:var(--color-text-muted); margin-top:8px;">Tag us in your Anerii silhouettes to get featured on our feed.</p>
+    </div>
+
+    <div class="instagram-posts-track">
+      {%- for block in section.blocks -%}
+        <div class="insta-post-card">
+          <div class="insta-post-header">
+            <img src="{{ 'finalised_logo.jpg-removebg.png' | asset_url }}" alt="Anerii" class="insta-avatar">
+            <div class="insta-meta">
+              <span class="insta-handle">@{{ section.settings.handle | default: 'anerii_' }}</span>
+              <span class="insta-loc">{{ block.settings.location | default: 'Jaipur, Rajasthan' }}</span>
+            </div>
+          </div>
+          <div class="insta-post-img-wrap">
+            {%- if block.settings.image != blank -%}
+              <img src="{{ block.settings.image | image_url: width: 600 }}" alt="Instagram Post" class="insta-post-img" loading="lazy">
+            {%- else -%}
+              <img src="https://cdn.shopify.com/s/files/1/1013/9628/3701/files/aneri008-1.jpg?v=1787815008" alt="Instagram Post" class="insta-post-img" loading="lazy">
+            {%- endif -%}
+          </div>
+          <div class="insta-post-footer">
+            <div class="insta-actions-left">
+              <span class="insta-action-btn" title="Like">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="#e0245e" stroke="#e0245e" stroke-width="1.8">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+              </span>
+              <span class="insta-action-btn" title="Comment">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2575fc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                </svg>
+              </span>
+              <span class="insta-action-btn" title="Share">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#e67e22" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="22" y1="2" x2="11" y2="13"></line>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+              </span>
+            </div>
+            <span class="insta-action-btn" title="Save">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#27ae60" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+              </svg>
+            </span>
+          </div>
+        </div>
+      {%- else -%}
+        <!-- Fallback 3 posts -->
+        <div class="insta-post-card">
+          <div class="insta-post-header">
+            <img src="{{ 'finalised_logo.jpg-removebg.png' | asset_url }}" alt="Anerii" class="insta-avatar">
+            <div class="insta-meta">
+              <span class="insta-handle">@anerii_</span>
+              <span class="insta-loc">Jaipur, Rajasthan</span>
+            </div>
+          </div>
+          <div class="insta-post-img-wrap">
+            <img src="https://cdn.shopify.com/s/files/1/1013/9628/3701/files/aneri008-1.jpg?v=1787815008" alt="Instagram Post" class="insta-post-img" loading="lazy">
+          </div>
+          <div class="insta-post-footer">
+            <div class="insta-actions-left">
+              <span class="insta-action-btn" title="Like">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="#e0245e" stroke="#e0245e" stroke-width="1.8">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+              </span>
+              <span class="insta-action-btn" title="Comment">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2575fc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                </svg>
+              </span>
+              <span class="insta-action-btn" title="Share">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#e67e22" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="22" y1="2" x2="11" y2="13"></line>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+              </span>
+            </div>
+            <span class="insta-action-btn" title="Save">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#27ae60" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+              </svg>
+            </span>
+          </div>
+        </div>
+
+        <div class="insta-post-card">
+          <div class="insta-post-header">
+            <img src="{{ 'finalised_logo.jpg-removebg.png' | asset_url }}" alt="Anerii" class="insta-avatar">
+            <div class="insta-meta">
+              <span class="insta-handle">@anerii_</span>
+              <span class="insta-loc">Jaipur, Rajasthan</span>
+            </div>
+          </div>
+          <div class="insta-post-img-wrap">
+            <img src="https://cdn.shopify.com/s/files/1/1013/9628/3701/files/PUN4247.jpg?v=1787840184" alt="Instagram Post" class="insta-post-img" loading="lazy">
+          </div>
+          <div class="insta-post-footer">
+            <div class="insta-actions-left">
+              <span class="insta-action-btn" title="Like">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="#e0245e" stroke="#e0245e" stroke-width="1.8">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+              </span>
+              <span class="insta-action-btn" title="Comment">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2575fc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                </svg>
+              </span>
+              <span class="insta-action-btn" title="Share">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#e67e22" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="22" y1="2" x2="11" y2="13"></line>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+              </span>
+            </div>
+            <span class="insta-action-btn" title="Save">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#27ae60" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+              </svg>
+            </span>
+          </div>
+        </div>
+
+        <div class="insta-post-card">
+          <div class="insta-post-header">
+            <img src="{{ 'finalised_logo.jpg-removebg.png' | asset_url }}" alt="Anerii" class="insta-avatar">
+            <div class="insta-meta">
+              <span class="insta-handle">@anerii_</span>
+              <span class="insta-loc">Jaipur, Rajasthan</span>
+            </div>
+          </div>
+          <div class="insta-post-img-wrap">
+            <img src="https://cdn.shopify.com/s/files/1/1013/9628/3701/files/aneri-new-floral-3.jpg?v=1787817296" alt="Instagram Post" class="insta-post-img" loading="lazy">
+          </div>
+          <div class="insta-post-footer">
+            <div class="insta-actions-left">
+              <span class="insta-action-btn" title="Like">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="#e0245e" stroke="#e0245e" stroke-width="1.8">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+              </span>
+              <span class="insta-action-btn" title="Comment">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2575fc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                </svg>
+              </span>
+              <span class="insta-action-btn" title="Share">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#e67e22" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="22" y1="2" x2="11" y2="13"></line>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+              </span>
+            </div>
+            <span class="insta-action-btn" title="Save">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#27ae60" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+              </svg>
+            </span>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Instagram Feed",
+  "settings": [
+    {
+      "type": "text",
+      "id": "handle",
+      "label": "Instagram Handle",
+      "default": "anerii_"
+    },
+    {
+      "type": "url",
+      "id": "instagram_url",
+      "label": "Instagram Profile Link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "post",
+      "name": "Instagram Post",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Post Photo"
+        },
+        {
+          "type": "text",
+          "id": "location",
+          "label": "Location Tag",
+          "default": "Jaipur, Rajasthan"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Instagram Feed"
+    }
+  ]
+}
+{% endschema %}

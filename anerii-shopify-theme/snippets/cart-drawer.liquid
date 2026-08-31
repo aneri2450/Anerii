@@ -1,0 +1,60 @@
+<!-- Slide-Out Cart Drawer -->
+<div id="cartDrawerOverlay" class="cart-drawer-overlay">
+  <div class="cart-drawer">
+    <div class="cart-drawer-header">
+      <h3 class="cart-drawer-title">Your Bag (<span class="cart-count-badge">{{ cart.item_count }}</span>)</h3>
+      <button id="closeCartBtn" class="cart-close-btn" aria-label="Close Bag">✕</button>
+    </div>
+
+    <!-- Free Shipping Progress Meter -->
+    <div class="free-shipping-meter">
+      <div id="meterText" class="meter-text">
+        <span>Free Express Shipping pan India above <strong>₹1,299</strong></span>
+      </div>
+      <div class="meter-bar-track">
+        <div id="meterBarFill" class="meter-bar-fill" style="width: 100%;"></div>
+      </div>
+    </div>
+
+    <div id="cartDrawerBody" class="cart-drawer-body">
+      {%- if cart.item_count > 0 -%}
+        {%- for item in cart.items -%}
+          <div class="cart-item-card">
+            <img class="cart-item-img" src="{{ item.image | image_url: width: 160 }}" alt="{{ item.title }}">
+            <div class="cart-item-info">
+              <div class="cart-item-title">{{ item.product.title }}</div>
+              <div class="cart-item-size">{{ item.variant.title }}</div>
+              <div class="cart-item-price">{{ item.final_line_price | money }}</div>
+              <div class="cart-qty-row">
+                <span class="qty-num">Qty: {{ item.quantity }}</span>
+                <a href="/cart/change?line={{ forloop.index }}&quantity=0" class="cart-item-remove-btn">Remove</a>
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+      {%- else -%}
+        <div class="cart-empty-state">
+          <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+          </svg>
+          <h3 style="font-family:var(--font-heading); color:var(--color-primary);">Your Bag is Empty</h3>
+          <p style="font-size:0.86rem;">Explore our handcrafted pure cotton collections.</p>
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- if cart.item_count > 0 -%}
+      <div class="cart-drawer-footer">
+        <div class="cart-subtotal-row">
+          <span>Subtotal</span>
+          <span id="cartSubtotal">{{ cart.total_price | money }}</span>
+        </div>
+        <a href="/checkout" class="cart-checkout-btn">
+          🔒 PROCEED TO CHECKOUT
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</div>

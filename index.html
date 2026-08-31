@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Anerii | Luxury Pure Cotton Ethnic & Modern Pret Wear</title>
+  <meta name="description" content="Discover Anerii - Handcrafted 100% 60x60 Pure Cotton Kurtis, Co-ord Sets, and Kurta Sets. Pinterest-aesthetic ethnic fashion designed for modern silhouettes." />
+  
+  <!-- Open Graph / Meta -->
+  <meta property="og:title" content="Anerii - Handcrafted Ethnic & Contemporary Wear" />
+  <meta property="og:description" content="Discover breathable pure cotton ethnic collections with modern luxury aesthetics." />
+  <meta property="og:image" content="finalised_logo.jpg-removebg.png" />
+  <link rel="icon" type="image/png" href="finalised_logo.jpg-removebg.png" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css?v=9" />
+</head>
+<body>
+
+  <!-- ==========================================
+       1. TOP ANNOUNCEMENT BAR (Scrolling Ticker on All Devices)
+       ========================================== -->
+  <aside class="announcement-bar" aria-label="Offers and announcements">
+    <div class="announcement-ticker-track">
+      <div class="ticker-item">
+        <span class="ticker-sparkle">✦</span>
+        <span>Free Express Shipping Pan India on Orders Above <span class="highlight">Rs. 1,299</span></span>
+        <span class="ticker-sparkle">✦</span>
+        <span>Use Code <span class="highlight">ANERII10</span> for 10% Off First Order</span>
+        <span class="ticker-sparkle">✦</span>
+        <span>100% Pure 60×60 Breathable Cotton</span>
+        <span class="ticker-sparkle">✦</span>
+        <span>Hassle-Free 7-Day Size Exchange</span>
+      </div>
+      <!-- Duplicate for seamless infinite loop -->
+      <div class="ticker-item" aria-hidden="true">
+        <span class="ticker-sparkle">✦</span>
+        <span>Free Express Shipping Pan India on Orders Above <span class="highlight">Rs. 1,299</span></span>
+        <span class="ticker-sparkle">✦</span>
+        <span>Use Code <span class="highlight">ANERII10</span> for 10% Off First Order</span>
+        <span class="ticker-sparkle">✦</span>
+        <span>100% Pure 60×60 Breathable Cotton</span>
+        <span class="ticker-sparkle">✦</span>
+        <span>Hassle-Free 7-Day Size Exchange</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ==========================================
+       2. MAIN SITE HEADER (Dark Forest Olive, Left Logo, Centered Menu)
+       ========================================== -->
+  <header class="site-header">
+    <div class="header-container">
+      
+      <!-- Left: Mobile Menu Toggle & Brand Logo -->
+      <div class="header-left">
+        <button id="mobileMenuBtn" class="mobile-menu-btn" aria-label="Toggle Menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+
+        <a href="#" class="brand-logo-link" title="Anerii Home">
+          <img src="finalised_logo.jpg-removebg.png" alt="Anerii Logo" class="brand-logo-img" />
+        </a>
+      </div>
+
+      <!-- Center: Desktop Navigation Menu -->
+      <nav class="desktop-nav" aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="#collections" class="nav-link active">All Pieces</a></li>
+          <li><a href="#collections" class="nav-link" onclick="filterCategory('co-ords')">Co-ord Sets</a></li>
+          <li><a href="#collections" class="nav-link" onclick="filterCategory('kurta-sets')">Kurta Sets</a></li>
+          <li><a href="#collections" class="nav-link" onclick="filterCategory('kurtis')">Kurtis & Tops</a></li>
+          <li><a href="#lookbook" class="nav-link">Lookbook</a></li>
+          <li><a href="#story" class="nav-link">Our Story</a></li>
+        </ul>
+      </nav>
+
+      <!-- Right: Action Icons -->
+      <div class="header-right">
+        <!-- Search Button -->
+        <button class="header-icon-btn open-search-btn" title="Search Products" aria-label="Search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </button>
+
+        <!-- Wishlist -->
+        <button class="header-icon-btn" title="Wishlist" aria-label="Wishlist" onclick="alert('Wishlist: ' + JSON.parse(localStorage.getItem('anerii_wishlist')||'[]').length + ' item(s) saved!')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+          </svg>
+          <span class="icon-badge wishlist-count-badge">0</span>
+        </button>
+
+        <!-- Cart Drawer Toggle -->
+        <button class="header-icon-btn open-cart-btn" title="Shopping Bag" aria-label="Bag">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+          </svg>
+          <span class="icon-badge cart-count-badge">0</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Mobile Slide-In Nav Drawer -->
+  <div id="mobileNavDrawer" class="mobile-nav-drawer">
+    <div class="mobile-nav-panel">
+      <div class="mobile-nav-header">
+        <img src="finalised_logo.jpg-removebg.png" alt="Anerii" style="height: 38px;">
+        <button id="closeMobileNavBtn" class="cart-close-btn" aria-label="Close Navigation">✕</button>
+      </div>
+      <ul class="mobile-nav-links">
+        <li><a href="#collections" class="mobile-nav-link" onclick="closeMobileNav(); filterCategory('all');">All Pieces</a></li>
+        <li><a href="#collections" class="mobile-nav-link" onclick="closeMobileNav(); filterCategory('co-ords');">Co-ord Sets</a></li>
+        <li><a href="#collections" class="mobile-nav-link" onclick="closeMobileNav(); filterCategory('kurta-sets');">Kurta Sets</a></li>
+        <li><a href="#collections" class="mobile-nav-link" onclick="closeMobileNav(); filterCategory('kurtis');">Short Kurtis & Tops</a></li>
+        <li><a href="#collections" class="mobile-nav-link" onclick="closeMobileNav(); filterCategory('noor-e-neel');">Noor-e-Neel Edit</a></li>
+        <li><a href="#collections" class="mobile-nav-link" onclick="closeMobileNav(); filterCategory('rangrez');">Rangrez Edit</a></li>
+        <li><a href="#collections" class="mobile-nav-link" onclick="closeMobileNav(); filterCategory('gulnaaz');">Gulnaaz Edit</a></li>
+        <li><a href="#lookbook" class="mobile-nav-link" onclick="closeMobileNav();">Video Lookbook</a></li>
+        <li><a href="#story" class="mobile-nav-link" onclick="closeMobileNav();">Our Story</a></li>
+      </ul>
+      <div style="margin-top:auto; padding-top:20px; font-size:0.82rem; color:var(--color-text-muted);">
+        <div>📞 <a href="tel:+916376829301">+91 6376829301</a></div>
+        <div>✉️ <a href="mailto:aneri2450@gmail.com">aneri2450@gmail.com</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       3. HERO VIDEO BANNER SECTION
+       ========================================== -->
+  <section class="hero-section">
+    <div class="hero-video-container">
+      <video id="heroVideo" class="hero-video" autoplay loop muted playsinline preload="auto">
+        <source src="Hero section video.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      <div class="hero-overlay"></div>
+    </div>
+
+    <div class="hero-content">
+      <span class="hero-tag">Summer Couture 2026</span>
+      <h1 class="hero-title">Timeless Grace In <em>Pure 60x60 Cotton</em></h1>
+      <p class="hero-subtitle">Breezy silhouettes, handcrafted block motifs, and artisanal comfort made for every moment.</p>
+      <div class="hero-actions">
+        <a href="#collections" class="btn-primary">
+          <span>Explore Collection</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+        <a href="#lookbook" class="btn-secondary-glass">
+          <span>Watch Lookbook</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <button id="heroSoundToggle" class="hero-sound-toggle" title="Toggle Sound">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+        <line x1="23" y1="9" x2="17" y2="15"></line>
+        <line x1="17" y1="9" x2="23" y2="15"></line>
+      </svg>
+    </button>
+  </section>
+
+  <!-- ==========================================
+       4. STORY CIRCLE HIGHLIGHTS (Pehrin Aesthetic)
+       ========================================== -->
+  <section class="stories-section">
+    <div class="stories-container" id="storiesContainer">
+      
+      <div class="story-item" onclick="filterCategory('all')">
+        <div class="story-avatar-wrap">
+          <img src="finalised_logo.jpg-removebg.png" alt="All Collections" class="story-img" style="object-fit:contain; background:#283525; padding:4px;" />
+        </div>
+        <span class="story-label">View All</span>
+      </div>
+
+      <div class="story-item" onclick="filterCategory('co-ords')">
+        <div class="story-avatar-wrap">
+          <img src="https://cdn.shopify.com/s/files/1/1013/9628/3701/files/aneri008-1.jpg?v=1787815008" alt="Co-ord Sets" class="story-img" />
+        </div>
+        <span class="story-label">Co-ord Sets</span>
+      </div>
+
+      <div class="story-item" onclick="filterCategory('kurta-sets')">
+        <div class="story-avatar-wrap">
+          <img src="https://cdn.shopify.com/s/files/1/1013/9628/3701/files/aneri007-3.jpg?v=1787815743" alt="Kurta Sets" class="story-img" />
+        </div>
+        <span class="story-label">Kurta Sets</span>
+      </div>
+
+      <div class="story-item" onclick="filterCategory('kurtis')">
+        <div class="story-avatar-wrap">
+          <img src="https://cdn.shopify.com/s/files/1/1013/9628/3701/files/aneri009_noor-e-neel-backless-short-kurti.jpg?v=1787809941" alt="Kurtis & Tops" class="story-img" />
+        </div>
+        <span class="story-label">Kurtis & Tops</span>
+      </div>
+
+      <div class="story-item" onclick="filterCategory('noor-e-neel')">
+        <div class="story-avatar-wrap">
+          <img src="https://cdn.shopify.com/s/files/1/1013/9628/3701/files/aneri008-2.jpg?v=1787815008" alt="Noor-e-Neel Edit" class="story-img" />
+        </div>
+        <span class="story-label">Noor-e-Neel</span>
+      </div>
+
+      <div class="story-item" onclick="filterCategory('rangrez')">
+        <div class="story-avatar-wrap">
+          <img src="https://cdn.shopify.com/s/files/1/1013/9628/3701/files/PUN4247.jpg?v=1787840184" alt="Rangrez Edit" class="story-img" />
+        </div>
+        <span class="story-label">Rangrez Pink</span>
+      </div>
+
+      <div class="story-item" onclick="filterCategory('gulnaaz')">
+        <div class="story-avatar-wrap">
+          <img src="https://cdn.shopify.com/s/files/1/1013/9628/3701/files/aneri-new-floral-3.jpg?v=1787817296" alt="Gulnaaz Floral" class="story-img" />
+        </div>
+        <span class="story-label">Gulnaaz Floral</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================
+       5. CURATED PRODUCT COLLECTIONS
+       ========================================== -->
+  <main id="collections" class="section-wrapper">
+    <div class="section-header-center">
+      <span class="section-subtitle">Curated Silhouettes</span>
+      <h2 class="section-title">The Anerii Summer Edit</h2>
+      <p class="section-desc">Each piece is individually tailored from 100% 60×60 breathable cotton, blending timeless artisanal motifs with modern flattering cuts.</p>
+    </div>
+
+    <!-- Category Filter Tabs with Mobile Smooth Horizontal Scroll -->
+    <div class="filter-tabs-wrapper">
+      <div class="filter-tabs">
+        <button class="filter-tab-btn active" data-filter="all">All Designs</button>
+        <button class="filter-tab-btn" data-filter="co-ords">Co-ord Sets</button>
+        <button class="filter-tab-btn" data-filter="kurta-sets">Kurta Sets</button>
+        <button class="filter-tab-btn" data-filter="kurtis">Kurtis & Tops</button>
+        <button class="filter-tab-btn" data-filter="noor-e-neel">Noor-e-Neel (Sky Blue)</button>
+        <button class="filter-tab-btn" data-filter="rangrez">Rangrez (Rani Pink)</button>
+        <button class="filter-tab-btn" data-filter="gulnaaz">Gulnaaz (Floral)</button>
+      </div>
+    </div>
+
+    <!-- Dynamic Products Grid -->
+    <div id="productsGrid" class="products-grid">
+      <!-- Populated dynamically by app.js from products.js -->
+    </div>
+  </main>
+
+  <!-- ==========================================
+       6. VIDEO LOOKBOOK / REELS ("Pinterest ki Apsaraye")
+       ========================================== -->
+  <section id="lookbook" class="lookbook-section">
+    <div class="section-header-center">
+      <span class="section-subtitle" style="color: var(--color-accent-gold-light);">#AneriiAesthetics</span>
+      <h2 class="section-title">Pinterest Ki Apsaraye • Video Lookbook</h2>
+      <p class="section-desc">Watch our silhouettes in motion. Click on any video reel to explore the look and shop directly.</p>
+    </div>
+
+    <div class="reels-carousel-wrapper">
+      <div class="reels-track" id="reelsTrack">
+        <!-- Populated dynamically with video reels 3.mp4 to 11.mp4 -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       7. REVIEWS & TESTIMONIALS (Exact Pehrin Screenshot 1)
+       ========================================== -->
+  <section class="reviews-section">
+    <div class="section-header-center">
+      <span class="section-subtitle">Real Customer Love</span>
+      <h2 class="section-title">Loved by 10,000+ Women Across India</h2>
+    </div>
+
+    <div class="reviews-grid">
+      <!-- Review 1 -->
+      <div class="review-card">
+        <div>
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"The pure cotton fabric is so breathable & lightweight! Wore the Noor-e-Neel set to a family brunch and got endless compliments. Definitely ordering again! ✨"</p>
+        </div>
+        <div class="review-author">Megha Sharma</div>
+      </div>
+
+      <!-- Review 2 -->
+      <div class="review-card">
+        <div>
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Obsessed with the fitting and neat stitching. Finding authentic 60x60 cotton with such modern cuts is so rare. Super fast delivery too! ❤️"</p>
+        </div>
+        <div class="review-author">Riddhi Patel</div>
+      </div>
+
+      <!-- Review 3 -->
+      <div class="review-card">
+        <div>
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Received my co-ord set yesterday and the quality totally exceeded my expectations. So soft on the skin and looks super chic in person! 🌸"</p>
+        </div>
+        <div class="review-author">Ananya Sen</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       8. INSTAGRAM FEED (Exact Pehrin Screenshot 2)
+       ========================================== -->
+  <section class="instagram-section">
+    <div class="instagram-layout">
+      
+      <div class="instagram-left-side">
+        <span class="section-subtitle">Join The Community</span>
+        <h2>Follow us on <a href="https://instagram.com/anerii_" target="_blank" rel="noopener">@anerii_</a></h2>
+        <p style="font-size:0.9rem; color:var(--color-text-muted); margin-top:8px;">Tag us in your Anerii silhouettes to get featured on our feed.</p>
+      </div>
+
+      <div class="instagram-posts-track">
+        <!-- Post 1 -->
+        <div class="insta-post-card">
+          <div class="insta-post-header">
+            <img src="finalised_logo.jpg-removebg.png" alt="Anerii Avatar" class="insta-avatar">
+            <div class="insta-meta">
+              <span class="insta-handle">@anerii_</span>
+              <span class="insta-loc">Jaipur, Rajasthan</span>
+            </div>
+          </div>
+          <div class="insta-post-img-wrap">
+            <img src="https://cdn.shopify.com/s/files/1/1013/9628/3701/files/aneri008-1.jpg?v=1787815008" alt="Instagram Post" class="insta-post-img" loading="lazy">
+          </div>
+          <div class="insta-post-footer">
+            <div class="insta-actions-left">
+              <span class="insta-action-btn" title="Like">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="#e0245e" stroke="#e0245e" stroke-width="1.8">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+              </span>
+              <span class="insta-action-btn" title="Comment">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2575fc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                </svg>
+              </span>
+              <span class="insta-action-btn" title="Share">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#e67e22" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="22" y1="2" x2="11" y2="13"></line>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+              </span>
+            </div>
+            <span class="insta-action-btn" title="Save">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#27ae60" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+              </svg>
+            </span>
+          </div>
+        </div>
+
+        <!-- Post 2 -->
+        <div class="insta-post-card">
+          <div class="insta-post-header">
+            <img src="finalised_logo.jpg-removebg.png" alt="Anerii Avatar" class="insta-avatar">
+            <div class="insta-meta">
+              <span class="insta-handle">@anerii_</span>
+              <span class="insta-loc">Jaipur, Rajasthan</span>
+            </div>
+          </div>
+          <div class="insta-post-img-wrap">
+            <img src="https://cdn.shopify.com/s/files/1/1013/9628/3701/files/PUN4247.jpg?v=1787840184" alt="Instagram Post" class="insta-post-img" loading="lazy">
+          </div>
+          <div class="insta-post-footer">
+            <div class="insta-actions-left">
+              <span class="insta-action-btn" title="Like">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="#e0245e" stroke="#e0245e" stroke-width="1.8">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+              </span>
+              <span class="insta-action-btn" title="Comment">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2575fc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                </svg>
+              </span>
+              <span class="insta-action-btn" title="Share">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#e67e22" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="22" y1="2" x2="11" y2="13"></line>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+              </span>
+            </div>
+            <span class="insta-action-btn" title="Save">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#27ae60" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+              </svg>
+            </span>
+          </div>
+        </div>
+
+        <!-- Post 3 -->
+        <div class="insta-post-card">
+          <div class="insta-post-header">
+            <img src="finalised_logo.jpg-removebg.png" alt="Anerii Avatar" class="insta-avatar">
+            <div class="insta-meta">
+              <span class="insta-handle">@anerii_</span>
+              <span class="insta-loc">Jaipur, Rajasthan</span>
+            </div>
+          </div>
+          <div class="insta-post-img-wrap">
+            <img src="https://cdn.shopify.com/s/files/1/1013/9628/3701/files/aneri-new-floral-3.jpg?v=1787817296" alt="Instagram Post" class="insta-post-img" loading="lazy">
+          </div>
+          <div class="insta-post-footer">
+            <div class="insta-actions-left">
+              <span class="insta-action-btn" title="Like">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="#e0245e" stroke="#e0245e" stroke-width="1.8">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+              </span>
+              <span class="insta-action-btn" title="Comment">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2575fc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                </svg>
+              </span>
+              <span class="insta-action-btn" title="Share">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#e67e22" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="22" y1="2" x2="11" y2="13"></line>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+              </span>
+            </div>
+            <span class="insta-action-btn" title="Save">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#27ae60" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+              </svg>
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================
+       9. BRAND STORY & CRAFTSMANSHIP
+       ========================================== -->
+  <section id="story" class="brand-story-section">
+    <div class="story-grid">
+      <div class="story-visual-wrap">
+        <img src="https://cdn.shopify.com/s/files/1/1013/9628/3701/files/aneri008-1.jpg?v=1787815008" alt="Anerii Handcrafted Fabric" class="story-visual-img" />
+        <div class="story-floating-badge">
+          <div class="story-badge-title">60×60 Pure Cotton</div>
+          <div class="story-badge-subtitle">Ultra Breathable • Featherlight • Skin-Friendly</div>
+        </div>
+      </div>
+
+      <div class="story-content-side">
+        <span class="section-subtitle">Heritage Reimagined</span>
+        <h2>Thoughtfully Crafted For Everyday Luxury</h2>
+        <div class="story-paragraphs">
+          <p>At Anerii, we believe ethnic wear should feel as effortless as a second skin. Inspired by Indian artisanal heritage and modern prêt aesthetics, our garments are crafted exclusively from high-grade 60x60 combed cotton.</p>
+          <p>From backless halter kurtis and structured collared co-ord sets to graceful A-line suit sets, every piece is designed to take you seamlessly from morning brunches to evening celebrations.</p>
+        </div>
+
+        <div class="pillars-list">
+          <div class="pillar-item">
+            <div class="pillar-icon">🌿</div>
+            <div class="pillar-text">
+              <h4>100% Breathable Cotton</h4>
+              <p>Featherlight weave designed for tropical ease.</p>
+            </div>
+          </div>
+
+          <div class="pillar-item">
+            <div class="pillar-icon">✂️</div>
+            <div class="pillar-text">
+              <h4>Flattering Tailoring</h4>
+              <p>Modern cuts tested for all-day comfort.</p>
+            </div>
+          </div>
+
+          <div class="pillar-item">
+            <div class="pillar-icon">📦</div>
+            <div class="pillar-text">
+              <h4>Free Express Shipping</h4>
+              <p>On all orders above Rs. 1,299.</p>
+            </div>
+          </div>
+
+          <div class="pillar-item">
+            <div class="pillar-icon">🔄</div>
+            <div class="pillar-text">
+              <h4>Hassle-Free Exchanges</h4>
+              <p>Easy 7-day doorstep size replacement.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       10. TRUST & PERKS STRIP (No COD)
+       ========================================== -->
+  <section class="perks-strip">
+    <div class="perks-container">
+      
+      <div class="perk-card">
+        <div class="perk-icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="1" y="3" width="15" height="13"></rect>
+            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+            <circle cx="5.5" cy="18.5" r="2.5"></circle>
+            <circle cx="18.5" cy="18.5" r="2.5"></circle>
+          </svg>
+        </div>
+        <div class="perk-info">
+          <h5>Free Express Shipping</h5>
+          <p>Pan India on all orders > ₹1,299</p>
+        </div>
+      </div>
+
+      <div class="perk-card">
+        <div class="perk-icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="23 4 23 10 17 10"></polyline>
+            <polyline points="1 20 1 14 7 14"></polyline>
+            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+          </svg>
+        </div>
+        <div class="perk-info">
+          <h5>7-Day Doorstep Exchange</h5>
+          <p>Hassle-free size & fit support</p>
+        </div>
+      </div>
+
+      <div class="perk-card">
+        <div class="perk-icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+            <line x1="1" y1="10" x2="23" y2="10"></line>
+          </svg>
+        </div>
+        <div class="perk-info">
+          <h5>Secure Prepaid Payments</h5>
+          <p>100% Encrypted UPI, Cards & Net Banking</p>
+        </div>
+      </div>
+
+      <div class="perk-card">
+        <div class="perk-icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+        </div>
+        <div class="perk-info">
+          <h5>100% 60×60 Pure Cotton</h5>
+          <p>Featherlight, breathable & skin-friendly</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================
+       11. LUXURY FOOTER (With Social Media Links)
+       ========================================== -->
+  <footer class="site-footer">
+    <div class="footer-top">
+      
+      <!-- Col 1: Brand Info & Social Media -->
+      <div class="footer-col footer-col-brand">
+        <img src="finalised_logo.jpg-removebg.png" alt="Anerii" class="footer-logo-img" />
+        <p>Luxury Indian Ethnic Pret Wear crafted exclusively in 100% 60×60 breathable pure cotton for modern silhouettes.</p>
+        
+        <!-- Social Media Buttons -->
+        <div class="footer-social-links">
+          <a href="https://instagram.com/anerii_" target="_blank" rel="noopener" class="footer-social-btn" title="Instagram" aria-label="Instagram">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+          </a>
+          <a href="https://facebook.com/anerii" target="_blank" rel="noopener" class="footer-social-btn" title="Facebook" aria-label="Facebook">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+            </svg>
+          </a>
+          <a href="https://pinterest.com/anerii" target="_blank" rel="noopener" class="footer-social-btn" title="Pinterest" aria-label="Pinterest">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0C5.373 0 0 5.372 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738.098.119.112.224.083.345-.09.375-.293 1.199-.334 1.365-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.546.535 6.627 0 12-5.373 12-12 0-6.628-5.373-12-12-12z"/>
+            </svg>
+          </a>
+          <a href="https://wa.me/919999999999" target="_blank" rel="noopener" class="footer-social-btn" title="WhatsApp" aria-label="WhatsApp">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Col 2: Quick Links -->
+      <div class="footer-col">
+        <h4>Collections</h4>
+        <ul class="footer-links-list">
+          <li><a href="#collections" class="footer-link" onclick="filterCategory('co-ords')">Co-ord Sets</a></li>
+          <li><a href="#collections" class="footer-link" onclick="filterCategory('kurta-sets')">Kurta Sets</a></li>
+          <li><a href="#collections" class="footer-link" onclick="filterCategory('kurtis')">Short Kurtis & Tops</a></li>
+          <li><a href="#collections" class="footer-link" onclick="filterCategory('noor-e-neel')">Noor-e-Neel Edit</a></li>
+          <li><a href="#collections" class="footer-link" onclick="filterCategory('rangrez')">Rangrez Collection</a></li>
+          <li><a href="#collections" class="footer-link" onclick="filterCategory('gulnaaz')">Gulnaaz Florals</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 3: Customer Care -->
+      <div class="footer-col">
+        <h4>Customer Care</h4>
+        <ul class="footer-links-list">
+          <li><a href="#" class="footer-link">Order Tracking</a></li>
+          <li><a href="#" class="footer-link">Free Shipping Details</a></li>
+          <li><a href="#" class="footer-link">7-Day Doorstep Exchange</a></li>
+          <li><a href="#" class="footer-link">Size Chart & Measurement</a></li>
+          <li><a href="#" class="footer-link">Privacy Policy</a></li>
+          <li><a href="#" class="footer-link">Terms of Service</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 4: Newsletter -->
+      <div class="footer-col">
+        <h4>Join The Anerii Club</h4>
+        <div class="newsletter-box">
+          <p>Get secret previews of new pure cotton drops & exclusive subscriber privileges.</p>
+          <form class="newsletter-form" onsubmit="event.preventDefault(); showToast('Welcome to Anerii Club ✨ 10% code sent!'); this.reset();">
+            <input type="email" class="newsletter-input" placeholder="Your email address" required />
+            <button type="submit" class="newsletter-btn">Join</button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer Bottom -->
+    <div class="footer-bottom">
+      <div>&copy; 2026 Anerii. All Rights Reserved. Pure Cotton Luxury Pret.</div>
+      <div class="payment-icons">
+        <span class="payment-badge">UPI</span>
+        <span class="payment-badge">GPay</span>
+        <span class="payment-badge">PhonePe</span>
+        <span class="payment-badge">Paytm</span>
+        <span class="payment-badge">Cards</span>
+        <span class="payment-badge">NetBanking</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================
+       10. SLIDE-OUT CART DRAWER
+       ========================================== -->
+  <div id="cartDrawerOverlay" class="cart-drawer-overlay">
+    <div class="cart-drawer">
+      
+      <div class="cart-drawer-header">
+        <h3 class="cart-drawer-title">Shopping Bag</h3>
+        <button id="closeCartBtn" class="cart-close-btn" aria-label="Close Bag">✕</button>
+      </div>
+
+      <!-- Free Shipping Progress Meter -->
+      <div class="free-shipping-meter">
+        <div id="meterText" class="meter-text">
+          <span>Add <strong>Rs. 1,299</strong> for Free Shipping 🎉</span>
+        </div>
+        <div class="meter-bar-track">
+          <div id="meterBarFill" class="meter-bar-fill" style="width: 0%;"></div>
+        </div>
+      </div>
+
+      <!-- Cart Items Body -->
+      <div id="cartDrawerBody" class="cart-drawer-body">
+        <!-- Populated dynamically by app.js -->
+      </div>
+
+      <!-- Cart Drawer Footer -->
+      <div class="cart-drawer-footer">
+        <div class="cart-subtotal-row">
+          <span>Subtotal</span>
+          <span id="cartSubtotal">Rs. 0.00</span>
+        </div>
+        <p style="font-size: 0.75rem; color: var(--color-text-muted);">Taxes and shipping calculated at checkout.</p>
+        <button class="cart-checkout-btn" onclick="alert('Proceeding to Secure Online Checkout (UPI / Cards / NetBanking)...')">
+          <span>Proceed to Checkout</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==========================================
+       11. QUICK VIEW MODAL
+       ========================================== -->
+  <div id="quickViewModal" class="modal-overlay">
+    <div id="quickViewCard" class="modal-card-quickview">
+      <!-- Populated dynamically -->
+    </div>
+  </div>
+
+  <!-- ==========================================
+       12. INTERACTIVE REEL PLAYER MODAL
+       ========================================== -->
+  <div id="reelModal" class="modal-overlay">
+    <div class="modal-card-reel">
+      <button id="closeReelBtn" class="modal-close-btn" style="background: rgba(255,255,255,0.85); top:12px; right:12px;">✕</button>
+
+      <div class="reel-modal-video-box">
+        <video id="reelModalVideo" class="reel-modal-video" controls autoplay loop playsinline></video>
+      </div>
+
+      <div id="reelModalSideProduct" class="reel-modal-side-product">
+        <!-- Populated dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       13. SEARCH DRAWER
+       ========================================== -->
+  <div id="searchDrawer" class="modal-overlay">
+    <div style="background:#fff; width:100%; max-width:560px; padding:24px; border-radius:var(--radius-lg); position:relative; box-shadow:var(--shadow-lg);">
+      <button id="closeSearchBtn" class="modal-close-btn">✕</button>
+      <h3 style="font-family:var(--font-heading); font-size:1.3rem; color:var(--color-primary); margin-bottom:14px;">Search Our Collection</h3>
+      <input type="text" id="searchInput" placeholder="Search kurtis, cord sets, florals..." 
+             style="width:100%; padding:12px 18px; border-radius:var(--radius-pill); border:1px solid var(--border-medium); font-size:0.95rem; outline:none;" />
+      <div id="searchResults" style="margin-top:16px; max-height:300px; overflow-y:auto;"></div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       14. TOAST NOTIFICATION
+       ========================================== -->
+  <div id="toastNotification" class="toast-notification">Notification</div>
+
+  <!-- ==========================================
+       15. MOBILE BOTTOM NAVIGATION
+       ========================================== -->
+  <nav class="mobile-bottom-nav">
+    <a href="#" class="mob-nav-item active">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+      </svg>
+      <span>Home</span>
+    </a>
+    <a href="#collections" class="mob-nav-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="3" width="7" height="7"></rect>
+        <rect x="14" y="3" width="7" height="7"></rect>
+        <rect x="14" y="14" width="7" height="7"></rect>
+        <rect x="3" y="14" width="7" height="7"></rect>
+      </svg>
+      <span>Shop</span>
+    </a>
+    <a href="#lookbook" class="mob-nav-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polygon points="23 7 16 12 23 17 23 7"></polygon>
+        <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+      </svg>
+      <span>Lookbook</span>
+    </a>
+    <button class="mob-nav-item open-cart-btn">
+      <div style="position:relative;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <path d="M16 10a4 4 0 0 1-8 0"></path>
+        </svg>
+        <span class="icon-badge cart-count-badge" style="top:-6px; right:-8px;">0</span>
+      </div>
+      <span>Bag</span>
+    </button>
+  </nav>
+
+  <!-- Scripts -->
+  <script src="products.js?v=9"></script>
+  <script src="app.js?v=9"></script>
+</body>
+</html>

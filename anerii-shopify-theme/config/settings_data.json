@@ -1,0 +1,9 @@
+{
+  "current": {
+    "color_primary": "#283525",
+    "color_header_footer": "#1c231a",
+    "color_accent_gold": "#c6a25e",
+    "color_pehrin_maroon": "#5e2c29",
+    "free_shipping_threshold": 1299
+  }
+}

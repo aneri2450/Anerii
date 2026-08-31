@@ -1,0 +1,126 @@
+<section class="reviews-section">
+  <div class="reviews-section-header">
+    <div class="reviews-header-text">
+      <span class="section-subtitle">{{ section.settings.subtitle | default: 'Real Customer Love' }}</span>
+      <h2 class="section-title" style="margin-bottom: 0;">{{ section.settings.title | default: 'Loved by 10,000+ Women Across India' }}</h2>
+    </div>
+    
+    <!-- Slider Navigation Buttons -->
+    <div class="reviews-nav-arrows">
+      <button type="button" class="review-nav-btn" onclick="slideReviews(-1)" aria-label="Previous Review">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+      <button type="button" class="review-nav-btn" onclick="slideReviews(1)" aria-label="Next Review">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="reviews-slider-container">
+    <div class="reviews-slider-track" id="reviewsSliderTrack">
+      {%- for block in section.blocks -%}
+        <div class="review-card">
+          <div>
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">"{{ block.settings.text }}"</p>
+          </div>
+          <div class="review-author">{{ block.settings.author }}</div>
+        </div>
+      {%- else -%}
+        <!-- Default 4 Reviews -->
+        <div class="review-card">
+          <div>
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">"The pure cotton fabric is so breathable & lightweight! Wore the Noor-e-Neel set to a family brunch and got endless compliments. Definitely ordering again! ✨"</p>
+          </div>
+          <div class="review-author">Megha Sharma</div>
+        </div>
+
+        <div class="review-card">
+          <div>
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">"Obsessed with the fitting and neat stitching. Finding authentic 60x60 cotton with such modern cuts is so rare. Super fast delivery too! ❤️"</p>
+          </div>
+          <div class="review-author">Riddhi Patel</div>
+        </div>
+
+        <div class="review-card">
+          <div>
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">"Received my co-ord set yesterday and the quality totally exceeded my expectations. So soft on the skin and looks super chic in person! 🌸"</p>
+          </div>
+          <div class="review-author">Ananya Sen</div>
+        </div>
+
+        <div class="review-card">
+          <div>
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">"Best ethnic brand experience! The fabric doesn't shrink after wash and the colors stay rich. Highly recommended! 🌿"</p>
+          </div>
+          <div class="review-author">Pooja Malhotra</div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+<script>
+  function slideReviews(direction) {
+    const track = document.getElementById('reviewsSliderTrack');
+    if (!track) return;
+    const cardWidth = track.querySelector('.review-card')?.offsetWidth || 340;
+    track.scrollBy({
+      left: direction * (cardWidth + 24),
+      behavior: 'smooth'
+    });
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Customer Reviews Slider",
+  "settings": [
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Real Customer Love"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Loved by 10,000+ Women Across India"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review Card",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Review Text",
+          "default": "The pure cotton fabric is so breathable & lightweight! Wore the Noor-e-Neel set to a family brunch and got endless compliments. Definitely ordering again! ✨"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Customer Name",
+          "default": "Megha Sharma"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Customer Reviews Slider"
+    }
+  ]
+}
+{% endschema %}

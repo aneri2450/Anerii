@@ -1,0 +1,61 @@
+<div class="announcement-bar">
+  <div class="announcement-ticker-track">
+    <div class="ticker-item">
+      <span>{{ section.settings.text_1 | default: 'FREE EXPRESS SHIPPING PAN INDIA ON ORDERS ABOVE RS. 1,299' }}</span>
+      <span class="ticker-sparkle">✦</span>
+    </div>
+    <div class="ticker-item">
+      <span>{{ section.settings.text_2 | default: 'USE CODE ANERII10 FOR 10% OFF FIRST ORDER' }}</span>
+      <span class="ticker-sparkle">✦</span>
+    </div>
+    <div class="ticker-item">
+      <span>{{ section.settings.text_3 | default: '100% PURE 60×60 BREATHABLE COTTON' }}</span>
+      <span class="ticker-sparkle">✦</span>
+    </div>
+    <div class="ticker-item">
+      <span>{{ section.settings.text_4 | default: 'HASSLE-FREE 7-DAY DOORSTEP SIZE EXCHANGE' }}</span>
+      <span class="ticker-sparkle">✦</span>
+    </div>
+    <!-- Duplicate for infinite seamless scroll -->
+    <div class="ticker-item">
+      <span>{{ section.settings.text_1 | default: 'FREE EXPRESS SHIPPING PAN INDIA ON ORDERS ABOVE RS. 1,299' }}</span>
+      <span class="ticker-sparkle">✦</span>
+    </div>
+    <div class="ticker-item">
+      <span>{{ section.settings.text_2 | default: 'USE CODE ANERII10 FOR 10% OFF FIRST ORDER' }}</span>
+      <span class="ticker-sparkle">✦</span>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Announcement Bar",
+  "settings": [
+    {
+      "type": "text",
+      "id": "text_1",
+      "label": "Message 1",
+      "default": "FREE EXPRESS SHIPPING PAN INDIA ON ORDERS ABOVE RS. 1,299"
+    },
+    {
+      "type": "text",
+      "id": "text_2",
+      "label": "Message 2",
+      "default": "USE CODE ANERII10 FOR 10% OFF FIRST ORDER"
+    },
+    {
+      "type": "text",
+      "id": "text_3",
+      "label": "Message 3",
+      "default": "100% PURE 60×60 BREATHABLE COTTON"
+    },
+    {
+      "type": "text",
+      "id": "text_4",
+      "label": "Message 4",
+      "default": "HASSLE-FREE 7-DAY DOORSTEP SIZE EXCHANGE"
+    }
+  ]
+}
+{% endschema %}

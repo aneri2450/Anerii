@@ -1,0 +1,160 @@
+<section id="lookbook" class="lookbook-section">
+  <div class="section-header-center">
+    <span class="section-subtitle" style="color: var(--color-accent-gold-light);">{{ section.settings.subtitle | default: '#AneriiAesthetics' }}</span>
+    <h2 class="section-title" style="color: #ffffff;">{{ section.settings.title | default: 'Pinterest Ki Apsaraye • Video Lookbook' }}</h2>
+    <p class="section-desc" style="color: rgba(247, 246, 242, 0.75);">{{ section.settings.desc | default: 'Watch our pure cotton silhouettes in motion. Click any reel to play with audio.' }}</p>
+  </div>
+
+  <div class="reels-carousel-wrapper">
+    <div class="reels-track" id="shopifyReelsTrack">
+      
+      {%- assign default_videos = "https://cdn.shopify.com/videos/c/o/v/b7a5e4f4e3994a36959c177d9875a128.mp4,https://cdn.shopify.com/videos/c/o/v/1e87a0c24f944af7b20508ece88763e8.mp4,https://cdn.shopify.com/videos/c/o/v/b7a7c846c92944cf99ac3d5534ab4ae3.mp4,https://cdn.shopify.com/videos/c/o/v/ef83a752220c43529ce72f09e021e22f.mp4,https://cdn.shopify.com/videos/c/o/v/bd6d6c8d204045798f9683e172787566.mp4,https://cdn.shopify.com/videos/c/o/v/5a700642340a40e59eda755f75dcae4e.mp4,https://cdn.shopify.com/videos/c/o/v/d7005fa345ed499582b89d119f4a6fad.mp4,https://cdn.shopify.com/videos/c/o/v/19238211044f4528bfd41bf9fdf9f9e2.mp4,https://cdn.shopify.com/videos/c/o/v/a0a41e817998420b95df10df3cc377b0.mp4" | split: "," -%}
+      {%- assign default_posters = "https://cdn.shopify.com/s/files/1/1013/9628/3701/files/aneri009_noor-e-neel-backless-short-kurti.jpg?v=1787809941,https://cdn.shopify.com/s/files/1/1013/9628/3701/files/aneri-new-floral-3.jpg?v=1787817296,https://cdn.shopify.com/s/files/1/1013/9628/3701/files/aneri008-1.jpg?v=1787815008,https://cdn.shopify.com/s/files/1/1013/9628/3701/files/PUN4197.jpg?v=1787836695,https://cdn.shopify.com/s/files/1/1013/9628/3701/files/PUN4247.jpg?v=1787840184,https://cdn.shopify.com/s/files/1/1013/9628/3701/files/PUN4283.jpg?v=1787840184,https://cdn.shopify.com/s/files/1/1013/9628/3701/files/aneri009_noor-e-neel-backless-short-kurti.jpg?v=1787809941,https://cdn.shopify.com/s/files/1/1013/9628/3701/files/aneri-new-floral-3.jpg?v=1787817296,https://cdn.shopify.com/s/files/1/1013/9628/3701/files/aneri008-1.jpg?v=1787815008" | split: "," -%}
+      {%- assign default_titles = "Rangrez Kurta Set,Noor-e-Neel Cord Set,Rangrez Co-ord Set,Coral Pink V-Neck Top,Noor-e-Neel Kurta Set,Noor-e-Neel Backless Short Kurti,Gulnaaz Cord Set,Gulnaaz Kurta Set,Gulnaaz Short Kurti" | split: "," -%}
+      {%- assign default_subs = "Summer Prêt 2026,Summer Prêt 2026,Summer Prêt 2026,Summer Prêt 2026,Summer Prêt 2026,Summer Prêt 2026,Summer Prêt 2026,Summer Prêt 2026,Summer Prêt 2026" | split: "," -%}
+      {%- assign default_links = "/products/rani-printed-kurta-set,/products/noor-e-neel-cord-set,/products/rani-printed-cord-set,/products/coral-pink-v-neck-top,/products/noor-e-neel-kurta-set,/products/noor-e-neel-backless-short-kurti,/products/gulnaaz-cord-set,/products/gulnaaz-kurta-set,/products/gulnaaz-short-kurti" | split: "," -%}
+
+      {%- for i in (0..8) -%}
+        {%- assign block = section.blocks[i] -%}
+        <div class="reel-card" onclick="handleReelClick(this)">
+          
+          {%- if block.settings.video_url != blank -%}
+            <video class="reel-video" src="{{ block.settings.video_url }}" loop muted playsinline preload="metadata"></video>
+          {%- else -%}
+            <video class="reel-video" src="{{ default_videos[i] }}" loop muted playsinline preload="metadata"></video>
+          {%- endif -%}
+
+          {%- if block.settings.poster_image != blank -%}
+            <img class="reel-poster-img" src="{{ block.settings.poster_image | image_url: width: 600 }}" alt="{{ default_titles[i] }}" loading="lazy">
+          {%- else -%}
+            <img class="reel-poster-img" src="{{ default_posters[i] }}" alt="{{ default_titles[i] }}" loading="lazy">
+          {%- endif -%}
+          
+          <div class="reel-overlay">
+            <div class="reel-top-bar">
+              <span class="reel-sound-badge">🔇</span>
+            </div>
+            <div class="reel-play-icon">▶</div>
+            <div class="reel-bottom-info">
+              <span class="reel-title">{% if block.settings.title != blank %}{{ block.settings.title }}{% else %}{{ default_titles[i] }}{% endif %}</span>
+              <span class="reel-collection">{% if block.settings.subtitle != blank %}{{ block.settings.subtitle }}{% else %}{{ default_subs[i] }}{% endif %}</span>
+              <a href="{% if block.settings.product_link != blank %}{{ block.settings.product_link }}{% else %}{{ default_links[i] }}{% endif %}" class="reel-shop-btn" onclick="event.stopPropagation()">
+                🛍️ Shop Look
+              </a>
+            </div>
+          </div>
+        </div>
+      {%- endfor -%}
+
+    </div>
+  </div>
+</section>
+
+<script>
+  function handleReelClick(card) {
+    const video = card.querySelector('video');
+    const badge = card.querySelector('.reel-sound-badge');
+    const poster = card.querySelector('.reel-poster-img');
+    const playIcon = card.querySelector('.reel-play-icon');
+
+    if (!video) return;
+
+    // Pause all other videos
+    document.querySelectorAll('.lookbook-section video').forEach(v => {
+      if (v !== video) {
+        v.pause();
+        v.muted = true;
+        const b = v.parentElement?.querySelector('.reel-sound-badge');
+        if (b) b.textContent = '🔇';
+        const pi = v.parentElement?.querySelector('.reel-play-icon');
+        if (pi) pi.style.display = 'flex';
+      }
+    });
+
+    if (video.paused) {
+      video.muted = false;
+      video.play().then(() => {
+        if (badge) badge.textContent = '🔊';
+        if (poster) poster.style.opacity = '0';
+        video.style.opacity = '1';
+        if (playIcon) playIcon.style.display = 'none';
+      }).catch(() => {
+        video.muted = true;
+        video.play();
+      });
+    } else {
+      if (video.muted) {
+        video.muted = false;
+        if (badge) badge.textContent = '🔊';
+      } else {
+        video.pause();
+        if (badge) badge.textContent = '🔇';
+        if (playIcon) playIcon.style.display = 'flex';
+      }
+    }
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Video Lookbook Reels",
+  "settings": [
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "#AneriiAesthetics"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Pinterest Ki Apsaraye • Video Lookbook"
+    },
+    {
+      "type": "textarea",
+      "id": "desc",
+      "label": "Description",
+      "default": "Watch our pure cotton silhouettes in motion. Click any reel to play with audio."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "reel",
+      "name": "Video Reel",
+      "settings": [
+        {
+          "type": "text",
+          "id": "video_url",
+          "label": "MP4 Video URL"
+        },
+        {
+          "type": "image_picker",
+          "id": "poster_image",
+          "label": "Video Poster Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Product Title"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Collection Label"
+        },
+        {
+          "type": "url",
+          "id": "product_link",
+          "label": "Product Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video Lookbook Reels"
+    }
+  ]
+}
+{% endschema %}

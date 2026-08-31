@@ -1,0 +1,53 @@
+{
+  "sections": {
+    "hero_video": {
+      "type": "hero-video",
+      "settings": {
+        "tag": "SUMMER COUTURE 2026",
+        "title": "The <em>Art</em> of Pure Cotton",
+        "subtitle": "Handcrafted luxury ethnic wear rooted in authenticity, grace, and modern sensibility."
+      }
+    },
+    "story_circles": {
+      "type": "story-circles",
+      "settings": {}
+    },
+    "featured_collection": {
+      "type": "featured-collection",
+      "settings": {
+        "subtitle": "PRÊT-À-PORTER 2026",
+        "title": "Latest Ethnic Drops",
+        "description": "Pure 60×60 breathable cotton silhouettes designed for timeless elegance.",
+        "products_to_show": 8
+      }
+    },
+    "lookbook_reels": {
+      "type": "lookbook-reels",
+      "settings": {
+        "subtitle": "#AneriiAesthetics",
+        "title": "Pinterest Ki Apsaraye • Video Lookbook"
+      }
+    },
+    "reviews_carousel": {
+      "type": "reviews-carousel",
+      "settings": {
+        "subtitle": "Real Customer Love",
+        "title": "Loved by 10,000+ Women Across India"
+      }
+    },
+    "instagram_feed": {
+      "type": "instagram-feed",
+      "settings": {
+        "handle": "anerii_"
+      }
+    }
+  },
+  "order": [
+    "hero_video",
+    "story_circles",
+    "featured_collection",
+    "lookbook_reels",
+    "reviews_carousel",
+    "instagram_feed"
+  ]
+}

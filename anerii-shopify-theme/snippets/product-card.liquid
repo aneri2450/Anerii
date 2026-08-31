@@ -1,0 +1,69 @@
+{%- comment -%}
+  Pehrin-Inspired Organic Arch Product Card Snippet
+  Usage: {% render 'product-card', product_card_product: product %}
+{%- endcomment -%}
+
+<div class="product-card-wrap">
+  <div class="product-card" onclick="window.location.href='{{ product_card_product.url }}'">
+    
+    {%- if product_card_product.compare_at_price > product_card_product.price -%}
+      <span class="product-sale-pill">Sale</span>
+    {%- endif -%}
+
+    <button class="product-wishlist-btn" 
+            onclick="event.stopPropagation(); this.classList.toggle('active');" 
+            title="Wishlist" aria-label="Wishlist">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+      </svg>
+    </button>
+
+    <div class="product-media-wrap">
+      {%- if product_card_product.featured_media != blank -%}
+        <img class="product-img-primary" 
+             src="{{ product_card_product.featured_media | image_url: width: 600 }}" 
+             alt="{{ product_card_product.title | escape }}" 
+             loading="lazy" 
+             width="400" 
+             height="500">
+        {%- if product_card_product.media[1] != blank -%}
+          <img class="product-img-hover" 
+               src="{{ product_card_product.media[1] | image_url: width: 600 }}" 
+               alt="{{ product_card_product.title | escape }}" 
+               loading="lazy" 
+               width="400" 
+               height="500">
+        {%- endif -%}
+      {%- else -%}
+        <div style="width:100%; height:100%; background:#e8dfd8; display:flex; align-items:center; justify-content:center;">
+          <span style="color:#777;">No Image</span>
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="product-info">
+      <h3 class="product-title">{{ product_card_product.title }}</h3>
+      
+      <div class="product-pricing">
+        {%- if product_card_product.compare_at_price > product_card_product.price -%}
+          <span class="price-original">{{ product_card_product.compare_at_price | money }}</span>
+        {%- endif -%}
+        <span class="price-current">{{ product_card_product.price | money }}</span>
+      </div>
+
+      <div class="product-card-btn-row" onclick="event.stopPropagation();">
+        <a href="{{ product_card_product.url }}" class="card-btn-add">
+          ADD TO CART
+        </a>
+        <form method="post" action="/cart/add" style="flex:1;">
+          <input type="hidden" name="id" value="{{ product_card_product.variants.first.id }}" />
+          <input type="hidden" name="return_to" value="/checkout" />
+          <button type="submit" class="card-btn-buy" style="width:100%;">
+            BUY IT NOW
+          </button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>

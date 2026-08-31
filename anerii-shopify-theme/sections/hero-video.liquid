@@ -1,0 +1,89 @@
+<section class="hero-section">
+  <div class="hero-video-container">
+    {%- assign default_hero_video = "https://cdn.shopify.com/videos/c/o/v/ad0c03db561b486c8719b0cc814a352a.mp4" -%}
+    <video id="heroVideoEl" class="hero-video" src="{% if section.settings.video_url != blank %}{{ section.settings.video_url }}{% else %}{{ default_hero_video }}{% endif %}" autoplay loop muted playsinline preload="auto"></video>
+    <div class="hero-overlay"></div>
+  </div>
+
+  <div class="hero-content">
+    <span class="hero-tag">{{ section.settings.tag | default: 'SUMMER COUTURE 2026' }}</span>
+    <h1 class="hero-title">{{ section.settings.title | default: 'The <em>Art</em> of Pure Cotton' }}</h1>
+    <p class="hero-subtitle">{{ section.settings.subtitle | default: 'Handcrafted luxury ethnic wear rooted in authenticity, grace, and modern sensibility.' }}</p>
+    
+    <div class="hero-actions">
+      <a href="{{ section.settings.button_link | default: '#collections' }}" class="btn-primary">
+        {{ section.settings.button_label | default: 'Explore Collections' }}
+      </a>
+      <a href="#lookbook" class="btn-secondary-glass">
+        Watch Lookbook
+      </a>
+    </div>
+  </div>
+
+  <!-- Audio Toggle Button (Desktop & Mobile) -->
+  <button id="heroSoundToggle" class="hero-sound-toggle" aria-label="Toggle Sound" onclick="toggleHeroSound(this)">
+    <span id="heroSoundIcon">🔇</span>
+  </button>
+</section>
+
+<script>
+  function toggleHeroSound(btn) {
+    const video = document.getElementById('heroVideoEl');
+    const icon = document.getElementById('heroSoundIcon');
+    if (!video) return;
+    video.muted = !video.muted;
+    if (video.muted) {
+      if (icon) icon.textContent = '🔇';
+    } else {
+      if (icon) icon.textContent = '🔊';
+      video.play().catch(() => {});
+    }
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Hero Video Banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "video_url",
+      "label": "Video URL (MP4 file link)"
+    },
+    {
+      "type": "text",
+      "id": "tag",
+      "label": "Top Badge Tag",
+      "default": "SUMMER COUTURE 2026"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Main Heading",
+      "default": "The Art of Pure Cotton"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Handcrafted luxury ethnic wear rooted in authenticity, grace, and modern sensibility."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "Explore Collections"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Video Banner"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,127 @@
+<header class="site-header">
+  <div class="header-container">
+    
+    <!-- Left: Mobile Toggle (on mobile) & Desktop Brand Logo -->
+    <div class="header-left">
+      <button id="mobileMenuBtn" class="mobile-menu-btn" aria-label="Toggle Menu" onclick="document.getElementById('mobileNavDrawer').classList.add('open')">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+
+      <a href="{{ routes.root_url }}" class="brand-logo-link desktop-only-logo" title="{{ shop.name }}">
+        {%- if section.settings.logo != blank -%}
+          <img src="{{ section.settings.logo | image_url: width: 300 }}" alt="{{ shop.name }}" class="brand-logo-img" width="180" height="60" loading="eager">
+        {%- else -%}
+          <img src="{{ 'finalised_logo.jpg-removebg.png' | asset_url }}" alt="{{ shop.name }}" class="brand-logo-img" width="180" height="60" loading="eager">
+        {%- endif -%}
+      </a>
+    </div>
+
+    <!-- Center: Desktop Navigation Menu & Mobile Centered Logo -->
+    <div class="header-center-wrap">
+      <a href="{{ routes.root_url }}" class="brand-logo-link mobile-only-logo" title="{{ shop.name }}">
+        {%- if section.settings.logo != blank -%}
+          <img src="{{ section.settings.logo | image_url: width: 260 }}" alt="{{ shop.name }}" class="brand-logo-img" width="135" height="46" loading="eager">
+        {%- else -%}
+          <img src="{{ 'finalised_logo.jpg-removebg.png' | asset_url }}" alt="{{ shop.name }}" class="brand-logo-img" width="135" height="46" loading="eager">
+        {%- endif -%}
+      </a>
+
+      <nav class="desktop-nav" aria-label="Main Navigation">
+        <ul class="nav-links">
+          {%- for link in section.settings.menu.links -%}
+            <li>
+              <a href="{{ link.url }}" class="nav-link{% if link.active %} active{% endif %}">
+                {{ link.title }}
+              </a>
+            </li>
+          {%- else -%}
+            <li><a href="{{ routes.all_products_collection_url }}" class="nav-link active">All Pieces</a></li>
+            <li><a href="/collections/co-ords" class="nav-link">Co-ord Sets</a></li>
+            <li><a href="/collections/kurta-sets" class="nav-link">Kurta Sets</a></li>
+            <li><a href="/collections/kurtis" class="nav-link">Kurtis & Tops</a></li>
+            <li><a href="#lookbook" class="nav-link">Lookbook</a></li>
+            <li><a href="#story" class="nav-link">Our Story</a></li>
+          {%- endfor -%}
+        </ul>
+      </nav>
+    </div>
+
+    <!-- Right: Action Icons -->
+    <div class="header-right">
+      <!-- Search Button -->
+      <a href="{{ routes.search_url }}" class="header-icon-btn open-search-btn" title="Search" aria-label="Search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </a>
+
+      <!-- Wishlist -->
+      <button class="header-icon-btn" title="Wishlist" aria-label="Wishlist" onclick="alert('Wishlist feature active!')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+        </svg>
+        <span class="icon-badge wishlist-count-badge">0</span>
+      </button>
+
+      <!-- Cart Drawer Toggle -->
+      <a href="{{ routes.cart_url }}" class="header-icon-btn open-cart-btn" title="Shopping Bag" aria-label="Bag">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <path d="M16 10a4 4 0 0 1-8 0"></path>
+        </svg>
+        <span class="icon-badge cart-count-badge">{{ cart.item_count }}</span>
+      </a>
+    </div>
+
+  </div>
+
+  <!-- Mobile Slide-in Menu Drawer -->
+  <div id="mobileNavDrawer" class="mobile-nav-drawer" onclick="if(event.target === this) this.classList.remove('open')">
+    <div class="mobile-nav-panel">
+      <div class="mobile-nav-header">
+        <img src="{{ 'finalised_logo.jpg-removebg.png' | asset_url }}" alt="{{ shop.name }}" style="height: 42px; width: auto;">
+        <button id="closeMobileNavBtn" class="cart-close-btn" style="color:#fff; background:rgba(255,255,255,0.1);" onclick="document.getElementById('mobileNavDrawer').classList.remove('open')">✕</button>
+      </div>
+
+      <ul class="mobile-nav-links">
+        <li><a href="{{ routes.root_url }}" class="mobile-nav-link" onclick="document.getElementById('mobileNavDrawer').classList.remove('open')">Home</a></li>
+        <li><a href="{{ routes.all_products_collection_url }}" class="mobile-nav-link" onclick="document.getElementById('mobileNavDrawer').classList.remove('open')">All Pieces</a></li>
+        <li><a href="/collections/co-ords" class="mobile-nav-link" onclick="document.getElementById('mobileNavDrawer').classList.remove('open')">Co-ord Sets</a></li>
+        <li><a href="/collections/kurta-sets" class="mobile-nav-link" onclick="document.getElementById('mobileNavDrawer').classList.remove('open')">Kurta Sets</a></li>
+        <li><a href="/collections/kurtis" class="mobile-nav-link" onclick="document.getElementById('mobileNavDrawer').classList.remove('open')">Kurtis & Tops</a></li>
+        <li><a href="#lookbook" class="mobile-nav-link" onclick="document.getElementById('mobileNavDrawer').classList.remove('open')">Lookbook</a></li>
+        <li><a href="#story" class="mobile-nav-link" onclick="document.getElementById('mobileNavDrawer').classList.remove('open')">Our Story</a></li>
+      </ul>
+
+      <div style="margin-top:auto; padding-top:20px; border-top:1px solid rgba(198,162,94,0.2); font-size:0.82rem; color:rgba(247,246,242,0.7);">
+        <div>📍 Jaipur, Rajasthan, India</div>
+        <div style="margin-top:4px;">✉️ care@anerii.com</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Custom Brand Logo"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Main Menu",
+      "default": "main-menu"
+    }
+  ]
+}
+{% endschema %}

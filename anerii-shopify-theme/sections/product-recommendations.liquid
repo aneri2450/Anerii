@@ -1,0 +1,24 @@
+<section class="section-wrapper" style="border-top: 1px solid var(--border-light); margin-top: 40px;">
+  <div class="section-header-center">
+    <span class="section-subtitle">PAIR WITH THIS</span>
+    <h2 class="section-title">You May Also Love</h2>
+  </div>
+
+  <div class="products-grid">
+    {%- if recommendations.performed and recommendations.products_count > 0 -%}
+      {%- for product in recommendations.products limit: 4 -%}
+        {% render 'product-card', product_card_product: product %}
+      {%- endfor -%}
+    {%- else -%}
+      {%- for product in collections.all.products limit: 4 -%}
+        {% render 'product-card', product_card_product: product %}
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product Recommendations"
+}
+{% endschema %}

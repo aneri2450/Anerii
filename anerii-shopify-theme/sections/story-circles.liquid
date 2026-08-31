@@ -1,0 +1,82 @@
+<section class="stories-section">
+  <div class="stories-container">
+    {%- for block in section.blocks -%}
+      <a href="{{ block.settings.link | default: '#collections' }}" class="story-item">
+        <div class="story-avatar-wrap">
+          {%- if block.settings.image != blank -%}
+            <img class="story-img" src="{{ block.settings.image | image_url: width: 160 }}" alt="{{ block.settings.title }}" width="74" height="74" loading="lazy">
+          {%- else -%}
+            <img class="story-img" src="{{ 'finalised_logo.jpg-removebg.png' | asset_url }}" alt="{{ block.settings.title }}" width="74" height="74" loading="lazy">
+          {%- endif -%}
+        </div>
+        <span class="story-label">{{ block.settings.title }}</span>
+      </a>
+    {%- else -%}
+      <div class="story-item active">
+        <div class="story-avatar-wrap">
+          <img class="story-img" src="https://cdn.shopify.com/s/files/1/1013/9628/3701/files/aneri008-1.jpg?v=1787815008" alt="All Collections">
+        </div>
+        <span class="story-label">All Pieces</span>
+      </div>
+      <div class="story-item">
+        <div class="story-avatar-wrap">
+          <img class="story-img" src="https://cdn.shopify.com/s/files/1/1013/9628/3701/files/PUN4247.jpg?v=1787840184" alt="Co-ord Sets">
+        </div>
+        <span class="story-label">Co-ords</span>
+      </div>
+      <div class="story-item">
+        <div class="story-avatar-wrap">
+          <img class="story-img" src="https://cdn.shopify.com/s/files/1/1013/9628/3701/files/PUN4197.jpg?v=1787836695" alt="Kurta Sets">
+        </div>
+        <span class="story-label">Kurta Sets</span>
+      </div>
+      <div class="story-item">
+        <div class="story-avatar-wrap">
+          <img class="story-img" src="https://cdn.shopify.com/s/files/1/1013/9628/3701/files/aneri009_noor-e-neel-backless-short-kurti.jpg?v=1787809941" alt="Kurtis & Tops">
+        </div>
+        <span class="story-label">Kurtis & Tops</span>
+      </div>
+      <div class="story-item">
+        <div class="story-avatar-wrap">
+          <img class="story-img" src="https://cdn.shopify.com/s/files/1/1013/9628/3701/files/aneri-new-floral-3.jpg?v=1787817296" alt="Gulnaaz Edit">
+        </div>
+        <span class="story-label">Gulnaaz</span>
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Story Circles",
+  "blocks": [
+    {
+      "type": "story",
+      "name": "Story Highlight",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Category Avatar Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Category Label",
+          "default": "Co-ord Sets"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Collection Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Story Circles"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,6 @@
+# Tools & Binary Dependencies
+tools/
+compressed_videos/
+*.zip
+.DS_Store
+Thumbs.db

@@ -1,0 +1,50 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Anerii Luxury Couture",
+    "theme_version": "1.0.0",
+    "theme_author": "Anerii",
+    "theme_documentation_url": "https://anerii.com",
+    "theme_support_url": "https://anerii.com"
+  },
+  {
+    "name": "Brand Colors",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_primary",
+        "label": "Primary Olive Green",
+        "default": "#283525"
+      },
+      {
+        "type": "color",
+        "id": "color_header_footer",
+        "label": "Header & Footer Dark Olive",
+        "default": "#1c231a"
+      },
+      {
+        "type": "color",
+        "id": "color_accent_gold",
+        "label": "Accent Champagne Gold",
+        "default": "#c6a25e"
+      },
+      {
+        "type": "color",
+        "id": "color_pehrin_maroon",
+        "label": "Product Title / Sale Maroon",
+        "default": "#5e2c29"
+      }
+    ]
+  },
+  {
+    "name": "Free Shipping Threshold",
+    "settings": [
+      {
+        "type": "number",
+        "id": "free_shipping_threshold",
+        "label": "Free Shipping Threshold Amount (INR)",
+        "default": 1299
+      }
+    ]
+  }
+]

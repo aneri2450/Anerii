@@ -1,0 +1,149 @@
+<footer class="site-footer">
+  <div class="footer-top">
+    
+    <!-- Col 1: Brand Info & Social Media -->
+    <div class="footer-col footer-col-brand">
+      <a href="{{ routes.root_url }}" title="{{ shop.name }}" style="display:inline-block; margin-bottom:14px;">
+        <img src="{{ 'finalised_logo.jpg-removebg.png' | asset_url }}" alt="{{ shop.name }}" class="footer-logo-img" style="height: 56px; width: auto; max-width: 220px; object-fit: contain;">
+      </a>
+      <p>{{ section.settings.bio | default: 'Luxury Indian Ethnic Pret Wear crafted exclusively in 100% 60×60 breathable pure cotton for modern silhouettes.' }}</p>
+      
+      <!-- Social Media Buttons (Facebook, Instagram, Pinterest) -->
+      <div class="footer-social-links">
+        <a href="{{ section.settings.instagram | default: 'https://instagram.com/anerii_' }}" target="_blank" rel="noopener" class="footer-social-btn" title="Instagram" aria-label="Instagram">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+          </svg>
+        </a>
+        <a href="{{ section.settings.facebook | default: 'https://facebook.com/anerii' }}" target="_blank" rel="noopener" class="footer-social-btn" title="Facebook" aria-label="Facebook">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+          </svg>
+        </a>
+        <a href="{{ section.settings.pinterest | default: 'https://pinterest.com/anerii' }}" target="_blank" rel="noopener" class="footer-social-btn" title="Pinterest" aria-label="Pinterest">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.373 0 0 5.372 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738.098.119.112.224.083.345-.09.375-.293 1.199-.334 1.365-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.546.535 6.627 0 12-5.373 12-12 0-6.628-5.373-12-12-12z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Col 2: Quick Links / Categories Menu -->
+    <div class="footer-col">
+      <h4>{{ section.settings.menu_1_title | default: 'Shop Categories' }}</h4>
+      <ul class="footer-links-list">
+        {%- if section.settings.menu_1 != blank -%}
+          {%- for link in section.settings.menu_1.links -%}
+            <li><a href="{{ link.url }}" class="footer-link">{{ link.title }}</a></li>
+          {%- endfor -%}
+        {%- else -%}
+          <li><a href="/collections/co-ords" class="footer-link">Co-ord Sets</a></li>
+          <li><a href="/collections/kurta-sets" class="footer-link">Kurta Sets</a></li>
+          <li><a href="/collections/kurtis" class="footer-link">Short Kurtis & Tops</a></li>
+          <li><a href="/collections/all" class="footer-link">New Arrivals</a></li>
+        {%- endif -%}
+      </ul>
+    </div>
+
+    <!-- Col 3: Customer Care Menu -->
+    <div class="footer-col">
+      <h4>{{ section.settings.menu_2_title | default: 'Customer Care' }}</h4>
+      <ul class="footer-links-list">
+        {%- if section.settings.menu_2 != blank -%}
+          {%- for link in section.settings.menu_2.links -%}
+            <li><a href="{{ link.url }}" class="footer-link">{{ link.title }}</a></li>
+          {%- endfor -%}
+        {%- else -%}
+          <li><a href="/pages/shipping-policy" class="footer-link">Shipping & Delivery</a></li>
+          <li><a href="/pages/returns-exchanges" class="footer-link">7-Day Doorstep Exchange</a></li>
+          <li><a href="/pages/size-guide" class="footer-link">Size & Fit Guide</a></li>
+          <li><a href="/pages/contact" class="footer-link">Contact Us</a></li>
+        {%- endif -%}
+      </ul>
+    </div>
+
+    <!-- Col 4: Newsletter -->
+    <div class="footer-col">
+      <h4>Join The Anerii Club</h4>
+      <div class="newsletter-box">
+        <p>Subscribe for exclusive secret drop invites and 10% off your first order.</p>
+        {% form 'customer', class: 'newsletter-form' %}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <input type="email" name="contact[email]" class="newsletter-input" placeholder="Your email address" required>
+          <button type="submit" class="newsletter-btn">Join</button>
+        {% endform %}
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div>{{ section.settings.copyright_text | default: '© 2026 Anerii. All Rights Reserved. Crafted with pure cotton love.' }}</div>
+    <div class="payment-icons">
+      <span class="payment-badge">UPI</span>
+      <span class="payment-badge">GPay</span>
+      <span class="payment-badge">PhonePe</span>
+      <span class="payment-badge">Paytm</span>
+      <span class="payment-badge">Cards</span>
+      <span class="payment-badge">NetBanking</span>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "bio",
+      "label": "Brand Bio Text",
+      "default": "Luxury Indian Ethnic Pret Wear crafted exclusively in 100% 60×60 breathable pure cotton for modern silhouettes."
+    },
+    {
+      "type": "text",
+      "id": "menu_1_title",
+      "label": "Column 1 Heading",
+      "default": "Shop Categories"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_1",
+      "label": "Column 1 Navigation Menu"
+    },
+    {
+      "type": "text",
+      "id": "menu_2_title",
+      "label": "Column 2 Heading",
+      "default": "Customer Care"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_2",
+      "label": "Column 2 Navigation Menu"
+    },
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "label": "Copyright Text",
+      "default": "© 2026 Anerii. All Rights Reserved. Crafted with pure cotton love."
+    },
+    {
+      "type": "url",
+      "id": "instagram",
+      "label": "Instagram URL"
+    },
+    {
+      "type": "url",
+      "id": "facebook",
+      "label": "Facebook URL"
+    },
+    {
+      "type": "url",
+      "id": "pinterest",
+      "label": "Pinterest URL"
+    }
+  ]
+}
+{% endschema %}

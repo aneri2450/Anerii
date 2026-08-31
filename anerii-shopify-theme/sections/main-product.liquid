@@ -1,0 +1,195 @@
+<div class="product-page-wrapper">
+  <div class="product-page-layout">
+    
+    <!-- Left: Product Media Gallery (Smooth Mouse Zoom on Desktop, Fluid Finger Scroll on Mobile) -->
+    <div class="product-gallery-side">
+      <div id="zoomContainer" class="product-zoom-container" 
+           onmousemove="if(window.innerWidth > 860) handleImageZoom(event, this)" 
+           onmouseleave="resetImageZoom(this)">
+        {%- if product.featured_media != blank -%}
+          <img id="ProductMainImage" 
+               class="product-zoom-image"
+               src="{{ product.featured_media | image_url: width: 1000 }}" 
+               alt="{{ product.title | escape }}" 
+               loading="eager"
+               fetchpriority="high"
+               width="800" 
+               height="1066">
+        {%- endif -%}
+      </div>
+
+      {%- if product.media.size > 1 -%}
+        <div class="gallery-thumbs-row">
+          {%- for media in product.media -%}
+            <img class="thumb-img{% if forloop.first %} active{% endif %}" 
+                 src="{{ media | image_url: width: 140, height: 180, crop: 'center' }}" 
+                 alt="{{ product.title }}" 
+                 loading="eager"
+                 onclick="switchProductImage('{{ media | image_url: width: 1000 }}', this)">
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <!-- Right: Product Details (Exact Pehrin Design Match) -->
+    <div class="product-details-content">
+      
+      <!-- Product Title -->
+      <h1 class="pehrin-product-title">{{ product.title }}</h1>
+      
+      <!-- Price & Sale Pill -->
+      <div class="pehrin-price-row">
+        {%- if product.compare_at_price > product.price -%}
+          <span class="pehrin-price-original">{{ product.compare_at_price | money }}</span>
+        {%- endif -%}
+        <span class="pehrin-price-current">{{ product.price | money }}</span>
+        {%- if product.compare_at_price > product.price -%}
+          <span class="pehrin-sale-pill">Sale</span>
+        {%- endif -%}
+      </div>
+      <div class="pehrin-tax-note">Taxes included.</div>
+
+      <!-- Purchase Form -->
+      {%- form 'product', product, id: 'product-form', class: 'pehrin-product-form' -%}
+        
+        <!-- Size Selector -->
+        {%- if product.has_only_default_variant == false -%}
+          <div style="margin-top: 10px;">
+            <div class="pehrin-size-row-header">
+              <span class="pehrin-size-label">Size</span>
+              <span class="pehrin-size-chart-btn" onclick="alert('Anerii Size Chart (Inches):\n\nXS: Bust 34 | Waist 30 | Hip 36\nS: Bust 36 | Waist 32 | Hip 38\nM: Bust 38 | Waist 34 | Hip 40\nL: Bust 40 | Waist 36 | Hip 42\nXL: Bust 42 | Waist 38 | Hip 44\nXXL: Bust 44 | Waist 40 | Hip 46\n\nFabric: 100% 60×60 Combed Cotton')">
+                📐 Size Chart
+              </span>
+            </div>
+            
+            <div class="pehrin-size-pills">
+              {%- for variant in product.variants -%}
+                <label style="margin: 0; cursor: pointer;">
+                  <input type="radio" name="id" value="{{ variant.id }}" {% if forloop.first %}checked{% endif %} style="display:none;" onchange="updateSelectedSizePill(this)">
+                  <span class="pehrin-size-pill{% if forloop.first %} selected{% endif %}">
+                    {{ variant.title }}
+                  </span>
+                </label>
+              {%- endfor -%}
+            </div>
+          </div>
+        {%- else -%}
+          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+        {%- endif -%}
+
+        <!-- Quantity Stepper -->
+        <div class="pehrin-qty-box">
+          <div class="pehrin-qty-label">Quantity</div>
+          <div class="pehrin-qty-stepper">
+            <button type="button" class="pehrin-qty-btn" onclick="adjustProductQty(-1)">−</button>
+            <span id="productQtyDisplay" class="pehrin-qty-val">1</span>
+            <input type="hidden" name="quantity" id="productQtyInput" value="1">
+            <button type="button" class="pehrin-qty-btn" onclick="adjustProductQty(1)">+</button>
+          </div>
+        </div>
+
+        <!-- Buttons: Add to cart & Buy it now -->
+        <div style="margin-top: 16px;">
+          <button type="submit" name="add" class="pehrin-btn-add">
+            Add to cart
+          </button>
+          <button type="submit" name="checkout" class="pehrin-btn-buy">
+            Buy it now
+          </button>
+        </div>
+
+      {%- endform -%}
+
+      <!-- Description & Fabric Details -->
+      <div class="pehrin-desc-text" style="border-top: 1px solid var(--border-light); padding-top: 16px; margin-top: 12px;">
+        {{ product.description }}
+      </div>
+
+      <!-- Share Button -->
+      <button type="button" class="pehrin-share-btn" onclick="shareCurrentProduct('{{ product.title | escape }}', '{{ shop.url }}{{ product.url }}')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+          <polyline points="16 6 12 2 8 6"></polyline>
+          <line x1="12" y1="2" x2="12" y2="15"></line>
+        </svg>
+        Share
+      </button>
+
+      <!-- Trust Badges -->
+      <div style="border-top: 1px solid var(--border-light); padding-top: 16px; font-size: 0.86rem; color: var(--color-text-muted); display: flex; flex-direction: column; gap: 6px;">
+        <div>✓ 100% Breathable 60×60 Pure Cotton</div>
+        <div>✓ Free Express Shipping on orders above Rs. 1,299</div>
+        <div>✓ Hassle-free 7-day doorstep size exchange</div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // Switch Thumbnail Image
+  function switchProductImage(src, thumbEl) {
+    const mainImg = document.getElementById('ProductMainImage');
+    if (mainImg) {
+      mainImg.src = src;
+    }
+    document.querySelectorAll('.gallery-thumbs-row .thumb-img').forEach(t => t.classList.remove('active'));
+    thumbEl.classList.add('active');
+  }
+
+  // Interactive Image Zoom on Mouse Move (Desktop Only)
+  function handleImageZoom(e, container) {
+    if (window.innerWidth <= 860) return;
+    const img = container.querySelector('.product-zoom-image');
+    if (!img) return;
+    const rect = container.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    img.style.transformOrigin = `${x}% ${y}%`;
+  }
+
+  function resetImageZoom(container) {
+    const img = container.querySelector('.product-zoom-image');
+    if (!img) return;
+    img.style.transformOrigin = 'center center';
+  }
+
+  // Size Selector Toggle
+  function updateSelectedSizePill(radioInput) {
+    document.querySelectorAll('.pehrin-size-pills .pehrin-size-pill').forEach(p => p.classList.remove('selected'));
+    const span = radioInput.nextElementSibling;
+    if (span) span.classList.add('selected');
+  }
+
+  // Quantity Stepper
+  function adjustProductQty(delta) {
+    const qtyInput = document.getElementById('productQtyInput');
+    const qtyDisplay = document.getElementById('productQtyDisplay');
+    let val = parseInt(qtyInput.value, 10) || 1;
+    val += delta;
+    if (val < 1) val = 1;
+    qtyInput.value = val;
+    qtyDisplay.textContent = val;
+  }
+
+  // Share Product Link
+  function shareCurrentProduct(title, url) {
+    if (navigator.share) {
+      navigator.share({
+        title: title,
+        url: url
+      }).catch(() => {});
+    } else {
+      navigator.clipboard.writeText(url).then(() => {
+        alert('Product link copied to clipboard! 📋');
+      });
+    }
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Product Details"
+}
+{% endschema %}
