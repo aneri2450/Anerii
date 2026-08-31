@@ -569,4 +569,102 @@ document.addEventListener('DOMContentLoaded', () => {
       `).join('')}
     `;
   });
+
+  // Desktop Mouse Wheel & Drag-To-Scroll for Reels Track
+  const reelsTrack = document.getElementById('reelsTrack');
+  if (reelsTrack) {
+    reelsTrack.addEventListener('wheel', (e) => {
+      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+        e.preventDefault();
+        reelsTrack.scrollLeft += e.deltaY;
+      }
+    }, { passive: false });
+
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+    let isDragging = false;
+
+    reelsTrack.addEventListener('mousedown', (e) => {
+      isDown = true;
+      isDragging = false;
+      reelsTrack.style.cursor = 'grabbing';
+      startX = e.pageX - reelsTrack.offsetLeft;
+      scrollLeft = reelsTrack.scrollLeft;
+    });
+
+    reelsTrack.addEventListener('mouseleave', () => {
+      isDown = false;
+      reelsTrack.style.cursor = 'grab';
+    });
+
+    reelsTrack.addEventListener('mouseup', () => {
+      isDown = false;
+      reelsTrack.style.cursor = 'grab';
+    });
+
+    reelsTrack.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - reelsTrack.offsetLeft;
+      const walk = (x - startX) * 1.5;
+      if (Math.abs(walk) > 5) isDragging = true;
+      reelsTrack.scrollLeft = scrollLeft - walk;
+    });
+
+    reelsTrack.querySelectorAll('.reel-card').forEach(card => {
+      card.addEventListener('click', (e) => {
+        if (isDragging) {
+          e.stopPropagation();
+          e.preventDefault();
+        }
+      }, true);
+    });
+  }
+
+  // IntersectionObserver: Auto-Pause Video & Mute Audio When Scrolled Away
+  if ('IntersectionObserver' in window) {
+    // 1. Hero Video Observer
+    const heroSection = document.querySelector('.hero-section');
+    const heroVideo = document.getElementById('heroVideo');
+    const heroSoundToggle = document.getElementById('heroSoundToggle');
+
+    if (heroSection && heroVideo) {
+      const heroObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting || entry.intersectionRatio < 0.2) {
+            heroVideo.muted = true;
+            if (heroSoundToggle) {
+              heroSoundToggle.innerHTML = `
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                  <line x1="23" y1="9" x2="17" y2="15"></line>
+                  <line x1="17" y1="9" x2="23" y2="15"></line>
+                </svg>
+              `;
+            }
+          }
+        });
+      }, { threshold: [0, 0.2, 0.6] });
+
+      heroObserver.observe(heroSection);
+    }
+
+    // 2. Lookbook Reels Section Observer
+    const lookbookSection = document.getElementById('lookbook');
+    if (lookbookSection) {
+      const lookbookObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) {
+            lookbookSection.querySelectorAll('video').forEach(v => {
+              v.pause();
+              v.muted = true;
+            });
+          }
+        });
+      }, { threshold: 0.1 });
+
+      lookbookObserver.observe(lookbookSection);
+    }
+  }
 });

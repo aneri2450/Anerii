@@ -6,6 +6,19 @@
   </div>
 
   <div class="reels-carousel-wrapper">
+    <!-- Desktop Navigation Arrows -->
+    <button class="reels-nav-btn prev" id="reelsPrevBtn" aria-label="Previous Reels" onclick="scrollReelsTrack(-1)">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
+    </button>
+    
+    <button class="reels-nav-btn next" id="reelsNextBtn" aria-label="Next Reels" onclick="scrollReelsTrack(1)">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="9 18 15 12 9 6"></polyline>
+      </svg>
+    </button>
+
     <div class="reels-track" id="shopifyReelsTrack">
       
       {%- assign default_videos = "https://cdn.shopify.com/videos/c/o/v/b7a5e4f4e3994a36959c177d9875a128.mp4,https://cdn.shopify.com/videos/c/o/v/1e87a0c24f944af7b20508ece88763e8.mp4,https://cdn.shopify.com/videos/c/o/v/b7a7c846c92944cf99ac3d5534ab4ae3.mp4,https://cdn.shopify.com/videos/c/o/v/ef83a752220c43529ce72f09e021e22f.mp4,https://cdn.shopify.com/videos/c/o/v/bd6d6c8d204045798f9683e172787566.mp4,https://cdn.shopify.com/videos/c/o/v/5a700642340a40e59eda755f75dcae4e.mp4,https://cdn.shopify.com/videos/c/o/v/d7005fa345ed499582b89d119f4a6fad.mp4,https://cdn.shopify.com/videos/c/o/v/19238211044f4528bfd41bf9fdf9f9e2.mp4,https://cdn.shopify.com/videos/c/o/v/a0a41e817998420b95df10df3cc377b0.mp4" | split: "," -%}
@@ -50,7 +63,109 @@
   </div>
 </section>
 
+<style>
+  .reels-carousel-wrapper {
+    position: relative;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 45px;
+  }
+
+  .reels-track {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(198, 162, 94, 0.4) transparent;
+    padding: 8px 4px 20px;
+    cursor: grab;
+    user-select: none;
+  }
+
+  .reels-track.active-drag {
+    cursor: grabbing;
+    scroll-behavior: auto;
+  }
+
+  .reels-track::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .reels-track::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+  }
+
+  .reels-track::-webkit-scrollbar-thumb {
+    background: rgba(198, 162, 94, 0.4);
+    border-radius: 10px;
+  }
+
+  .reels-track::-webkit-scrollbar-thumb:hover {
+    background: rgba(198, 162, 94, 0.8);
+  }
+
+  /* Desktop Navigation Buttons */
+  .reels-nav-btn {
+    position: absolute;
+    top: calc(50% - 10px);
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(20, 27, 19, 0.85);
+    border: 1px solid rgba(223, 195, 141, 0.4);
+    color: #dfc38d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.25s ease;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  }
+
+  .reels-nav-btn:hover {
+    background: #dfc38d;
+    color: #141b13;
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 6px 20px rgba(198, 162, 94, 0.4);
+  }
+
+  .reels-nav-btn.prev {
+    left: 2px;
+  }
+
+  .reels-nav-btn.next {
+    right: 2px;
+  }
+
+  @media (max-width: 768px) {
+    .reels-carousel-wrapper {
+      padding: 0 16px;
+    }
+    .reels-nav-btn {
+      display: none;
+    }
+  }
+</style>
+
 <script>
+  // 1. Navigation Button Scroll
+  function scrollReelsTrack(direction) {
+    const track = document.getElementById('shopifyReelsTrack');
+    if (!track) return;
+    const cardWidth = 260; // Card width + gap
+    track.scrollBy({
+      left: direction * (cardWidth * 2),
+      behavior: 'smooth'
+    });
+  }
+
+  // 2. Reel Click / Play / Audio Handling
   function handleReelClick(card) {
     const video = card.querySelector('video');
     const badge = card.querySelector('.reel-sound-badge');
@@ -93,6 +208,113 @@
       }
     }
   }
+
+  // 3. Desktop Drag-To-Scroll & Mouse Wheel & Intersection Observer
+  document.addEventListener('DOMContentLoaded', () => {
+    const track = document.getElementById('shopifyReelsTrack');
+    if (track) {
+      // Horizontal scroll on mouse wheel
+      track.addEventListener('wheel', (e) => {
+        if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+          e.preventDefault();
+          track.scrollLeft += e.deltaY;
+        }
+      }, { passive: false });
+
+      // Mouse drag to scroll
+      let isDown = false;
+      let startX;
+      let scrollLeft;
+      let isDragging = false;
+
+      track.addEventListener('mousedown', (e) => {
+        isDown = true;
+        isDragging = false;
+        track.classList.add('active-drag');
+        startX = e.pageX - track.offsetLeft;
+        scrollLeft = track.scrollLeft;
+      });
+
+      track.addEventListener('mouseleave', () => {
+        isDown = false;
+        track.classList.remove('active-drag');
+      });
+
+      track.addEventListener('mouseup', () => {
+        isDown = false;
+        track.classList.remove('active-drag');
+      });
+
+      track.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - track.offsetLeft;
+        const walk = (x - startX) * 1.5; // Scroll speed multiplier
+        if (Math.abs(walk) > 5) isDragging = true;
+        track.scrollLeft = scrollLeft - walk;
+      });
+
+      // Prevent click action when dragging
+      track.querySelectorAll('.reel-card').forEach(card => {
+        card.addEventListener('click', (e) => {
+          if (isDragging) {
+            e.stopPropagation();
+            e.preventDefault();
+          }
+        }, true);
+      });
+    }
+
+    // 4. Auto-Pause Video & Mute Audio When Scrolled Out of View
+    if ('IntersectionObserver' in window) {
+      const reelObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const video = entry.target.querySelector('video');
+          if (!video) return;
+
+          if (!entry.isIntersecting || entry.intersectionRatio < 0.3) {
+            // Out of viewport -> Stop video & sound completely
+            if (!video.paused) {
+              video.pause();
+            }
+            video.muted = true;
+            const badge = entry.target.querySelector('.reel-sound-badge');
+            if (badge) badge.textContent = '🔇';
+            const playIcon = entry.target.querySelector('.reel-play-icon');
+            if (playIcon) playIcon.style.display = 'flex';
+          }
+        });
+      }, {
+        threshold: [0, 0.3, 0.7]
+      });
+
+      document.querySelectorAll('.reel-card').forEach(card => {
+        reelObserver.observe(card);
+      });
+
+      // Also observe the entire lookbook section
+      const lookbookSection = document.getElementById('lookbook');
+      if (lookbookSection) {
+        const sectionObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (!entry.isIntersecting) {
+              // Pause and mute all reel videos in section
+              lookbookSection.querySelectorAll('video').forEach(v => {
+                v.pause();
+                v.muted = true;
+                const badge = v.parentElement?.querySelector('.reel-sound-badge');
+                if (badge) badge.textContent = '🔇';
+                const playIcon = v.parentElement?.querySelector('.reel-play-icon');
+                if (playIcon) playIcon.style.display = 'flex';
+              });
+            }
+          });
+        }, { threshold: 0.1 });
+
+        sectionObserver.observe(lookbookSection);
+      }
+    }
+  });
 </script>
 
 {% schema %}

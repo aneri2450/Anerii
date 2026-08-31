@@ -39,6 +39,27 @@
       video.play().catch(() => {});
     }
   }
+
+  // Auto-mute/pause Hero Video when scrolled out of viewport
+  document.addEventListener('DOMContentLoaded', () => {
+    const heroSection = document.querySelector('.hero-section');
+    const heroVideo = document.getElementById('heroVideoEl');
+    const heroIcon = document.getElementById('heroSoundIcon');
+
+    if (heroSection && heroVideo && 'IntersectionObserver' in window) {
+      const heroObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting || entry.intersectionRatio < 0.2) {
+            // Out of viewport: Mute audio immediately
+            heroVideo.muted = true;
+            if (heroIcon) heroIcon.textContent = '🔇';
+          }
+        });
+      }, { threshold: [0, 0.2, 0.6] });
+
+      heroObserver.observe(heroSection);
+    }
+  });
 </script>
 
 {% schema %}

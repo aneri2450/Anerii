@@ -1025,20 +1025,32 @@ button {
   position: relative;
   max-width: 1440px;
   margin: 0 auto;
-  padding: 0 16px;
+  padding: 0 45px;
 }
 
 .reels-track {
   display: flex;
   gap: 16px;
   overflow-x: auto;
-  scrollbar-width: none;
+  scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(198, 162, 94, 0.4) transparent;
   padding: 8px 4px 20px;
 }
 
 .reels-track::-webkit-scrollbar {
-  display: none;
+  height: 6px;
+}
+
+.reels-track::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+.reels-track::-webkit-scrollbar-thumb {
+  background: rgba(198, 162, 94, 0.4);
+  border-radius: 10px;
 }
 
 .reel-card {
@@ -1179,6 +1191,51 @@ button {
 
 .reel-shop-btn:hover {
   background: var(--color-accent-gold);
+}
+
+/* Desktop Navigation Buttons */
+.reels-nav-btn {
+  position: absolute;
+  top: calc(50% - 10px);
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(20, 27, 19, 0.85);
+  border: 1px solid rgba(223, 195, 141, 0.4);
+  color: #dfc38d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.reels-nav-btn:hover {
+  background: #dfc38d;
+  color: #141b13;
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 6px 20px rgba(198, 162, 94, 0.4);
+}
+
+.reels-nav-btn.prev {
+  left: 2px;
+}
+
+.reels-nav-btn.next {
+  right: 2px;
+}
+
+@media (max-width: 768px) {
+  .reels-carousel-wrapper {
+    padding: 0 16px;
+  }
+  .reels-nav-btn {
+    display: none;
+  }
 }
 
 /* ==========================================================================
