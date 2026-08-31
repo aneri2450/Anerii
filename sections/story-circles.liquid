@@ -12,36 +12,36 @@
         <span class="story-label">{{ block.settings.title }}</span>
       </a>
     {%- else -%}
-      <div class="story-item active">
+      <a href="#collections" class="story-item active" onclick="if(typeof filterCategory==='function') filterCategory('all', true)">
         <div class="story-avatar-wrap">
           <img class="story-img" src="https://cdn.shopify.com/s/files/1/1013/9628/3701/files/aneri008-1.jpg?v=1787815008" alt="All Collections">
         </div>
         <span class="story-label">All Pieces</span>
-      </div>
-      <div class="story-item">
+      </a>
+      <a href="#collections" class="story-item" onclick="if(typeof filterCategory==='function') filterCategory('co-ords', true)">
         <div class="story-avatar-wrap">
           <img class="story-img" src="https://cdn.shopify.com/s/files/1/1013/9628/3701/files/PUN4247.jpg?v=1787840184" alt="Co-ord Sets">
         </div>
         <span class="story-label">Co-ords</span>
-      </div>
-      <div class="story-item">
+      </a>
+      <a href="#collections" class="story-item" onclick="if(typeof filterCategory==='function') filterCategory('kurta-sets', true)">
         <div class="story-avatar-wrap">
           <img class="story-img" src="https://cdn.shopify.com/s/files/1/1013/9628/3701/files/PUN4197.jpg?v=1787836695" alt="Kurta Sets">
         </div>
         <span class="story-label">Kurta Sets</span>
-      </div>
-      <div class="story-item">
+      </a>
+      <a href="#collections" class="story-item" onclick="if(typeof filterCategory==='function') filterCategory('kurtis', true)">
         <div class="story-avatar-wrap">
           <img class="story-img" src="https://cdn.shopify.com/s/files/1/1013/9628/3701/files/aneri009_noor-e-neel-backless-short-kurti.jpg?v=1787809941" alt="Kurtis & Tops">
         </div>
         <span class="story-label">Kurtis & Tops</span>
-      </div>
-      <div class="story-item">
+      </a>
+      <a href="#collections" class="story-item" onclick="if(typeof filterCategory==='function') filterCategory('gulnaaz', true)">
         <div class="story-avatar-wrap">
           <img class="story-img" src="https://cdn.shopify.com/s/files/1/1013/9628/3701/files/aneri-new-floral-3.jpg?v=1787817296" alt="Gulnaaz Edit">
         </div>
         <span class="story-label">Gulnaaz</span>
-      </div>
+      </a>
     {%- endfor -%}
   </div>
 </section>

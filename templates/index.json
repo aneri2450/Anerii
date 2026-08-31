@@ -4,8 +4,8 @@
       "type": "hero-video",
       "settings": {
         "tag": "SUMMER COUTURE 2026",
-        "title": "The <em>Art</em> of Pure Cotton",
-        "subtitle": "Handcrafted luxury ethnic wear rooted in authenticity, grace, and modern sensibility."
+        "title": "Pure Cotton Luxury, <em>Tailored for Grace</em>",
+        "subtitle": "Handcrafted luxury ethnic wear rooted in authenticity, grace, and modern sensibility. Designed in featherlight 60×60 breathable cotton for timeless comfort."
       }
     },
     "story_circles": {
@@ -16,7 +16,7 @@
       "type": "featured-collection",
       "settings": {
         "subtitle": "PRÊT-À-PORTER 2026",
-        "title": "Latest Ethnic Drops",
+        "title": "Latest Collections",
         "description": "Pure 60×60 breathable cotton silhouettes designed for timeless elegance.",
         "products_to_show": 8
       }
@@ -25,14 +25,14 @@
       "type": "lookbook-reels",
       "settings": {
         "subtitle": "#AneriiAesthetics",
-        "title": "Pinterest Ki Apsaraye • Video Lookbook"
+        "title": "Anerii • Video Lookbook"
       }
     },
     "reviews_carousel": {
       "type": "reviews-carousel",
       "settings": {
         "subtitle": "Real Customer Love",
-        "title": "Loved by 10,000+ Women Across India"
+        "title": "Loved by 1,000+ Women Across India"
       }
     },
     "instagram_feed": {

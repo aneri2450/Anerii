@@ -5,7 +5,7 @@ const AneriiState = {
   cart: JSON.parse(localStorage.getItem('anerii_cart') || '[]'),
   wishlist: JSON.parse(localStorage.getItem('anerii_wishlist') || '[]'),
   currentFilter: 'all',
-  freeShippingThreshold: 1299,
+  freeShippingThreshold: 999,
   activeReelIndex: 0
 };
 
@@ -258,7 +258,7 @@ function openQuickView(productId) {
 
       <div style="border-top:1px solid var(--border-light); padding-top:10px; font-size:0.78rem; color:var(--color-text-muted); display:flex; flex-direction:column; gap:4px;">
         <div>✓ 100% Breathable 60×60 Pure Cotton</div>
-        <div>✓ Free Express Shipping on orders above Rs. 1,299</div>
+        <div>✓ Free Express Shipping on orders above Rs. 999</div>
         <div>✓ Hassle-free 7-day doorstep size exchange</div>
       </div>
     </div>
@@ -268,8 +268,10 @@ function openQuickView(productId) {
   if (quickViewModal) quickViewModal.classList.add('open');
 }
 
-function filterCategory(cat) {
+function filterCategory(cat, shouldScroll = false) {
   AneriiState.currentFilter = cat;
+  
+  // Sync Category Filter Buttons
   document.querySelectorAll('.filter-tab-btn').forEach(btn => {
     if (btn.dataset.filter === cat) {
       btn.classList.add('active');
@@ -277,7 +279,31 @@ function filterCategory(cat) {
       btn.classList.remove('active');
     }
   });
+
+  // Sync Story Circle Pills
+  document.querySelectorAll('.story-item').forEach(item => {
+    if (item.dataset.story === cat) {
+      item.classList.add('active');
+    } else {
+      item.classList.remove('active');
+    }
+  });
+
   renderProducts();
+
+  // Smooth scroll to collections section if triggered from story pills or nav
+  if (shouldScroll) {
+    const collSection = document.getElementById('collections');
+    if (collSection) {
+      const headerOffset = 70;
+      const elementPosition = collSection.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+  }
 }
 
 function renderProducts() {
@@ -422,6 +448,46 @@ function openReelPlayer(index) {
   if (reelModal) reelModal.classList.add('open');
 }
 
+// Info / Customer Care Policy Modal
+function openInfoModal(tabName = 'shipping') {
+  const modal = document.getElementById('infoModal');
+  if (!modal) return;
+  switchInfoTab(tabName);
+  modal.classList.add('open');
+}
+
+function closeInfoModal() {
+  const modal = document.getElementById('infoModal');
+  if (modal) modal.classList.remove('open');
+}
+
+function switchInfoTab(tabName) {
+  // Update Buttons
+  document.querySelectorAll('.info-tab-btn').forEach(btn => {
+    if (btn.dataset.info === tabName) {
+      btn.classList.add('active');
+    } else {
+      btn.classList.remove('active');
+    }
+  });
+
+  // Hide all tabs
+  document.querySelectorAll('.info-tab-content').forEach(tab => {
+    tab.classList.remove('active');
+  });
+
+  // Show selected tab
+  if (tabName === 'shipping') {
+    document.getElementById('tabShipping')?.classList.add('active');
+  } else if (tabName === 'exchange') {
+    document.getElementById('tabExchange')?.classList.add('active');
+  } else if (tabName === 'size-guide') {
+    document.getElementById('tabSizeGuide')?.classList.add('active');
+  } else if (tabName === 'contact') {
+    document.getElementById('tabContact')?.classList.add('active');
+  }
+}
+
 // Global Exports
 window.Anerii = {
   openQuickView,
@@ -434,7 +500,10 @@ window.Anerii = {
   closeCart: closeCartDrawer,
   filterCategory,
   openMobileNav,
-  closeMobileNav
+  closeMobileNav,
+  openInfoModal,
+  closeInfoModal,
+  switchInfoTab
 };
 
 // Document Ready Initialization
@@ -519,6 +588,12 @@ document.addEventListener('DOMContentLoaded', () => {
       reelModal.classList.remove('open');
       if (reelModalVideo) reelModalVideo.pause();
     }
+  });
+
+  // Customer Care Info Modal
+  const infoModal = document.getElementById('infoModal');
+  infoModal?.addEventListener('click', (e) => {
+    if (e.target === infoModal) closeInfoModal();
   });
 
   // Filter Buttons

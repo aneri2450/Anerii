@@ -17,11 +17,12 @@ A modern, high-converting ethnic & prêt fashion storefront custom-designed for 
    - Quick size selector pills (`S`, `M`, `L`, `XL`, `XXL`) directly on card.
    - Quick View popup modal with image gallery, detailed descriptions, and size chart guide.
    - Live Wishlist toggle with badge counter.
-5. **Video Lookbook / Reels Section ("Pinterest Ki Apsaraye"):**
-   - Interactive carousel containing the 9 model showcase reels (`3.mp4` to `11.mp4`).
+5. **Video Lookbook / Reels Section ("Anerii • Video Lookbook"):**
+   - Immersive auto-advancing reels with play/pause on click.
+   - Dynamic Shop Look popup connecting directly into the cart drawer.
    - Click to open fullscreen interactive reel player with sound and "Shop Look" direct purchase card.
 6. **Slide-out Cart Drawer:**
-   - **Dynamic Free Shipping Meter** (Calculates remaining amount towards Rs. 1,299 threshold).
+   - **Dynamic Free Shipping Meter** (Calculates remaining amount towards Rs. 999 threshold).
    - Item quantity steppers, instant subtotal calculation, and cross-sell upsell recommendation.
    - Persistent `localStorage` so cart items remain saved across page refreshes.
 7. **Brand Story & Fabric Pillars:**

@@ -234,8 +234,8 @@ const REELS_DATA = [
   {
     id: "reel-3",
     video: "3.mp4",
-    title: "Rangrez Kurta Flow",
-    collectionName: "Rangrez Kurta Set",
+    title: "Rangrez Kurta Set",
+    collectionName: "Summer Prêt 2026",
     productId: "anerii-004",
     poster: "https://cdn.shopify.com/s/files/1/1013/9628/3701/files/PUN4197.jpg?v=1787836695",
     likes: "2.4k"
@@ -243,8 +243,8 @@ const REELS_DATA = [
   {
     id: "reel-4",
     video: "4.mp4",
-    title: "Side-Tie Magic",
-    collectionName: "Rangrez Co-ord Set",
+    title: "Rangrez Co-ord Set",
+    collectionName: "Summer Prêt 2026",
     productId: "anerii-005",
     poster: "https://cdn.shopify.com/s/files/1/1013/9628/3701/files/PUN4247.jpg?v=1787840184",
     likes: "4.1k"
@@ -252,8 +252,8 @@ const REELS_DATA = [
   {
     id: "reel-5",
     video: "5.mp4",
-    title: "Botanical Grace",
-    collectionName: "Gulnaaz Kurta Set",
+    title: "Gulnaaz Kurta Set",
+    collectionName: "Summer Prêt 2026",
     productId: "anerii-003",
     poster: "https://cdn.shopify.com/s/files/1/1013/9628/3701/files/aneri-new-floral-3.jpg?v=1787817296",
     likes: "1.9k"
@@ -261,8 +261,8 @@ const REELS_DATA = [
   {
     id: "reel-6",
     video: "6.mp4",
-    title: "Vacation Ready Co-ord",
-    collectionName: "Gulnaaz Co-ord Set",
+    title: "Gulnaaz Co-ord Set",
+    collectionName: "Summer Prêt 2026",
     productId: "anerii-002",
     poster: "https://cdn.shopify.com/s/files/1/1013/9628/3701/files/aneri002-1.jpg?v=1787818151",
     likes: "5.6k"
@@ -270,8 +270,8 @@ const REELS_DATA = [
   {
     id: "reel-7",
     video: "7.mp4",
-    title: "Sky Blue Sophistication",
-    collectionName: "Noor-e-Neel Co-ord",
+    title: "Noor-e-Neel Co-ord Set",
+    collectionName: "Summer Prêt 2026",
     productId: "anerii-008",
     poster: "https://cdn.shopify.com/s/files/1/1013/9628/3701/files/aneri008-1.jpg?v=1787815008",
     likes: "3.8k"
@@ -279,8 +279,8 @@ const REELS_DATA = [
   {
     id: "reel-8",
     video: "8.mp4",
-    title: "Geometric Elegance",
-    collectionName: "Noor-e-Neel Kurta Set",
+    title: "Noor-e-Neel Kurta Set",
+    collectionName: "Summer Prêt 2026",
     productId: "anerii-007",
     poster: "https://cdn.shopify.com/s/files/1/1013/9628/3701/files/aneri007-3.jpg?v=1787815743",
     likes: "2.7k"
@@ -288,8 +288,8 @@ const REELS_DATA = [
   {
     id: "reel-9",
     video: "9.mp4",
-    title: "Everyday Crop Tops",
-    collectionName: "Rangrez Short Top",
+    title: "Rangrez Short Top",
+    collectionName: "Summer Prêt 2026",
     productId: "anerii-006",
     poster: "https://cdn.shopify.com/s/files/1/1013/9628/3701/files/PUN4336.jpg?v=1787836076",
     likes: "4.5k"
@@ -297,8 +297,8 @@ const REELS_DATA = [
   {
     id: "reel-10",
     video: "10.mp4",
-    title: "Floral Flared Kurti",
-    collectionName: "Gulnaaz Short Kurti",
+    title: "Gulnaaz Short Kurti",
+    collectionName: "Summer Prêt 2026",
     productId: "anerii-001",
     poster: "https://cdn.shopify.com/s/files/1/1013/9628/3701/files/aneri-new-floral-1.jpg?v=1787817296",
     likes: "3.1k"
@@ -306,8 +306,8 @@ const REELS_DATA = [
   {
     id: "reel-11",
     video: "11.mp4",
-    title: "Backless Statement",
-    collectionName: "Noor-e-Neel Short Kurti",
+    title: "Noor-e-Neel Backless Short Kurti",
+    collectionName: "Summer Prêt 2026",
     productId: "anerii-009",
     poster: "https://cdn.shopify.com/s/files/1/1013/9628/3701/files/aneri009_noor-e-neel-backless-short-kurti.jpg?v=1787809941",
     likes: "6.8k"
