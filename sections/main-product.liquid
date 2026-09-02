@@ -1,31 +1,66 @@
 <div class="product-page-wrapper">
   <div class="product-page-layout">
     
-    <!-- Left: Product Media Gallery (Smooth Mouse Zoom on Desktop, Fluid Finger Scroll on Mobile) -->
+    <!-- Left: Product Media Gallery (Touch Swipe / Finger Scroll on Mobile, Hover Zoom on Desktop) -->
     <div class="product-gallery-side">
-      <div id="zoomContainer" class="product-zoom-container" 
-           onmousemove="if(window.innerWidth > 860) handleImageZoom(event, this)" 
-           onmouseleave="resetImageZoom(this)">
-        {%- if product.featured_media != blank -%}
-          <img id="ProductMainImage" 
-               class="product-zoom-image"
-               src="{{ product.featured_media | image_url: width: 1000 }}" 
-               alt="{{ product.title | escape }}" 
-               loading="eager"
-               fetchpriority="high"
-               width="800" 
-               height="1066">
-        {%- endif -%}
+      <div class="product-media-carousel-wrapper">
+        <div id="zoomContainer" class="product-zoom-container" 
+             onmousemove="if(window.innerWidth > 860) handleImageZoom(event, this)" 
+             onmouseleave="resetImageZoom(this)">
+          
+          <div class="product-main-slider-track" id="productSliderTrack">
+            {%- for media in product.media -%}
+              <div class="product-slide" data-index="{{ forloop.index0 }}">
+                <img class="product-zoom-image"
+                     src="{{ media | image_url: width: 1200 }}" 
+                     alt="{{ product.title | escape }} - Photo {{ forloop.index }}" 
+                     loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+                     {% if forloop.first %}fetchpriority="high"{% endif %}
+                     width="800" 
+                     height="1066">
+              </div>
+            {%- else -%}
+              {%- if product.featured_media != blank -%}
+                <div class="product-slide" data-index="0">
+                  <img class="product-zoom-image"
+                       src="{{ product.featured_media | image_url: width: 1200 }}" 
+                       alt="{{ product.title | escape }}" 
+                       loading="eager"
+                       fetchpriority="high"
+                       width="800" 
+                       height="1066">
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+
+          <!-- Mobile Pagination Pill / Badge -->
+          {%- if product.media.size > 1 -%}
+            <div class="gallery-badge-counter" id="galleryBadgeCounter">
+              <span id="currentSlideNum">1</span> / {{ product.media.size }}
+            </div>
+            
+            <!-- Navigation Arrow Buttons -->
+            <button type="button" class="gallery-arrow-btn prev" aria-label="Previous Image" onclick="slideProductGallery(-1)">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+            <button type="button" class="gallery-arrow-btn next" aria-label="Next Image" onclick="slideProductGallery(1)">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+          {%- endif -%}
+        </div>
       </div>
 
+      <!-- Thumbnail Strip -->
       {%- if product.media.size > 1 -%}
-        <div class="gallery-thumbs-row">
+        <div class="gallery-thumbs-row" id="galleryThumbsRow">
           {%- for media in product.media -%}
             <img class="thumb-img{% if forloop.first %} active{% endif %}" 
-                 src="{{ media | image_url: width: 140, height: 180, crop: 'center' }}" 
+                 src="{{ media | image_url: width: 160, height: 210, crop: 'center' }}" 
                  alt="{{ product.title }}" 
-                 loading="eager"
-                 onclick="switchProductImage('{{ media | image_url: width: 1000 }}', this)">
+                 data-index="{{ forloop.index0 }}"
+                 loading="lazy"
+                 onclick="goToProductSlide({{ forloop.index0 }})">
           {%- endfor -%}
         </div>
       {%- endif -%}
@@ -128,19 +163,97 @@
 </div>
 
 <script>
-  // Switch Thumbnail Image
-  function switchProductImage(src, thumbEl) {
-    const mainImg = document.getElementById('ProductMainImage');
-    if (mainImg) {
-      mainImg.src = src;
+  // Slide to Specific Image Index
+  function goToProductSlide(index) {
+    const track = document.getElementById('productSliderTrack');
+    if (!track) return;
+    const slides = track.querySelectorAll('.product-slide');
+    if (index < 0 || index >= slides.length) return;
+    
+    const targetSlide = slides[index];
+    if (targetSlide) {
+      track.scrollTo({
+        left: targetSlide.offsetLeft,
+        behavior: 'smooth'
+      });
     }
-    document.querySelectorAll('.gallery-thumbs-row .thumb-img').forEach(t => t.classList.remove('active'));
-    thumbEl.classList.add('active');
+    updateActiveThumbnail(index);
   }
+
+  // Next / Previous Image Arrow Navigation
+  function slideProductGallery(direction) {
+    const track = document.getElementById('productSliderTrack');
+    if (!track) return;
+    const slideWidth = track.offsetWidth || 1;
+    const currentIndex = Math.round(track.scrollLeft / slideWidth);
+    const slides = track.querySelectorAll('.product-slide');
+    let nextIndex = currentIndex + direction;
+    if (nextIndex < 0) nextIndex = 0;
+    if (nextIndex >= slides.length) nextIndex = slides.length - 1;
+    goToProductSlide(nextIndex);
+  }
+
+  // Update Thumbnail Active Highlight & Badge Counter
+  function updateActiveThumbnail(index) {
+    const thumbs = document.querySelectorAll('#galleryThumbsRow .thumb-img');
+    thumbs.forEach((t, i) => {
+      if (i === index) {
+        t.classList.add('active');
+        t.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      } else {
+        t.classList.remove('active');
+      }
+    });
+    const counterEl = document.getElementById('currentSlideNum');
+    if (counterEl) {
+      counterEl.textContent = (index + 1);
+    }
+  }
+
+  // Mobile Touch Finger Swiping & Scroll Listener
+  document.addEventListener('DOMContentLoaded', () => {
+    const track = document.getElementById('productSliderTrack');
+    if (track) {
+      let scrollTimer;
+      track.addEventListener('scroll', () => {
+        clearTimeout(scrollTimer);
+        scrollTimer = setTimeout(() => {
+          const slideWidth = track.offsetWidth || 1;
+          const index = Math.round(track.scrollLeft / slideWidth);
+          updateActiveThumbnail(index);
+        }, 60);
+      }, { passive: true });
+
+      // Touch gesture support (swipe left/right)
+      let touchStartX = 0;
+      let touchEndX = 0;
+      let isSwiping = false;
+
+      track.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+        isSwiping = true;
+      }, { passive: true });
+
+      track.addEventListener('touchend', (e) => {
+        if (!isSwiping) return;
+        touchEndX = e.changedTouches[0].screenX;
+        const diffX = touchStartX - touchEndX;
+        if (Math.abs(diffX) > 40) {
+          if (diffX > 0) {
+            slideProductGallery(1); // Swipe left -> next image
+          } else {
+            slideProductGallery(-1); // Swipe right -> prev image
+          }
+        }
+        isSwiping = false;
+      }, { passive: true });
+    }
+  });
 
   // Interactive Image Zoom on Mouse Move (Desktop Only)
   function handleImageZoom(e, container) {
     if (window.innerWidth <= 860) return;
+    const activeSlide = container.querySelector('.product-slide');
     const img = container.querySelector('.product-zoom-image');
     if (!img) return;
     const rect = container.getBoundingClientRect();

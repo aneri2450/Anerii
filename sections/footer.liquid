@@ -39,10 +39,10 @@
             <li><a href="{{ link.url }}" class="footer-link">{{ link.title }}</a></li>
           {%- endfor -%}
         {%- else -%}
-          <li><a href="/collections/co-ords" class="footer-link">Co-ord Sets</a></li>
-          <li><a href="/collections/kurta-sets" class="footer-link">Kurta Sets</a></li>
-          <li><a href="/collections/kurtis" class="footer-link">Short Kurtis & Tops</a></li>
-          <li><a href="/collections/all" class="footer-link">New Arrivals</a></li>
+          <li><a href="/#collections" class="footer-link" onclick="if(typeof filterCategory==='function') filterCategory('co-ords', true)">Co-ord Sets</a></li>
+          <li><a href="/#collections" class="footer-link" onclick="if(typeof filterCategory==='function') filterCategory('kurta-sets', true)">Kurta Sets</a></li>
+          <li><a href="/#collections" class="footer-link" onclick="if(typeof filterCategory==='function') filterCategory('kurtis', true)">Short Kurtis & Tops</a></li>
+          <li><a href="/#collections" class="footer-link" onclick="if(typeof filterCategory==='function') filterCategory('all', true)">New Arrivals</a></li>
         {%- endif -%}
       </ul>
     </div>

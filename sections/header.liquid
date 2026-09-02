@@ -40,9 +40,9 @@
             </li>
           {%- else -%}
             <li><a href="{{ routes.all_products_collection_url }}" class="nav-link active">All Pieces</a></li>
-            <li><a href="/collections/co-ords" class="nav-link">Co-ord Sets</a></li>
-            <li><a href="/collections/kurta-sets" class="nav-link">Kurta Sets</a></li>
-            <li><a href="/collections/kurtis" class="nav-link">Kurtis & Tops</a></li>
+            <li><a href="/#collections" class="nav-link" onclick="if(typeof filterCategory==='function') filterCategory('co-ords', true)">Co-ord Sets</a></li>
+            <li><a href="/#collections" class="nav-link" onclick="if(typeof filterCategory==='function') filterCategory('kurta-sets', true)">Kurta Sets</a></li>
+            <li><a href="/#collections" class="nav-link" onclick="if(typeof filterCategory==='function') filterCategory('kurtis', true)">Kurtis & Tops</a></li>
             <li><a href="#lookbook" class="nav-link">Lookbook</a></li>
             <li><a href="#story" class="nav-link">Our Story</a></li>
           {%- endfor -%}
@@ -92,9 +92,9 @@
       <ul class="mobile-nav-links">
         <li><a href="{{ routes.root_url }}" class="mobile-nav-link" onclick="document.getElementById('mobileNavDrawer').classList.remove('open')">Home</a></li>
         <li><a href="{{ routes.all_products_collection_url }}" class="mobile-nav-link" onclick="document.getElementById('mobileNavDrawer').classList.remove('open')">All Pieces</a></li>
-        <li><a href="/collections/co-ords" class="mobile-nav-link" onclick="document.getElementById('mobileNavDrawer').classList.remove('open')">Co-ord Sets</a></li>
-        <li><a href="/collections/kurta-sets" class="mobile-nav-link" onclick="document.getElementById('mobileNavDrawer').classList.remove('open')">Kurta Sets</a></li>
-        <li><a href="/collections/kurtis" class="mobile-nav-link" onclick="document.getElementById('mobileNavDrawer').classList.remove('open')">Kurtis & Tops</a></li>
+        <li><a href="/#collections" class="mobile-nav-link" onclick="document.getElementById('mobileNavDrawer').classList.remove('open'); if(typeof filterCategory==='function') filterCategory('co-ords', true)">Co-ord Sets</a></li>
+        <li><a href="/#collections" class="mobile-nav-link" onclick="document.getElementById('mobileNavDrawer').classList.remove('open'); if(typeof filterCategory==='function') filterCategory('kurta-sets', true)">Kurta Sets</a></li>
+        <li><a href="/#collections" class="mobile-nav-link" onclick="document.getElementById('mobileNavDrawer').classList.remove('open'); if(typeof filterCategory==='function') filterCategory('kurtis', true)">Kurtis & Tops</a></li>
         <li><a href="#lookbook" class="mobile-nav-link" onclick="document.getElementById('mobileNavDrawer').classList.remove('open')">Lookbook</a></li>
         <li><a href="#story" class="mobile-nav-link" onclick="document.getElementById('mobileNavDrawer').classList.remove('open')">Our Story</a></li>
       </ul>
