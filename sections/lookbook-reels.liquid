@@ -1,4 +1,13 @@
 <section id="lookbook" class="lookbook-section">
+  <!-- Live River Wave Motion Divider (Top) -->
+  <div class="river-motion-divider-top" aria-hidden="true">
+    <svg viewBox="0 0 1440 90" preserveAspectRatio="none">
+      <path class="river-wave-3" d="M0,45 C320,5 600,85 900,35 C1200,-15 1380,65 1440,55 L1440,90 L0,90 Z"></path>
+      <path class="river-wave-2" d="M0,35 C280,75 540,10 780,50 C1020,90 1260,25 1440,35 L1440,90 L0,90 Z"></path>
+      <path class="river-wave-1" d="M0,25 C360,75 640,5 960,45 C1200,85 1360,30 1440,35 L1440,90 L0,90 Z"></path>
+    </svg>
+  </div>
+
   <div class="section-header-center">
     <span class="section-subtitle" style="color: var(--color-accent-gold-light);">{{ section.settings.subtitle | default: '#AneriiAesthetics' }}</span>
     <h2 class="section-title" style="color: #ffffff;">{{ section.settings.title | default: 'Anerii • Video Lookbook' }}</h2>
@@ -53,6 +62,15 @@
       {%- endfor -%}
 
     </div>
+  </div>
+
+  <!-- Live River Wave Motion Divider (Bottom) -->
+  <div class="river-motion-divider-bottom" aria-hidden="true">
+    <svg viewBox="0 0 1440 90" preserveAspectRatio="none">
+      <path class="river-wave-bottom-3" d="M0,25 C360,75 600,0 900,50 C1200,100 1380,20 1440,25 L1440,0 L0,0 Z"></path>
+      <path class="river-wave-bottom-2" d="M0,35 C280,80 540,10 780,55 C1020,100 1260,15 1440,35 L1440,0 L0,0 Z"></path>
+      <path class="river-wave-bottom-1" d="M0,50 C320,-5 480,85 720,40 C960,-5 1180,75 1440,45 L1440,0 L0,0 Z"></path>
+    </svg>
   </div>
 </section>
 

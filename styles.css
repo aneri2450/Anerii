@@ -1061,9 +1061,134 @@ button {
 .lookbook-section {
   background-color: var(--color-primary-dark);
   color: var(--color-text-light);
-  padding: 64px 0;
+  padding: 80px 0;
   position: relative;
   overflow: hidden;
+}
+
+/* Live River Wave Motion Dividers */
+.river-motion-divider-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.river-motion-divider-top svg {
+  position: relative;
+  display: block;
+  width: calc(140% + 1.3px);
+  height: 62px;
+  transform: translateX(-10%);
+}
+
+.river-motion-divider-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.river-motion-divider-bottom svg {
+  position: relative;
+  display: block;
+  width: calc(140% + 1.3px);
+  height: 62px;
+  transform: translateX(-10%);
+}
+
+@media (max-width: 768px) {
+  .lookbook-section {
+    padding: 60px 0;
+  }
+  .river-motion-divider-top svg,
+  .river-motion-divider-bottom svg {
+    height: 38px;
+    width: calc(180% + 1.3px);
+  }
+}
+
+/* Top Wave Layer Styling & Live River Ripple Animation */
+.river-wave-1 {
+  fill: #ffffff;
+  animation: riverWaveMotion1 10s ease-in-out infinite alternate;
+  transform-origin: center top;
+}
+
+.river-wave-2 {
+  fill: rgba(255, 255, 255, 0.45);
+  animation: riverWaveMotion2 14s ease-in-out infinite alternate;
+  transform-origin: center top;
+}
+
+.river-wave-3 {
+  fill: rgba(198, 162, 94, 0.28);
+  animation: riverWaveMotion3 18s ease-in-out infinite alternate;
+  transform-origin: center top;
+}
+
+/* Bottom Wave Layer Styling & Live River Ripple Animation */
+.river-wave-bottom-1 {
+  fill: var(--color-bg-main);
+  animation: riverWaveMotion1 12s ease-in-out infinite alternate;
+  transform-origin: center bottom;
+}
+
+.river-wave-bottom-2 {
+  fill: rgba(255, 255, 255, 0.35);
+  animation: riverWaveMotion2 15s ease-in-out infinite alternate;
+  transform-origin: center bottom;
+}
+
+.river-wave-bottom-3 {
+  fill: rgba(198, 162, 94, 0.22);
+  animation: riverWaveMotion3 19s ease-in-out infinite alternate;
+  transform-origin: center bottom;
+}
+
+/* Live Flowing River Ripple Keyframes */
+@keyframes riverWaveMotion1 {
+  0% {
+    transform: translateX(0) scaleY(1);
+  }
+  50% {
+    transform: translateX(-35px) scaleY(1.12);
+  }
+  100% {
+    transform: translateX(-70px) scaleY(0.92);
+  }
+}
+
+@keyframes riverWaveMotion2 {
+  0% {
+    transform: translateX(-50px) scaleY(1.08);
+  }
+  50% {
+    transform: translateX(-15px) scaleY(0.94);
+  }
+  100% {
+    transform: translateX(20px) scaleY(1.14);
+  }
+}
+
+@keyframes riverWaveMotion3 {
+  0% {
+    transform: translateX(15px) scaleY(0.92);
+  }
+  50% {
+    transform: translateX(-40px) scaleY(1.15);
+  }
+  100% {
+    transform: translateX(-80px) scaleY(1.0);
+  }
 }
 
 .lookbook-section .section-title {
