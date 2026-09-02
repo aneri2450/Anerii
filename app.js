@@ -380,9 +380,7 @@ function renderReels() {
     reelCard.onclick = () => openReelPlayer(index);
 
     reelCard.innerHTML = `
-      <img class="reel-poster-img" src="${reel.poster}" alt="${reel.title}" loading="lazy">
-      <video class="reel-video" src="${reel.video}" loop muted playsinline preload="none" 
-             onmouseover="this.play()" onmouseout="this.pause()"></video>
+      <video class="reel-video" src="${reel.video}" loop muted autoplay playsinline preload="auto"></video>
       <div class="reel-overlay">
         <div class="reel-top-bar">
           <span class="reel-sound-badge">
@@ -393,12 +391,6 @@ function renderReels() {
           <span style="font-size: 0.74rem; color: #fff; font-weight:600;">
             ♥ ${reel.likes}
           </span>
-        </div>
-
-        <div class="reel-play-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-            <polygon points="5 3 19 12 5 21 5 3"></polygon>
-          </svg>
         </div>
 
         <div class="reel-bottom-info">

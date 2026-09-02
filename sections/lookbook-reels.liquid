@@ -32,22 +32,16 @@
         <div class="reel-card" onclick="handleReelClick(this)">
           
           {%- if block.settings.video_url != blank -%}
-            <video class="reel-video" src="{{ block.settings.video_url }}" loop muted playsinline preload="metadata"></video>
+            <video class="reel-video" src="{{ block.settings.video_url }}" loop muted autoplay playsinline preload="auto"></video>
           {%- else -%}
-            <video class="reel-video" src="{{ default_videos[i] }}" loop muted playsinline preload="metadata"></video>
-          {%- endif -%}
-
-          {%- if block.settings.poster_image != blank -%}
-            <img class="reel-poster-img" src="{{ block.settings.poster_image | image_url: width: 600 }}" alt="{{ default_titles[i] }}" loading="lazy">
-          {%- else -%}
-            <img class="reel-poster-img" src="{{ default_posters[i] }}" alt="{{ default_titles[i] }}" loading="lazy">
+            <video class="reel-video" src="{{ default_videos[i] }}" loop muted autoplay playsinline preload="auto"></video>
           {%- endif -%}
           
           <div class="reel-overlay">
             <div class="reel-top-bar">
               <span class="reel-sound-badge">🔇</span>
             </div>
-            <div class="reel-play-icon">▶</div>
+            <div class="reel-play-icon" style="display: none;">▶</div>
             <div class="reel-bottom-info">
               <span class="reel-title">{% if block.settings.title != blank %}{{ block.settings.title }}{% else %}{{ default_titles[i] }}{% endif %}</span>
               <span class="reel-collection">{% if block.settings.subtitle != blank %}{{ block.settings.subtitle }}{% else %}{{ default_subs[i] }}{% endif %}</span>
@@ -64,6 +58,16 @@
 </section>
 
 <style>
+  .reel-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 1;
+  }
+
   .reels-carousel-wrapper {
     position: relative;
     max-width: 1440px;
@@ -165,47 +169,33 @@
     });
   }
 
-  // 2. Reel Click / Play / Audio Handling
+  // 2. Reel Click / Audio Toggle Handling
   function handleReelClick(card) {
     const video = card.querySelector('video');
     const badge = card.querySelector('.reel-sound-badge');
-    const poster = card.querySelector('.reel-poster-img');
-    const playIcon = card.querySelector('.reel-play-icon');
 
     if (!video) return;
 
-    // Pause all other videos
+    // Mute all other videos
     document.querySelectorAll('.lookbook-section video').forEach(v => {
       if (v !== video) {
-        v.pause();
         v.muted = true;
         const b = v.parentElement?.querySelector('.reel-sound-badge');
         if (b) b.textContent = '🔇';
-        const pi = v.parentElement?.querySelector('.reel-play-icon');
-        if (pi) pi.style.display = 'flex';
       }
     });
 
-    if (video.paused) {
+    if (video.muted) {
       video.muted = false;
       video.play().then(() => {
         if (badge) badge.textContent = '🔊';
-        if (poster) poster.style.opacity = '0';
-        video.style.opacity = '1';
-        if (playIcon) playIcon.style.display = 'none';
       }).catch(() => {
         video.muted = true;
         video.play();
       });
     } else {
-      if (video.muted) {
-        video.muted = false;
-        if (badge) badge.textContent = '🔊';
-      } else {
-        video.pause();
-        if (badge) badge.textContent = '🔇';
-        if (playIcon) playIcon.style.display = 'flex';
-      }
+      video.muted = true;
+      if (badge) badge.textContent = '🔇';
     }
   }
 
