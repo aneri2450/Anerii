@@ -1061,39 +1061,45 @@ button {
 .lookbook-section {
   background-color: var(--color-primary-dark);
   color: var(--color-text-light);
-  padding: 80px 0;
+  padding: 85px 0;
   position: relative;
-  overflow: visible;
+  overflow: hidden;
 }
 
-/* Pehrin-Style Clean Organic River Wave Dividers */
+/* Pehrin-Style Clean Organic River Wave Inlays */
 .pehrin-river-wave {
   position: absolute;
   left: 0;
   width: 100%;
+  height: 52px;
   overflow: hidden;
   line-height: 0;
-  z-index: 3;
+  z-index: 2;
   pointer-events: none;
 }
 
 .pehrin-river-wave.top {
-  top: -69px;
-  height: 70px;
+  top: 0;
 }
 
 .pehrin-river-wave.bottom {
-  bottom: -69px;
-  height: 70px;
+  bottom: 0;
 }
 
 .pehrin-river-wave svg {
   display: block;
-  width: calc(135% + 120px);
+  width: calc(130% + 100px);
   height: 100%;
-  fill: var(--color-primary-dark);
   transform-origin: center center;
   will-change: transform;
+}
+
+.wave-top-path {
+  fill: #ffffff;
+}
+
+.wave-bottom-path {
+  fill: var(--color-bg-secondary, #f7f6f2);
 }
 
 .pehrin-river-wave.top svg {
@@ -1109,19 +1115,19 @@ button {
     transform: translateX(0) scaleY(1);
   }
   50% {
-    transform: translateX(-18%) scaleY(1.22);
+    transform: translateX(-16%) scaleY(1.18);
   }
   100% {
-    transform: translateX(-32%) scaleY(0.88);
+    transform: translateX(-26%) scaleY(0.92);
   }
 }
 
 @keyframes pehrinRiverFlowBottom {
   0% {
-    transform: translateX(-30%) scaleY(0.9);
+    transform: translateX(-26%) scaleY(0.92);
   }
   50% {
-    transform: translateX(-12%) scaleY(1.2);
+    transform: translateX(-10%) scaleY(1.18);
   }
   100% {
     transform: translateX(0%) scaleY(1);
@@ -1130,18 +1136,13 @@ button {
 
 @media (max-width: 768px) {
   .lookbook-section {
-    padding: 60px 0;
+    padding: 65px 0;
   }
-  .pehrin-river-wave.top {
-    top: -44px;
-    height: 45px;
-  }
-  .pehrin-river-wave.bottom {
-    bottom: -44px;
-    height: 45px;
+  .pehrin-river-wave {
+    height: 36px;
   }
   .pehrin-river-wave svg {
-    width: calc(180% + 80px);
+    width: calc(170% + 60px);
   }
 }
 
