@@ -31,9 +31,9 @@
         <div class="reel-card" onclick="handleReelClick(this)">
           
           {%- if block.settings.video_url != blank -%}
-            <video class="reel-video" src="{{ block.settings.video_url }}" loop muted autoplay playsinline preload="auto"></video>
+            <video class="reel-video" data-src="{{ block.settings.video_url }}" loop muted playsinline preload="none"></video>
           {%- else -%}
-            <video class="reel-video" src="{{ default_videos[i] }}" loop muted autoplay playsinline preload="auto"></video>
+            <video class="reel-video" data-src="{{ default_videos[i] }}" loop muted playsinline preload="none"></video>
           {%- endif -%}
           
           <div class="reel-overlay">
@@ -254,54 +254,62 @@
       });
     }
 
-    // 4. Auto-Pause Video & Mute Audio When Scrolled Out of View
+    // 4. Smart Video Lazy Loading & Auto-Pause Observer (Massive Page Speed Optimization)
     if ('IntersectionObserver' in window) {
       const reelObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           const video = entry.target.querySelector('video');
           if (!video) return;
 
-          if (!entry.isIntersecting || entry.intersectionRatio < 0.3) {
-            // Out of viewport -> Stop video & sound completely
+          if (entry.isIntersecting) {
+            // Lazy load video stream on demand
+            if (!video.src && video.dataset.src) {
+              video.src = video.dataset.src;
+              video.load();
+            }
+            if (video.paused) {
+              video.play().catch(() => {});
+            }
+          } else {
+            // Out of viewport -> Stop video to save CPU and battery
             if (!video.paused) {
               video.pause();
             }
             video.muted = true;
             const badge = entry.target.querySelector('.reel-sound-badge');
             if (badge) badge.textContent = '🔇';
-            const playIcon = entry.target.querySelector('.reel-play-icon');
-            if (playIcon) playIcon.style.display = 'flex';
           }
         });
       }, {
-        threshold: [0, 0.3, 0.7]
+        rootMargin: '250px 0px 250px 0px',
+        threshold: [0, 0.25]
       });
 
       document.querySelectorAll('.reel-card').forEach(card => {
         reelObserver.observe(card);
       });
 
-      // Also observe the entire lookbook section
+      // Observe the lookbook section
       const lookbookSection = document.getElementById('lookbook');
       if (lookbookSection) {
         const sectionObserver = new IntersectionObserver((entries) => {
           entries.forEach(entry => {
             if (!entry.isIntersecting) {
-              // Pause and mute all reel videos in section
               lookbookSection.querySelectorAll('video').forEach(v => {
-                v.pause();
+                if (!v.paused) v.pause();
                 v.muted = true;
-                const badge = v.parentElement?.querySelector('.reel-sound-badge');
-                if (badge) badge.textContent = '🔇';
-                const playIcon = v.parentElement?.querySelector('.reel-play-icon');
-                if (playIcon) playIcon.style.display = 'flex';
               });
             }
           });
-        }, { threshold: 0.1 });
+        }, { threshold: 0 });
 
         sectionObserver.observe(lookbookSection);
       }
+    } else {
+      // Fallback: Load directly
+      document.querySelectorAll('.reel-video').forEach(v => {
+        if (v.dataset.src) v.src = v.dataset.src;
+      });
     }
   });
 </script>
