@@ -4,9 +4,7 @@
     <!-- Left: Product Media Gallery (Touch Swipe / Finger Scroll on Mobile, Hover Zoom on Desktop) -->
     <div class="product-gallery-side">
       <div class="product-media-carousel-wrapper">
-        <div id="zoomContainer" class="product-zoom-container" 
-             onmousemove="if(window.innerWidth > 860) handleImageZoom(event, this)" 
-             onmouseleave="resetImageZoom(this)">
+        <div id="zoomContainer" class="product-zoom-container">
           
           <div class="product-main-slider-track" id="productSliderTrack">
             {%- for media in product.media -%}
@@ -249,24 +247,6 @@
       }, { passive: true });
     }
   });
-
-  // Interactive Image Zoom on Mouse Move (Desktop Only)
-  function handleImageZoom(e, container) {
-    if (window.innerWidth <= 860) return;
-    const activeSlide = container.querySelector('.product-slide');
-    const img = container.querySelector('.product-zoom-image');
-    if (!img) return;
-    const rect = container.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    img.style.transformOrigin = `${x}% ${y}%`;
-  }
-
-  function resetImageZoom(container) {
-    const img = container.querySelector('.product-zoom-image');
-    if (!img) return;
-    img.style.transformOrigin = 'center center';
-  }
 
   // Size Selector Toggle
   function updateSelectedSizePill(radioInput) {

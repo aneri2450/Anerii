@@ -79,6 +79,8 @@ html {
   width: 100%;
   max-width: 100%;
   overflow-x: hidden;
+  touch-action: manipulation;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -92,6 +94,7 @@ body {
   max-width: 100%;
   overflow-x: hidden;
   position: relative;
+  touch-action: manipulation;
 }
 
 img, video {
@@ -2099,6 +2102,9 @@ button {
   border-radius: 12px;
   background-color: #f7f2ec;
   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .product-main-slider-track {
@@ -2110,7 +2116,9 @@ button {
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
-  touch-action: pan-y pinch-zoom;
+  touch-action: pan-x pan-y;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .product-main-slider-track::-webkit-scrollbar {
@@ -2125,6 +2133,8 @@ button {
   scroll-snap-stop: always;
   position: relative;
   overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .product-zoom-image {
@@ -2132,20 +2142,21 @@ button {
   height: 100%;
   object-fit: cover;
   object-position: center top;
-  transition: transform 0.2s ease-out;
-  transform-origin: center center;
   display: block;
   user-select: none;
+  -webkit-user-select: none;
   -webkit-user-drag: none;
+  touch-action: pan-y;
 }
 
-/* On Desktop: Hover zoom inside active slide */
-@media (min-width: 861px) {
+/* On Desktop ONLY: Hover zoom inside active slide when using real mouse */
+@media (hover: hover) and (pointer: fine) and (min-width: 861px) {
   .product-zoom-container {
     cursor: zoom-in;
   }
   .product-slide:hover .product-zoom-image {
-    transform: scale(1.65);
+    transform: scale(1.4);
+    transition: transform 0.25s ease-out;
   }
 }
 
