@@ -49,7 +49,7 @@ const PRODUCTS_DATA = [
       "https://cdn.shopify.com/s/files/1/1013/9628/3701/files/aneri008-3.jpg?v=1787815008",
       "https://cdn.shopify.com/s/files/1/1013/9628/3701/files/aneri008-4.jpg?v=1787815008"
     ],
-    video: "7.mp4",
+    video: "8.mp4",
     inStock: true
   },
   {
@@ -74,7 +74,7 @@ const PRODUCTS_DATA = [
       "https://cdn.shopify.com/s/files/1/1013/9628/3701/files/aneri007-2.jpg?v=1787815743",
       "https://cdn.shopify.com/s/files/1/1013/9628/3701/files/aneri007-4.jpg?v=1787815743"
     ],
-    video: "8.mp4",
+    video: "7.mp4",
     inStock: true
   },
   {
@@ -270,20 +270,20 @@ const REELS_DATA = [
   {
     id: "reel-7",
     video: "7.mp4",
-    title: "Noor-e-Neel Co-ord Set",
-    collectionName: "Summer Prêt 2026",
-    productId: "anerii-008",
-    poster: "https://cdn.shopify.com/s/files/1/1013/9628/3701/files/aneri008-1.jpg?v=1787815008",
-    likes: "3.8k"
-  },
-  {
-    id: "reel-8",
-    video: "8.mp4",
     title: "Noor-e-Neel Kurta Set",
     collectionName: "Summer Prêt 2026",
     productId: "anerii-007",
     poster: "https://cdn.shopify.com/s/files/1/1013/9628/3701/files/aneri007-3.jpg?v=1787815743",
     likes: "2.7k"
+  },
+  {
+    id: "reel-8",
+    video: "8.mp4",
+    title: "Noor-e-Neel Cord Set",
+    collectionName: "Summer Prêt 2026",
+    productId: "anerii-008",
+    poster: "https://cdn.shopify.com/s/files/1/1013/9628/3701/files/aneri008-1.jpg?v=1787815008",
+    likes: "3.8k"
   },
   {
     id: "reel-9",
