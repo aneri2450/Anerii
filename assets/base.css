@@ -1061,90 +1061,9 @@ button {
 .lookbook-section {
   background-color: var(--color-primary-dark);
   color: var(--color-text-light);
-  padding: 80px 0;
+  padding: 64px 0;
   position: relative;
-  overflow: visible;
-  margin-top: 64px;
-  margin-bottom: 64px;
-}
-
-/* Pehrin Ultra-Smooth Organic River Wave Inlays */
-.lahar-wave-divider {
-  position: absolute;
-  left: 0;
-  width: 100%;
-  height: 65px;
   overflow: hidden;
-  line-height: 0;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.lahar-wave-divider.top {
-  top: -64px;
-}
-
-.lahar-wave-divider.bottom {
-  bottom: -64px;
-}
-
-.lahar-wave-divider svg {
-  display: block;
-  width: calc(125% + 60px);
-  height: 100%;
-  will-change: transform;
-}
-
-.lahar-wave-divider.top svg {
-  animation: pehrinRiverFlowTop 7.5s cubic-bezier(0.42, 0, 0.58, 1) infinite alternate;
-}
-
-.lahar-wave-divider.bottom svg {
-  animation: pehrinRiverFlowBottom 8s cubic-bezier(0.42, 0, 0.58, 1) infinite alternate;
-}
-
-@keyframes pehrinRiverFlowTop {
-  0% {
-    transform: translate3d(0, 0, 0) scaleY(1);
-  }
-  50% {
-    transform: translate3d(-10%, 0, 0) scaleY(1.12);
-  }
-  100% {
-    transform: translate3d(-18%, 0, 0) scaleY(0.94);
-  }
-}
-
-@keyframes pehrinRiverFlowBottom {
-  0% {
-    transform: translate3d(-18%, 0, 0) scaleY(0.94);
-  }
-  50% {
-    transform: translate3d(-8%, 0, 0) scaleY(1.12);
-  }
-  100% {
-    transform: translate3d(0, 0, 0) scaleY(1);
-  }
-}
-
-@media (max-width: 768px) {
-  .lookbook-section {
-    padding: 60px 0;
-    margin-top: 40px;
-    margin-bottom: 40px;
-  }
-  .lahar-wave-divider {
-    height: 42px;
-  }
-  .lahar-wave-divider.top {
-    top: -41px;
-  }
-  .lahar-wave-divider.bottom {
-    bottom: -41px;
-  }
-  .lahar-wave-divider svg {
-    width: calc(150% + 40px);
-  }
 }
 
 .lookbook-section .section-title {
