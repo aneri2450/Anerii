@@ -8,7 +8,7 @@
           
           <div class="product-main-slider-track" id="productSliderTrack">
             {%- for media in product.media -%}
-              <div class="product-slide" data-index="{{ forloop.index0 }}">
+              <div class="product-slide" data-index="{{ forloop.index0 }}" onclick="handleSlideClick({{ forloop.index0 }})">
                 <img class="product-zoom-image"
                      src="{{ media | image_url: width: 1200 }}" 
                      alt="{{ product.title | escape }} - Photo {{ forloop.index }}" 
@@ -19,7 +19,7 @@
               </div>
             {%- else -%}
               {%- if product.featured_media != blank -%}
-                <div class="product-slide" data-index="0">
+                <div class="product-slide" data-index="0" onclick="handleSlideClick(0)">
                   <img class="product-zoom-image"
                        src="{{ product.featured_media | image_url: width: 1200 }}" 
                        alt="{{ product.title | escape }}" 
@@ -31,6 +31,16 @@
               {%- endif -%}
             {%- endfor -%}
           </div>
+
+          <!-- Floating Zoom Trigger Button -->
+          <button type="button" class="gallery-zoom-trigger-btn" aria-label="Zoom Photo" onclick="openFullscreenZoom(); event.stopPropagation();" title="Tap to Zoom">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              <line x1="11" y1="8" x2="11" y2="14"></line>
+              <line x1="8" y1="11" x2="14" y2="11"></line>
+            </svg>
+          </button>
 
           <!-- Mobile Pagination Pill / Badge -->
           {%- if product.media.size > 1 -%}
@@ -160,8 +170,120 @@
   </div>
 </div>
 
+<!-- Fullscreen HD Image Zoom Modal (Mobile Pinch-Zoom, Pan & Double-Tap) -->
+<div id="productZoomModal" class="product-zoom-modal" role="dialog" aria-modal="true" aria-label="Product Image Zoom">
+  <div class="zoom-modal-header">
+    <span class="zoom-modal-counter" id="modalZoomCounter">1 / {{ product.media.size | default: 1 }}</span>
+    <button type="button" class="zoom-modal-close" onclick="closeFullscreenZoom()" aria-label="Close Zoom View">✕</button>
+  </div>
+  
+  <div class="zoom-modal-body" id="zoomModalBody">
+    <div class="zoom-modal-viewport" id="zoomModalViewport">
+      <img id="zoomModalImg" class="zoom-modal-img" src="" alt="{{ product.title | escape }}">
+    </div>
+  </div>
+  
+  <div class="zoom-modal-footer">
+    <button type="button" class="zoom-nav-btn prev" onclick="slideModalZoom(-1)" aria-label="Previous Image">❮</button>
+    <span class="zoom-hint-text">🔍 Pinch or Double-Tap to Zoom</span>
+    <button type="button" class="zoom-nav-btn next" onclick="slideModalZoom(1)" aria-label="Next Image">❯</button>
+  </div>
+</div>
+
 <script>
-  // Slide to Specific Image Index
+  window.PRODUCT_MEDIA_ITEMS = [
+    {%- for media in product.media -%}
+      "{{ media | image_url: width: 1800 }}"{% unless forloop.last %},{% endunless %}
+    {%- else -%}
+      {%- if product.featured_media != blank -%}
+        "{{ product.featured_media | image_url: width: 1800 }}"
+      {%- endif -%}
+    {%- endfor -%}
+  ];
+
+  let currentModalIndex = 0;
+  let modalScale = 1;
+  let modalPanX = 0;
+  let modalPanY = 0;
+
+  // Click on slide photo
+  let lastSlideClickTime = 0;
+  function handleSlideClick(index) {
+    // Open HD Fullscreen Zoom on tap/click
+    openFullscreenZoom(index);
+  }
+
+  // Open Fullscreen Zoom Modal
+  function openFullscreenZoom(index) {
+    const modal = document.getElementById('productZoomModal');
+    const modalImg = document.getElementById('zoomModalImg');
+    if (!modal || !modalImg) return;
+
+    if (typeof index !== 'number') {
+      const track = document.getElementById('productSliderTrack');
+      const slideWidth = (track && track.offsetWidth) || 1;
+      index = track ? Math.round(track.scrollLeft / slideWidth) : 0;
+    }
+
+    if (window.PRODUCT_MEDIA_ITEMS && window.PRODUCT_MEDIA_ITEMS.length > 0) {
+      if (index < 0) index = 0;
+      if (index >= window.PRODUCT_MEDIA_ITEMS.length) index = window.PRODUCT_MEDIA_ITEMS.length - 1;
+      currentModalIndex = index;
+      modalImg.src = window.PRODUCT_MEDIA_ITEMS[currentModalIndex];
+    }
+
+    resetModalTransform();
+    updateModalCounter();
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  // Close Fullscreen Zoom Modal
+  function closeFullscreenZoom() {
+    const modal = document.getElementById('productZoomModal');
+    if (modal) modal.classList.remove('active');
+    document.body.style.overflow = '';
+    resetModalTransform();
+  }
+
+  // Reset Modal Transform
+  function resetModalTransform() {
+    modalScale = 1;
+    modalPanX = 0;
+    modalPanY = 0;
+    const modalImg = document.getElementById('zoomModalImg');
+    if (modalImg) {
+      modalImg.style.transform = 'translate3d(0px, 0px, 0px) scale(1)';
+    }
+  }
+
+  // Update Modal Counter
+  function updateModalCounter() {
+    const counterEl = document.getElementById('modalZoomCounter');
+    const total = (window.PRODUCT_MEDIA_ITEMS && window.PRODUCT_MEDIA_ITEMS.length) || 1;
+    if (counterEl) {
+      counterEl.textContent = `${currentModalIndex + 1} / ${total}`;
+    }
+  }
+
+  // Slide between images inside Modal
+  function slideModalZoom(direction) {
+    if (!window.PRODUCT_MEDIA_ITEMS || window.PRODUCT_MEDIA_ITEMS.length <= 1) return;
+    let nextIndex = currentModalIndex + direction;
+    if (nextIndex < 0) nextIndex = window.PRODUCT_MEDIA_ITEMS.length - 1;
+    if (nextIndex >= window.PRODUCT_MEDIA_ITEMS.length) nextIndex = 0;
+    
+    currentModalIndex = nextIndex;
+    const modalImg = document.getElementById('zoomModalImg');
+    if (modalImg) {
+      modalImg.src = window.PRODUCT_MEDIA_ITEMS[currentModalIndex];
+    }
+    resetModalTransform();
+    updateModalCounter();
+    goToProductSlide(currentModalIndex);
+  }
+
+  // Slide to Specific Image Index on Page
   function goToProductSlide(index) {
     const track = document.getElementById('productSliderTrack');
     if (!track) return;
@@ -208,7 +330,7 @@
     }
   }
 
-  // Mobile Touch Finger Swiping & Scroll Listener
+  // Setup Touch Listeners for Pinch-to-Zoom & Pan
   document.addEventListener('DOMContentLoaded', () => {
     const track = document.getElementById('productSliderTrack');
     if (track) {
@@ -222,28 +344,115 @@
         }, 60);
       }, { passive: true });
 
-      // Touch gesture support (swipe left/right)
+      // Touch gesture support (swipe left/right) on slider
       let touchStartX = 0;
       let touchEndX = 0;
       let isSwiping = false;
 
       track.addEventListener('touchstart', (e) => {
-        touchStartX = e.changedTouches[0].screenX;
-        isSwiping = true;
+        if (e.touches.length === 1) {
+          touchStartX = e.touches[0].screenX;
+          isSwiping = true;
+        }
       }, { passive: true });
 
       track.addEventListener('touchend', (e) => {
-        if (!isSwiping) return;
+        if (!isSwiping || !e.changedTouches[0]) return;
         touchEndX = e.changedTouches[0].screenX;
         const diffX = touchStartX - touchEndX;
         if (Math.abs(diffX) > 40) {
           if (diffX > 0) {
-            slideProductGallery(1); // Swipe left -> next image
+            slideProductGallery(1);
           } else {
-            slideProductGallery(-1); // Swipe right -> prev image
+            slideProductGallery(-1);
           }
         }
         isSwiping = false;
+      }, { passive: true });
+    }
+
+    // Modal Pinch & Pan Touch Listeners
+    const modalViewport = document.getElementById('zoomModalViewport');
+    const modalImg = document.getElementById('zoomModalImg');
+
+    if (modalViewport && modalImg) {
+      let initDist = 0;
+      let startScale = 1;
+      let startPanX = 0;
+      let startPanY = 0;
+      let startTouchX = 0;
+      let startTouchY = 0;
+      let lastTapTime = 0;
+
+      modalViewport.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 2) {
+          // Pinch start
+          initDist = Math.hypot(
+            e.touches[0].clientX - e.touches[1].clientX,
+            e.touches[0].clientY - e.touches[1].clientY
+          );
+          startScale = modalScale;
+        } else if (e.touches.length === 1) {
+          const now = Date.now();
+          const timeSinceLastTap = now - lastTapTime;
+          lastTapTime = now;
+
+          // Double tap zoom toggle
+          if (timeSinceLastTap < 300) {
+            if (modalScale > 1.2) {
+              resetModalTransform();
+            } else {
+              modalScale = 2.5;
+              modalPanX = 0;
+              modalPanY = 0;
+              modalImg.style.transform = `translate3d(0px, 0px, 0px) scale(${modalScale})`;
+            }
+            return;
+          }
+
+          startTouchX = e.touches[0].clientX;
+          startTouchY = e.touches[0].clientY;
+          startPanX = modalPanX;
+          startPanY = modalPanY;
+        }
+      }, { passive: false });
+
+      modalViewport.addEventListener('touchmove', (e) => {
+        if (e.touches.length === 2) {
+          e.preventDefault();
+          const newDist = Math.hypot(
+            e.touches[0].clientX - e.touches[1].clientX,
+            e.touches[0].clientY - e.touches[1].clientY
+          );
+          if (initDist > 0) {
+            modalScale = Math.min(Math.max(1, startScale * (newDist / initDist)), 4);
+            modalImg.style.transform = `translate3d(${modalPanX}px, ${modalPanY}px, 0px) scale(${modalScale})`;
+          }
+        } else if (e.touches.length === 1 && modalScale > 1) {
+          e.preventDefault();
+          const deltaX = e.touches[0].clientX - startTouchX;
+          const deltaY = e.touches[0].clientY - startTouchY;
+          modalPanX = startPanX + deltaX;
+          modalPanY = startPanY + deltaY;
+          modalImg.style.transform = `translate3d(${modalPanX}px, ${modalPanY}px, 0px) scale(${modalScale})`;
+        }
+      }, { passive: false });
+
+      modalViewport.addEventListener('touchend', (e) => {
+        if (modalScale < 1.08) {
+          resetModalTransform();
+        }
+        if (e.touches.length === 0 && modalScale === 1 && startTouchX) {
+          const endX = (e.changedTouches[0] && e.changedTouches[0].clientX) || startTouchX;
+          const diffX = startTouchX - endX;
+          if (Math.abs(diffX) > 50) {
+            if (diffX > 0) {
+              slideModalZoom(1);
+            } else {
+              slideModalZoom(-1);
+            }
+          }
+        }
       }, { passive: true });
     }
   });
