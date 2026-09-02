@@ -1064,16 +1064,16 @@ button {
   padding: 80px 0;
   position: relative;
   overflow: visible;
-  margin-top: 68px;
-  margin-bottom: 68px;
+  margin-top: 64px;
+  margin-bottom: 64px;
 }
 
-/* Organic Dual-Crest Lahar (Wave) Motion Dividers */
+/* Pehrin Ultra-Smooth Organic River Wave Inlays */
 .lahar-wave-divider {
   position: absolute;
   left: 0;
   width: 100%;
-  height: 70px;
+  height: 65px;
   overflow: hidden;
   line-height: 0;
   z-index: 2;
@@ -1081,46 +1081,46 @@ button {
 }
 
 .lahar-wave-divider.top {
-  top: -68px;
+  top: -64px;
 }
 
 .lahar-wave-divider.bottom {
-  bottom: -68px;
+  bottom: -64px;
 }
 
 .lahar-wave-divider svg {
   display: block;
-  width: calc(125% + 80px);
+  width: calc(125% + 60px);
   height: 100%;
   will-change: transform;
 }
 
 .lahar-wave-divider.top svg {
-  animation: smoothLaharFlowTop 6s cubic-bezier(0.42, 0, 0.58, 1) infinite alternate;
+  animation: pehrinRiverFlowTop 7.5s cubic-bezier(0.42, 0, 0.58, 1) infinite alternate;
 }
 
 .lahar-wave-divider.bottom svg {
-  animation: smoothLaharFlowBottom 6.5s cubic-bezier(0.42, 0, 0.58, 1) infinite alternate;
+  animation: pehrinRiverFlowBottom 8s cubic-bezier(0.42, 0, 0.58, 1) infinite alternate;
 }
 
-@keyframes smoothLaharFlowTop {
+@keyframes pehrinRiverFlowTop {
   0% {
     transform: translate3d(0, 0, 0) scaleY(1);
   }
   50% {
-    transform: translate3d(-10%, 0, 0) scaleY(1.15);
+    transform: translate3d(-10%, 0, 0) scaleY(1.12);
   }
   100% {
-    transform: translate3d(-18%, 0, 0) scaleY(0.92);
+    transform: translate3d(-18%, 0, 0) scaleY(0.94);
   }
 }
 
-@keyframes smoothLaharFlowBottom {
+@keyframes pehrinRiverFlowBottom {
   0% {
-    transform: translate3d(-18%, 0, 0) scaleY(0.92);
+    transform: translate3d(-18%, 0, 0) scaleY(0.94);
   }
   50% {
-    transform: translate3d(-8%, 0, 0) scaleY(1.15);
+    transform: translate3d(-8%, 0, 0) scaleY(1.12);
   }
   100% {
     transform: translate3d(0, 0, 0) scaleY(1);
@@ -1130,20 +1130,20 @@ button {
 @media (max-width: 768px) {
   .lookbook-section {
     padding: 60px 0;
-    margin-top: 45px;
-    margin-bottom: 45px;
+    margin-top: 40px;
+    margin-bottom: 40px;
   }
   .lahar-wave-divider {
-    height: 48px;
+    height: 42px;
   }
   .lahar-wave-divider.top {
-    top: -46px;
+    top: -41px;
   }
   .lahar-wave-divider.bottom {
-    bottom: -46px;
+    bottom: -41px;
   }
   .lahar-wave-divider svg {
-    width: calc(160% + 50px);
+    width: calc(150% + 40px);
   }
 }
 
@@ -1327,8 +1327,8 @@ button {
    ========================================================================== */
 .reviews-section {
   padding: 64px 20px;
-  background-color: var(--color-bg-secondary);
-  border-top: 1px solid var(--border-light);
+  background-color: #ffffff;
+  border-top: none;
 }
 
 .reviews-grid {
@@ -2953,8 +2953,8 @@ button {
    ========================================================================== */
 .reviews-section {
   padding: 56px 20px;
-  background-color: var(--color-bg-secondary);
-  border-top: 1px solid var(--border-light);
+  background-color: #ffffff;
+  border-top: none;
 }
 
 .reviews-section-header {
