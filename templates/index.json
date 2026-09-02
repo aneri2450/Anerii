@@ -12,9 +12,9 @@
     "hero_video": {
       "type": "hero-video",
       "settings": {
-        "video_url": "",
+        "video_url": "https://cdn.shopify.com/videos/c/o/v/6708cad6aada422f9fc561d4980a3be2.mp4",
         "tag": "SUMMER COUTURE 2026",
-        "title": "Pure Cotton Luxury, <em>Tailored for Grace</em>",
+        "title": "Pure Cotton Luxury, Tailored for Grace",
         "subtitle": "Handcrafted luxury ethnic wear rooted in authenticity, grace, and modern sensibility. Designed in featherlight 60×60 breathable cotton for timeless comfort.",
         "button_label": "Explore Collections",
         "button_link": ""
@@ -27,7 +27,7 @@
     "featured_collection": {
       "type": "featured-collection",
       "settings": {
-        "subtitle": "",
+        "subtitle": "Sale",
         "title": "Latest Collections",
         "description": "Pure 60×60 breathable cotton silhouettes designed for timeless elegance.",
         "collection": "",
