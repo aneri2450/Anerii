@@ -1061,7 +1061,7 @@ button {
 .lookbook-section {
   background-color: var(--color-primary-dark);
   color: var(--color-text-light);
-  padding: 85px 0;
+  padding: 95px 0;
   position: relative;
   overflow: hidden;
 }
@@ -1071,7 +1071,7 @@ button {
   position: absolute;
   left: 0;
   width: 100%;
-  height: 52px;
+  height: 65px;
   overflow: hidden;
   line-height: 0;
   z-index: 2;
@@ -1088,10 +1088,8 @@ button {
 
 .pehrin-river-wave svg {
   display: block;
-  width: calc(130% + 100px);
+  width: 100%;
   height: 100%;
-  transform-origin: center center;
-  will-change: transform;
 }
 
 .wave-top-path {
@@ -1099,50 +1097,49 @@ button {
 }
 
 .wave-bottom-path {
-  fill: var(--color-bg-secondary, #f7f6f2);
+  fill: #ffffff;
 }
 
-.pehrin-river-wave.top svg {
-  animation: pehrinRiverFlowTop 14s ease-in-out infinite alternate;
+.pehrin-river-wave.top svg path {
+  animation: pehrinRiverFlowTop 12s ease-in-out infinite alternate;
+  transform-origin: top center;
 }
 
-.pehrin-river-wave.bottom svg {
-  animation: pehrinRiverFlowBottom 16s ease-in-out infinite alternate;
+.pehrin-river-wave.bottom svg path {
+  animation: pehrinRiverFlowBottom 14s ease-in-out infinite alternate;
+  transform-origin: bottom center;
 }
 
 @keyframes pehrinRiverFlowTop {
   0% {
-    transform: translateX(0) scaleY(1);
+    transform: scaleX(1) scaleY(1);
   }
   50% {
-    transform: translateX(-16%) scaleY(1.18);
+    transform: scaleX(1.06) scaleY(1.2);
   }
   100% {
-    transform: translateX(-26%) scaleY(0.92);
+    transform: scaleX(0.96) scaleY(0.88);
   }
 }
 
 @keyframes pehrinRiverFlowBottom {
   0% {
-    transform: translateX(-26%) scaleY(0.92);
+    transform: scaleX(1) scaleY(1);
   }
   50% {
-    transform: translateX(-10%) scaleY(1.18);
+    transform: scaleX(1.06) scaleY(1.2);
   }
   100% {
-    transform: translateX(0%) scaleY(1);
+    transform: scaleX(0.96) scaleY(0.88);
   }
 }
 
 @media (max-width: 768px) {
   .lookbook-section {
-    padding: 65px 0;
+    padding: 70px 0;
   }
   .pehrin-river-wave {
-    height: 36px;
-  }
-  .pehrin-river-wave svg {
-    width: calc(170% + 60px);
+    height: 40px;
   }
 }
 
@@ -1371,7 +1368,7 @@ button {
    ========================================================================== */
 .reviews-section {
   padding: 64px 20px;
-  background-color: var(--color-bg-secondary);
+  background-color: #ffffff;
 }
 
 .reviews-grid {
