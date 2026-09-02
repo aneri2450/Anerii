@@ -21,16 +21,22 @@
     <div class="product-media-wrap">
       {%- if product_card_product.featured_media != blank -%}
         <img class="product-img-primary" 
-             src="{{ product_card_product.featured_media | image_url: width: 600 }}" 
+             src="{{ product_card_product.featured_media | image_url: width: 500 }}" 
+             srcset="{{ product_card_product.featured_media | image_url: width: 360 }} 360w, {{ product_card_product.featured_media | image_url: width: 500 }} 500w, {{ product_card_product.featured_media | image_url: width: 720 }} 720w"
+             sizes="(max-width: 600px) 48vw, (max-width: 1024px) 32vw, 24vw"
              alt="{{ product_card_product.title | escape }}" 
              loading="lazy" 
+             decoding="async"
              width="400" 
              height="500">
         {%- if product_card_product.media[1] != blank -%}
           <img class="product-img-hover" 
-               src="{{ product_card_product.media[1] | image_url: width: 600 }}" 
+               src="{{ product_card_product.media[1] | image_url: width: 500 }}" 
+               srcset="{{ product_card_product.media[1] | image_url: width: 360 }} 360w, {{ product_card_product.media[1] | image_url: width: 500 }} 500w, {{ product_card_product.media[1] | image_url: width: 720 }} 720w"
+               sizes="(max-width: 600px) 48vw, (max-width: 1024px) 32vw, 24vw"
                alt="{{ product_card_product.title | escape }}" 
                loading="lazy" 
+               decoding="async"
                width="400" 
                height="500">
         {%- endif -%}
