@@ -1061,133 +1061,111 @@ button {
 .lookbook-section {
   background-color: var(--color-primary-dark);
   color: var(--color-text-light);
-  padding: 80px 0;
+  padding: 85px 0;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 /* Live River Wave Motion Dividers */
 .river-motion-divider-top {
   position: absolute;
-  top: 0;
+  top: -55px;
   left: 0;
   width: 100%;
+  height: 56px;
   overflow: hidden;
   line-height: 0;
-  z-index: 3;
+  z-index: 5;
   pointer-events: none;
 }
 
 .river-motion-divider-top svg {
-  position: relative;
   display: block;
-  width: calc(140% + 1.3px);
-  height: 62px;
-  transform: translateX(-10%);
+  width: 200%;
+  height: 100%;
 }
 
 .river-motion-divider-bottom {
   position: absolute;
-  bottom: 0;
+  bottom: -55px;
   left: 0;
   width: 100%;
+  height: 56px;
   overflow: hidden;
   line-height: 0;
-  z-index: 3;
+  z-index: 5;
   pointer-events: none;
 }
 
 .river-motion-divider-bottom svg {
-  position: relative;
   display: block;
-  width: calc(140% + 1.3px);
-  height: 62px;
-  transform: translateX(-10%);
+  width: 200%;
+  height: 100%;
 }
 
 @media (max-width: 768px) {
   .lookbook-section {
-    padding: 60px 0;
+    padding: 65px 0;
+  }
+  .river-motion-divider-top {
+    top: -36px;
+    height: 37px;
+  }
+  .river-motion-divider-bottom {
+    bottom: -36px;
+    height: 37px;
   }
   .river-motion-divider-top svg,
   .river-motion-divider-bottom svg {
-    height: 38px;
-    width: calc(180% + 1.3px);
+    width: 260%;
   }
 }
 
-/* Top Wave Layer Styling & Live River Ripple Animation */
-.river-wave-1 {
-  fill: #ffffff;
-  animation: riverWaveMotion1 10s ease-in-out infinite alternate;
-  transform-origin: center top;
+/* Top Wave Layer Styling & Infinite Silky River Flow */
+.wave-front {
+  fill: var(--color-primary-dark);
+  animation: riverFlowLinear 14s linear infinite;
+  will-change: transform;
 }
 
-.river-wave-2 {
-  fill: rgba(255, 255, 255, 0.45);
-  animation: riverWaveMotion2 14s ease-in-out infinite alternate;
-  transform-origin: center top;
+.wave-back {
+  fill: rgba(20, 27, 19, 0.45);
+  animation: riverFlowLinear 20s linear infinite reverse;
+  will-change: transform;
 }
 
-.river-wave-3 {
+.wave-accent {
   fill: rgba(198, 162, 94, 0.28);
-  animation: riverWaveMotion3 18s ease-in-out infinite alternate;
-  transform-origin: center top;
+  animation: riverFlowLinear 16s linear infinite;
+  will-change: transform;
 }
 
-/* Bottom Wave Layer Styling & Live River Ripple Animation */
-.river-wave-bottom-1 {
-  fill: var(--color-bg-main);
-  animation: riverWaveMotion1 12s ease-in-out infinite alternate;
-  transform-origin: center bottom;
+/* Bottom Wave Layer Styling & Infinite Silky River Flow */
+.wave-bottom-front {
+  fill: var(--color-primary-dark);
+  animation: riverFlowLinear 14s linear infinite;
+  will-change: transform;
 }
 
-.river-wave-bottom-2 {
-  fill: rgba(255, 255, 255, 0.35);
-  animation: riverWaveMotion2 15s ease-in-out infinite alternate;
-  transform-origin: center bottom;
+.wave-bottom-back {
+  fill: rgba(20, 27, 19, 0.45);
+  animation: riverFlowLinear 20s linear infinite reverse;
+  will-change: transform;
 }
 
-.river-wave-bottom-3 {
-  fill: rgba(198, 162, 94, 0.22);
-  animation: riverWaveMotion3 19s ease-in-out infinite alternate;
-  transform-origin: center bottom;
+.wave-bottom-accent {
+  fill: rgba(198, 162, 94, 0.28);
+  animation: riverFlowLinear 16s linear infinite;
+  will-change: transform;
 }
 
-/* Live Flowing River Ripple Keyframes */
-@keyframes riverWaveMotion1 {
+/* Ultra-Smooth 100% Seamless Infinite Linear Flow */
+@keyframes riverFlowLinear {
   0% {
-    transform: translateX(0) scaleY(1);
-  }
-  50% {
-    transform: translateX(-35px) scaleY(1.12);
+    transform: translate3d(0, 0, 0);
   }
   100% {
-    transform: translateX(-70px) scaleY(0.92);
-  }
-}
-
-@keyframes riverWaveMotion2 {
-  0% {
-    transform: translateX(-50px) scaleY(1.08);
-  }
-  50% {
-    transform: translateX(-15px) scaleY(0.94);
-  }
-  100% {
-    transform: translateX(20px) scaleY(1.14);
-  }
-}
-
-@keyframes riverWaveMotion3 {
-  0% {
-    transform: translateX(15px) scaleY(0.92);
-  }
-  50% {
-    transform: translateX(-40px) scaleY(1.15);
-  }
-  100% {
-    transform: translateX(-80px) scaleY(1.0);
+    transform: translate3d(-50%, 0, 0);
   }
 }
 
