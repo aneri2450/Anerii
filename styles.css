@@ -1061,9 +1061,90 @@ button {
 .lookbook-section {
   background-color: var(--color-primary-dark);
   color: var(--color-text-light);
-  padding: 64px 0;
+  padding: 75px 0;
   position: relative;
+  overflow: visible;
+  margin-top: 55px;
+  margin-bottom: 55px;
+}
+
+/* Organic Lahar (Wave) Motion Dividers */
+.lahar-wave-divider {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 56px;
   overflow: hidden;
+  line-height: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.lahar-wave-divider.top {
+  top: -55px;
+}
+
+.lahar-wave-divider.bottom {
+  bottom: -55px;
+}
+
+.lahar-wave-divider svg {
+  display: block;
+  width: calc(125% + 60px);
+  height: 100%;
+  will-change: transform;
+}
+
+.lahar-wave-divider.top svg {
+  animation: laharFlowMotionTop 5.2s ease-in-out infinite alternate;
+}
+
+.lahar-wave-divider.bottom svg {
+  animation: laharFlowMotionBottom 5.6s ease-in-out infinite alternate;
+}
+
+@keyframes laharFlowMotionTop {
+  0% {
+    transform: translateX(0) scaleY(1);
+  }
+  50% {
+    transform: translateX(-12%) scaleY(1.18);
+  }
+  100% {
+    transform: translateX(-20%) scaleY(0.92);
+  }
+}
+
+@keyframes laharFlowMotionBottom {
+  0% {
+    transform: translateX(-20%) scaleY(0.92);
+  }
+  50% {
+    transform: translateX(-9%) scaleY(1.18);
+  }
+  100% {
+    transform: translateX(0) scaleY(1);
+  }
+}
+
+@media (max-width: 768px) {
+  .lookbook-section {
+    padding: 60px 0;
+    margin-top: 36px;
+    margin-bottom: 36px;
+  }
+  .lahar-wave-divider {
+    height: 38px;
+  }
+  .lahar-wave-divider.top {
+    top: -37px;
+  }
+  .lahar-wave-divider.bottom {
+    bottom: -37px;
+  }
+  .lahar-wave-divider svg {
+    width: calc(160% + 40px);
+  }
 }
 
 .lookbook-section .section-title {

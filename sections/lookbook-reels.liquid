@@ -1,4 +1,10 @@
 <section id="lookbook" class="lookbook-section">
+  <!-- Organic Lahar Wave Divider (Top) -->
+  <div class="lahar-wave-divider top" aria-hidden="true">
+    <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
+      <path d="M0,45 C320,110 740,-15 1100,55 C1280,85 1380,45 1440,35 L1440,100 L0,100 Z" fill="var(--color-primary-dark, #1c231a)"></path>
+    </svg>
+  </div>
   <div class="section-header-center">
     <span class="section-subtitle" style="color: var(--color-accent-gold-light);">{{ section.settings.subtitle | default: '#AneriiAesthetics' }}</span>
     <h2 class="section-title" style="color: #ffffff;">{{ section.settings.title | default: 'Anerii • Video Lookbook' }}</h2>
@@ -53,6 +59,13 @@
       {%- endfor -%}
 
     </div>
+  </div>
+
+  <!-- Organic Lahar Wave Divider (Bottom) -->
+  <div class="lahar-wave-divider bottom" aria-hidden="true">
+    <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
+      <path d="M0,0 L1440,0 L1440,65 C1380,55 1280,15 1100,45 C740,115 320,-10 0,55 Z" fill="var(--color-primary-dark, #1c231a)"></path>
+    </svg>
   </div>
 </section>
 
