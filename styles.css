@@ -1061,111 +1061,87 @@ button {
 .lookbook-section {
   background-color: var(--color-primary-dark);
   color: var(--color-text-light);
-  padding: 85px 0;
+  padding: 80px 0;
   position: relative;
   overflow: visible;
 }
 
-/* Live River Wave Motion Dividers */
-.river-motion-divider-top {
+/* Pehrin-Style Clean Organic River Wave Dividers */
+.pehrin-river-wave {
   position: absolute;
-  top: -55px;
   left: 0;
   width: 100%;
-  height: 56px;
   overflow: hidden;
   line-height: 0;
-  z-index: 5;
+  z-index: 3;
   pointer-events: none;
 }
 
-.river-motion-divider-top svg {
-  display: block;
-  width: 200%;
-  height: 100%;
+.pehrin-river-wave.top {
+  top: -69px;
+  height: 70px;
 }
 
-.river-motion-divider-bottom {
-  position: absolute;
-  bottom: -55px;
-  left: 0;
-  width: 100%;
-  height: 56px;
-  overflow: hidden;
-  line-height: 0;
-  z-index: 5;
-  pointer-events: none;
+.pehrin-river-wave.bottom {
+  bottom: -69px;
+  height: 70px;
 }
 
-.river-motion-divider-bottom svg {
+.pehrin-river-wave svg {
   display: block;
-  width: 200%;
+  width: calc(135% + 120px);
   height: 100%;
+  fill: var(--color-primary-dark);
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.pehrin-river-wave.top svg {
+  animation: pehrinRiverFlowTop 14s ease-in-out infinite alternate;
+}
+
+.pehrin-river-wave.bottom svg {
+  animation: pehrinRiverFlowBottom 16s ease-in-out infinite alternate;
+}
+
+@keyframes pehrinRiverFlowTop {
+  0% {
+    transform: translateX(0) scaleY(1);
+  }
+  50% {
+    transform: translateX(-18%) scaleY(1.22);
+  }
+  100% {
+    transform: translateX(-32%) scaleY(0.88);
+  }
+}
+
+@keyframes pehrinRiverFlowBottom {
+  0% {
+    transform: translateX(-30%) scaleY(0.9);
+  }
+  50% {
+    transform: translateX(-12%) scaleY(1.2);
+  }
+  100% {
+    transform: translateX(0%) scaleY(1);
+  }
 }
 
 @media (max-width: 768px) {
   .lookbook-section {
-    padding: 65px 0;
+    padding: 60px 0;
   }
-  .river-motion-divider-top {
-    top: -36px;
-    height: 37px;
+  .pehrin-river-wave.top {
+    top: -44px;
+    height: 45px;
   }
-  .river-motion-divider-bottom {
-    bottom: -36px;
-    height: 37px;
+  .pehrin-river-wave.bottom {
+    bottom: -44px;
+    height: 45px;
   }
-  .river-motion-divider-top svg,
-  .river-motion-divider-bottom svg {
-    width: 260%;
-  }
-}
-
-/* Top Wave Layer Styling & Infinite Silky River Flow */
-.wave-front {
-  fill: var(--color-primary-dark);
-  animation: riverFlowLinear 14s linear infinite;
-  will-change: transform;
-}
-
-.wave-back {
-  fill: rgba(20, 27, 19, 0.45);
-  animation: riverFlowLinear 20s linear infinite reverse;
-  will-change: transform;
-}
-
-.wave-accent {
-  fill: rgba(198, 162, 94, 0.28);
-  animation: riverFlowLinear 16s linear infinite;
-  will-change: transform;
-}
-
-/* Bottom Wave Layer Styling & Infinite Silky River Flow */
-.wave-bottom-front {
-  fill: var(--color-primary-dark);
-  animation: riverFlowLinear 14s linear infinite;
-  will-change: transform;
-}
-
-.wave-bottom-back {
-  fill: rgba(20, 27, 19, 0.45);
-  animation: riverFlowLinear 20s linear infinite reverse;
-  will-change: transform;
-}
-
-.wave-bottom-accent {
-  fill: rgba(198, 162, 94, 0.28);
-  animation: riverFlowLinear 16s linear infinite;
-  will-change: transform;
-}
-
-/* Ultra-Smooth 100% Seamless Infinite Linear Flow */
-@keyframes riverFlowLinear {
-  0% {
-    transform: translate3d(0, 0, 0);
-  }
-  100% {
-    transform: translate3d(-50%, 0, 0);
+  .pehrin-river-wave svg {
+    width: calc(180% + 80px);
   }
 }
 
