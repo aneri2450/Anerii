@@ -1,9 +1,54 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
     "color_primary": "#283525",
     "color_header_footer": "#1c231a",
     "color_accent_gold": "#c6a25e",
     "color_pehrin_maroon": "#5e2c29",
-    "free_shipping_threshold": 1299
+    "free_shipping_threshold": 1299,
+    "sections": {
+      "announcement-bar": {
+        "type": "announcement-bar",
+        "settings": {
+          "text_1": "FREE EXPRESS SHIPPING PAN INDIA ON ORDERS ABOVE RS. 999",
+          "text_2": "USE CODE ANERII10 FOR 10% OFF FIRST ORDER",
+          "text_3": "100% PURE 60×60 BREATHABLE COTTON",
+          "text_4": "HASSLE-FREE 7-DAY DOORSTEP SIZE EXCHANGE"
+        }
+      },
+      "header": {
+        "type": "header",
+        "settings": {
+          "menu": "main-menu"
+        }
+      },
+      "perks-strip": {
+        "type": "perks-strip",
+        "settings": {}
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "bio": "Luxury Indian Ethnic Pret Wear crafted exclusively in 100% 60×60 breathable pure cotton for modern silhouettes.",
+          "menu_1_title": "Shop Categories",
+          "menu_1": "",
+          "menu_2_title": "Customer Care",
+          "menu_2": "footer",
+          "copyright_text": "© 2026 Anerii. All Rights Reserved. Crafted with pure cotton love.",
+          "instagram": "",
+          "facebook": "",
+          "pinterest": ""
+        }
+      }
+    },
+    "content_for_index": []
   }
 }
