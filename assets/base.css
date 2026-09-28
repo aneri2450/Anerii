@@ -3250,4 +3250,47 @@ button {
   color: var(--color-accent-gold-light);
 }
 
+/* Contact Page & Cards Styles */
+.contact-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 600px) {
+  .contact-cards-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+.contact-info-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: var(--color-bg-secondary);
+  padding: 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+}
+
+.contact-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.contact-info-card strong {
+  display: block;
+  font-size: 0.92rem;
+  color: var(--color-primary);
+  margin-bottom: 2px;
+}
+
+.contact-info-card p {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  line-height: 1.4;
+  margin: 0;
+}
+
+
 
