@@ -1,9 +1,26 @@
 // Anerii Luxury Storefront Application Controller
 
+// Safe Storage Helper (prevents crashes in restricted file:// or iframe environments)
+const SafeStorage = {
+  get(key, fallback) {
+    try {
+      const val = localStorage.getItem(key);
+      return val ? JSON.parse(val) : fallback;
+    } catch (e) {
+      return fallback;
+    }
+  },
+  set(key, val) {
+    try {
+      localStorage.setItem(key, JSON.stringify(val));
+    } catch (e) {}
+  }
+};
+
 // Global State
 const AneriiState = {
-  cart: JSON.parse(localStorage.getItem('anerii_cart') || '[]'),
-  wishlist: JSON.parse(localStorage.getItem('anerii_wishlist') || '[]'),
+  cart: SafeStorage.get('anerii_cart', []),
+  wishlist: SafeStorage.get('anerii_wishlist', []),
   currentFilter: 'all',
   freeShippingThreshold: 999,
   activeReelIndex: 0
@@ -11,7 +28,7 @@ const AneriiState = {
 
 // Core Functions
 function saveCart() {
-  localStorage.setItem('anerii_cart', JSON.stringify(AneriiState.cart));
+  SafeStorage.set('anerii_cart', AneriiState.cart);
 }
 
 function showToast(message) {
@@ -185,7 +202,7 @@ function toggleWishlist(productId) {
     AneriiState.wishlist.push(productId);
     showToast('Saved to Wishlist ❤️');
   }
-  localStorage.setItem('anerii_wishlist', JSON.stringify(AneriiState.wishlist));
+  SafeStorage.set('anerii_wishlist', AneriiState.wishlist);
   updateWishlistUI();
   renderProducts();
 }
@@ -275,6 +292,9 @@ function filterCategory(cat, shouldScroll = false) {
   document.querySelectorAll('.filter-tab-btn').forEach(btn => {
     if (btn.dataset.filter === cat) {
       btn.classList.add('active');
+      if (btn.scrollIntoView) {
+        btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
     } else {
       btn.classList.remove('active');
     }
@@ -289,6 +309,20 @@ function filterCategory(cat, shouldScroll = false) {
     }
   });
 
+  // Sync Desktop Navigation Links
+  document.querySelectorAll('.desktop-nav .nav-link').forEach(link => {
+    const text = link.textContent.trim().toLowerCase();
+    const isActive = (cat === 'all' && text === 'all pieces') ||
+                     (cat === 'co-ords' && text.includes('co-ord')) ||
+                     (cat === 'kurta-sets' && text.includes('kurta')) ||
+                     (cat === 'kurtis' && text.includes('kurti'));
+    if (isActive) {
+      link.classList.add('active');
+    } else if (text !== 'lookbook' && text !== 'our story') {
+      link.classList.remove('active');
+    }
+  });
+
   renderProducts();
 
   // Smooth scroll to collections section if triggered from story pills or nav
@@ -299,7 +333,7 @@ function filterCategory(cat, shouldScroll = false) {
       const elementPosition = collSection.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
       window.scrollTo({
-        top: offsetPosition,
+        top: Math.max(0, offsetPosition),
         behavior: 'smooth'
       });
     }
@@ -592,6 +626,16 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.filter-tab-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       filterCategory(btn.dataset.filter);
+    });
+  });
+
+  // Story Circles
+  document.querySelectorAll('.story-item').forEach(item => {
+    item.addEventListener('click', (e) => {
+      const storyFilter = item.dataset.story;
+      if (storyFilter) {
+        filterCategory(storyFilter, true);
+      }
     });
   });
 

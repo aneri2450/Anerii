@@ -71,7 +71,7 @@
       <!-- Center: Desktop Navigation Menu -->
       <nav class="desktop-nav" aria-label="Main Navigation">
         <ul class="nav-links">
-          <li><a href="#collections" class="nav-link active">All Pieces</a></li>
+          <li><a href="#collections" class="nav-link active" onclick="filterCategory('all')">All Pieces</a></li>
           <li><a href="#collections" class="nav-link" onclick="filterCategory('co-ords')">Co-ord Sets</a></li>
           <li><a href="#collections" class="nav-link" onclick="filterCategory('kurta-sets')">Kurta Sets</a></li>
           <li><a href="#collections" class="nav-link" onclick="filterCategory('kurtis')">Kurtis & Tops</a></li>
@@ -91,7 +91,7 @@
         </button>
 
         <!-- Wishlist -->
-        <button class="header-icon-btn" title="Wishlist" aria-label="Wishlist" onclick="alert('Wishlist: ' + JSON.parse(localStorage.getItem('anerii_wishlist')||'[]').length + ' item(s) saved!')">
+        <button class="header-icon-btn" title="Wishlist" aria-label="Wishlist" onclick="alert('Wishlist: ' + ((window.AneriiState && window.AneriiState.wishlist) ? window.AneriiState.wishlist.length : 0) + ' item(s) saved!')">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
           </svg>
@@ -211,6 +211,20 @@
           <img src="https://cdn.shopify.com/s/files/1/1013/9628/3701/files/aneri009_noor-e-neel-backless-short-kurti.jpg?v=1787809941" alt="Kurtis & Tops" class="story-img" />
         </div>
         <span class="story-label">Kurtis & Tops</span>
+      </div>
+
+      <div class="story-item" data-story="noor-e-neel" onclick="filterCategory('noor-e-neel', true)" title="Shop Noor-e-Neel Edit">
+        <div class="story-avatar-wrap">
+          <img src="https://cdn.shopify.com/s/files/1/1013/9628/3701/files/aneri007-3.jpg?v=1787815743" alt="Noor-e-Neel" class="story-img" />
+        </div>
+        <span class="story-label">Noor-e-Neel</span>
+      </div>
+
+      <div class="story-item" data-story="rangrez" onclick="filterCategory('rangrez', true)" title="Shop Rangrez Edit">
+        <div class="story-avatar-wrap">
+          <img src="https://cdn.shopify.com/s/files/1/1013/9628/3701/files/PUN4197.jpg?v=1787836695" alt="Rangrez" class="story-img" />
+        </div>
+        <span class="story-label">Rangrez</span>
       </div>
 
       <div class="story-item" data-story="gulnaaz" onclick="filterCategory('gulnaaz', true)" title="Shop Gulnaaz Edit">
