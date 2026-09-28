@@ -1,0 +1,152 @@
+<section class="section-wrapper blog-section" style="padding: 50px 16px 80px;">
+  <div class="blog-container" style="max-width: 1200px; margin: 0 auto;">
+    
+    <!-- Blog Header -->
+    <div class="section-header-center" style="margin-bottom: 48px;">
+      <span class="section-subtitle">THE JAIPUR COTTON CHRONICLE</span>
+      <h1 class="section-title" style="font-size: 2.6rem; margin: 8px 0;">{{ blog.title | default: 'Anerii Journal' }}</h1>
+      <p class="section-desc" style="max-width: 640px; margin: 0 auto; color: var(--color-text-muted);">
+        Artisanal craft journeys, pure 60×60 cotton styling inspirations, and stories from our Jaipur design atelier.
+      </p>
+    </div>
+
+    {%- paginate blog.articles by 9 -%}
+      {%- if blog.articles.size > 0 -%}
+        <div class="blog-articles-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 32px;">
+          {%- for article in blog.articles -%}
+            <article class="blog-card" style="background: #fff; border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border-light); display: flex; flex-direction: column; transition: transform 0.25s ease, box-shadow 0.25s ease; box-shadow: var(--shadow-sm);">
+              {%- if article.image -%}
+                <div class="blog-card-media" style="height: 240px; overflow: hidden; position: relative;">
+                  <a href="{{ article.url }}" style="display:block; width:100%; height:100%;">
+                    <img src="{{ article.image | image_url: width: 680 }}" alt="{{ article.title | escape }}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease;" loading="lazy">
+                  </a>
+                </div>
+              {%- else -%}
+                <div class="blog-card-media" style="height: 240px; overflow: hidden; position: relative;">
+                  <a href="{{ article.url }}" style="display:block; width:100%; height:100%;">
+                    <img src="https://cdn.shopify.com/s/files/1/1013/9628/3701/files/aneri-new-floral-3.jpg?v=1787817296" alt="{{ article.title | escape }}" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
+                  </a>
+                </div>
+              {%- endif -%}
+
+              <div class="blog-card-body" style="padding: 24px; display: flex; flex-direction: column; flex: 1;">
+                <div class="blog-meta" style="font-size: 0.76rem; font-weight: 600; color: var(--color-accent-gold); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px;">
+                  <span>{{ article.published_at | date: "%B %d, %Y" }}</span>
+                </div>
+
+                <h3 style="font-family: var(--font-heading); font-size: 1.3rem; line-height: 1.35; margin-bottom: 12px; color: var(--color-primary);">
+                  <a href="{{ article.url }}" style="color: inherit; text-decoration: none;">
+                    {{ article.title }}
+                  </a>
+                </h3>
+
+                <p style="font-size: 0.88rem; color: var(--color-text-muted); line-height: 1.55; margin-bottom: 20px; flex: 1;">
+                  {%- if article.excerpt.size > 0 -%}
+                    {{ article.excerpt | strip_html | truncatewords: 24 }}
+                  {%- else -%}
+                    {{ article.content | strip_html | truncatewords: 24 }}
+                  {%- endif -%}
+                </p>
+
+                <div>
+                  <a href="{{ article.url }}" class="btn-secondary" style="display: inline-block; padding: 8px 18px; font-size: 0.8rem; text-decoration: none; border-radius: var(--radius-sm); border: 1px solid var(--color-primary); color: var(--color-primary); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">
+                    Read Story →
+                  </a>
+                </div>
+              </div>
+            </article>
+          {%- endfor -%}
+        </div>
+
+        {%- if paginate.pages > 1 -%}
+          <div class="pagination-wrapper" style="text-align: center; margin-top: 48px;">
+            {{ paginate | default_pagination }}
+          </div>
+        {%- endif -%}
+
+      {%- else -%}
+        <!-- Editorial Fallback Stories When Store Has No Blog Posts Yet -->
+        <div class="blog-articles-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 32px;">
+          
+          <!-- Story 1 -->
+          <article class="blog-card" style="background: #fff; border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border-light); display: flex; flex-direction: column; box-shadow: var(--shadow-sm);">
+            <div class="blog-card-media" style="height: 240px; overflow: hidden;">
+              <img src="https://cdn.shopify.com/s/files/1/1013/9628/3701/files/aneri008-1.jpg?v=1787815008" alt="Pure Cotton Fabric" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <div class="blog-card-body" style="padding: 24px; display: flex; flex-direction: column; flex: 1;">
+              <div style="font-size: 0.76rem; font-weight: 600; color: var(--color-accent-gold); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px;">
+                Fabric & Craftsmanship
+              </div>
+              <h3 style="font-family: var(--font-heading); font-size: 1.3rem; line-height: 1.35; margin-bottom: 12px; color: var(--color-primary);">
+                The Art of 60×60 Pure Cotton: Why Breathability Matters in Indian Summer
+              </h3>
+              <p style="font-size: 0.88rem; color: var(--color-text-muted); line-height: 1.55; margin-bottom: 20px; flex: 1;">
+                Discover why fine 60x60 count cotton feels like featherlight second skin, keeps you cool all day long, and stays beautifully crisp wash after wash.
+              </p>
+              <div>
+                <a href="/#collections" class="btn-secondary" style="display: inline-block; padding: 8px 18px; font-size: 0.8rem; text-decoration: none; border-radius: var(--radius-sm); border: 1px solid var(--color-primary); color: var(--color-primary); font-weight: 600; text-transform: uppercase;">
+                  Explore Silhouettes →
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Story 2 -->
+          <article class="blog-card" style="background: #fff; border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border-light); display: flex; flex-direction: column; box-shadow: var(--shadow-sm);">
+            <div class="blog-card-media" style="height: 240px; overflow: hidden;">
+              <img src="https://cdn.shopify.com/s/files/1/1013/9628/3701/files/aneri-new-floral-3.jpg?v=1787817296" alt="Gulnaaz Floral" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <div class="blog-card-body" style="padding: 24px; display: flex; flex-direction: column; flex: 1;">
+              <div style="font-size: 0.76rem; font-weight: 600; color: var(--color-accent-gold); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px;">
+                Collection Spotlight
+              </div>
+              <h3 style="font-family: var(--font-heading); font-size: 1.3rem; line-height: 1.35; margin-bottom: 12px; color: var(--color-primary);">
+                Behind The Gulnaaz Edit: Earthy Botanical Prints Rooted in Jaipur
+              </h3>
+              <p style="font-size: 0.88rem; color: var(--color-text-muted); line-height: 1.55; margin-bottom: 20px; flex: 1;">
+                A tribute to botanical flora and Jaipur's heritage block artistry. Learn the story behind the warm, grounding earth tones in our newest Gulnaaz drop.
+              </p>
+              <div>
+                <a href="/#collections" class="btn-secondary" style="display: inline-block; padding: 8px 18px; font-size: 0.8rem; text-decoration: none; border-radius: var(--radius-sm); border: 1px solid var(--color-primary); color: var(--color-primary); font-weight: 600; text-transform: uppercase;">
+                  Shop Gulnaaz →
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Story 3 -->
+          <article class="blog-card" style="background: #fff; border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border-light); display: flex; flex-direction: column; box-shadow: var(--shadow-sm);">
+            <div class="blog-card-media" style="height: 240px; overflow: hidden;">
+              <img src="https://cdn.shopify.com/s/files/1/1013/9628/3701/files/PUN4247.jpg?v=1787840184" alt="Rangrez Style Guide" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <div class="blog-card-body" style="padding: 24px; display: flex; flex-direction: column; flex: 1;">
+              <div style="font-size: 0.76rem; font-weight: 600; color: var(--color-accent-gold); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px;">
+                Style Guide
+              </div>
+              <h3 style="font-family: var(--font-heading); font-size: 1.3rem; line-height: 1.35; margin-bottom: 12px; color: var(--color-primary);">
+                How to Style Co-ord Sets for Desk-to-Dinner Transitions
+              </h3>
+              <p style="font-size: 0.88rem; color: var(--color-text-muted); line-height: 1.55; margin-bottom: 20px; flex: 1;">
+                Elevate your everyday wardrobe with minimal gold hoops, structured juttis, and fluid silhouettes designed to turn heads wherever you go.
+              </p>
+              <div>
+                <a href="/#collections" class="btn-secondary" style="display: inline-block; padding: 8px 18px; font-size: 0.8rem; text-decoration: none; border-radius: var(--radius-sm); border: 1px solid var(--color-primary); color: var(--color-primary); font-weight: 600; text-transform: uppercase;">
+                  View Co-ords →
+                </a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      {%- endif -%}
+    {%- endpaginate -%}
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Blog Posts",
+  "settings": []
+}
+{% endschema %}

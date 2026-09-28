@@ -1,0 +1,51 @@
+<article class="section-wrapper article-section" style="padding: 50px 16px 80px;">
+  <div class="article-container" style="max-width: 820px; margin: 0 auto;">
+    
+    <!-- Breadcrumb / Back to Blog -->
+    <div style="margin-bottom: 24px;">
+      <a href="{{ blog.url }}" style="font-size: 0.85rem; color: var(--color-accent-gold); text-decoration: none; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">
+        ← Back to {{ blog.title | default: 'Journal' }}
+      </a>
+    </div>
+
+    <!-- Article Header -->
+    <header class="article-header" style="margin-bottom: 32px;">
+      <div style="font-size: 0.78rem; font-weight: 700; color: var(--color-accent-gold); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px;">
+        <span>{{ article.published_at | date: "%B %d, %Y" }}</span>
+        {%- if article.author != blank -%}
+          <span> • By {{ article.author }}</span>
+        {%- endif -%}
+      </div>
+      <h1 style="font-family: var(--font-heading); font-size: 2.5rem; line-height: 1.25; color: var(--color-primary); margin-bottom: 18px;">
+        {{ article.title }}
+      </h1>
+    </header>
+
+    <!-- Featured Image -->
+    {%- if article.image -%}
+      <div class="article-featured-image" style="margin-bottom: 36px; border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm);">
+        <img src="{{ article.image | image_url: width: 1200 }}" alt="{{ article.title | escape }}" style="width: 100%; height: auto; display: block;" loading="eager">
+      </div>
+    {%- endif -%}
+
+    <!-- Article Body -->
+    <div class="article-content rte" style="font-family: var(--font-body); font-size: 1.05rem; line-height: 1.8; color: var(--color-text-main);">
+      {{ article.content }}
+    </div>
+
+    <!-- Back to Journal CTA -->
+    <div style="margin-top: 56px; padding-top: 28px; border-top: 1px solid var(--border-light); text-align: center;">
+      <a href="{{ blog.url }}" class="btn-primary" style="display: inline-block; padding: 12px 28px; text-decoration: none;">
+        ← Back to All Stories
+      </a>
+    </div>
+
+  </div>
+</article>
+
+{% schema %}
+{
+  "name": "Blog Article",
+  "settings": []
+}
+{% endschema %}
