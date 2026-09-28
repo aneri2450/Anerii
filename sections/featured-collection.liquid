@@ -5,6 +5,19 @@
     <p class="section-desc">{{ section.settings.description | default: 'Pure 60×60 breathable cotton silhouettes designed for timeless elegance.' }}</p>
   </div>
 
+  <!-- Category Filter Tabs with Mobile Smooth Horizontal Scroll -->
+  <div class="filter-tabs-wrapper">
+    <div class="filter-tabs">
+      <button type="button" class="filter-tab-btn active" data-filter="all" onclick="if(typeof filterCategory==='function') filterCategory('all')">All Designs</button>
+      <button type="button" class="filter-tab-btn" data-filter="co-ords" onclick="if(typeof filterCategory==='function') filterCategory('co-ords')">Co-ord Sets</button>
+      <button type="button" class="filter-tab-btn" data-filter="kurta-sets" onclick="if(typeof filterCategory==='function') filterCategory('kurta-sets')">Kurta Sets</button>
+      <button type="button" class="filter-tab-btn" data-filter="kurtis" onclick="if(typeof filterCategory==='function') filterCategory('kurtis')">Kurtis & Tops</button>
+      <button type="button" class="filter-tab-btn" data-filter="noor-e-neel" onclick="if(typeof filterCategory==='function') filterCategory('noor-e-neel')">Noor-e-Neel (Sky Blue)</button>
+      <button type="button" class="filter-tab-btn" data-filter="rangrez" onclick="if(typeof filterCategory==='function') filterCategory('rangrez')">Rangrez (Rani Pink)</button>
+      <button type="button" class="filter-tab-btn" data-filter="gulnaaz" onclick="if(typeof filterCategory==='function') filterCategory('gulnaaz')">Gulnaaz (Floral)</button>
+    </div>
+  </div>
+
   <div class="products-grid">
     {%- assign collection = collections[section.settings.collection] -%}
     {%- if collection != blank and collection.products_count > 0 -%}

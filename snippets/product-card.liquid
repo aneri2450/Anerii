@@ -3,7 +3,26 @@
   Usage: {% render 'product-card', product_card_product: product %}
 {%- endcomment -%}
 
-<div class="product-card-wrap">
+{%- assign title_l = product_card_product.title | downcase -%}
+{%- assign p_cat = '' -%}
+{%- if title_l contains 'cord' or title_l contains 'co-ord' -%}
+  {%- assign p_cat = 'co-ords' -%}
+{%- elsif title_l contains 'kurta set' or title_l contains 'kurta' -%}
+  {%- assign p_cat = 'kurta-sets' -%}
+{%- elsif title_l contains 'kurti' or title_l contains 'top' -%}
+  {%- assign p_cat = 'kurtis' -%}
+{%- endif -%}
+
+{%- assign p_coll = '' -%}
+{%- if title_l contains 'gulnaaz' -%}
+  {%- assign p_coll = 'gulnaaz' -%}
+{%- elsif title_l contains 'noor-e-neel' or title_l contains 'noor' -%}
+  {%- assign p_coll = 'noor-e-neel' -%}
+{%- elsif title_l contains 'rangrez' or title_l contains 'rani' or title_l contains 'coral' -%}
+  {%- assign p_coll = 'rangrez' -%}
+{%- endif -%}
+
+<div class="product-card-wrap" data-category="{{ p_cat }}" data-collection="{{ p_coll }}">
   <div class="product-card" onclick="window.location.href='{{ product_card_product.url }}'">
     
     {%- if product_card_product.compare_at_price > product_card_product.price -%}
