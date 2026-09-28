@@ -19,11 +19,18 @@
 
     <!-- Favicon -->
     {%- if settings.favicon != blank -%}
-      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+      <link rel="shortcut icon" href="{{ settings.favicon | image_url: width: 32, height: 32 }}" type="image/png">
+      <link rel="icon" type="image/png" sizes="32x32" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+      <link rel="icon" type="image/png" sizes="16x16" href="{{ settings.favicon | image_url: width: 16, height: 16 }}">
+      <link rel="apple-touch-icon" href="{{ settings.favicon | image_url: width: 180, height: 180 }}">
     {%- else -%}
-      <link rel="icon" type="image/png" href="{{ 'finalised_logo.jpg-removebg.png' | asset_url }}">
+      <link rel="shortcut icon" href="{{ 'finalised_logo.jpg-removebg.png' | asset_url }}" type="image/png">
+      <link rel="icon" type="image/png" sizes="32x32" href="{{ 'finalised_logo.jpg-removebg.png' | asset_url }}">
+      <link rel="icon" type="image/png" sizes="16x16" href="{{ 'finalised_logo.jpg-removebg.png' | asset_url }}">
+      <link rel="apple-touch-icon" href="{{ 'finalised_logo.jpg-removebg.png' | asset_url }}">
     {%- endif -%}
-    <link rel="apple-touch-icon" href="{{ 'finalised_logo.jpg-removebg.png' | asset_url }}">
+
+    {{ content_for_header }}
 
     <!-- High Speed Resource Preconnects -->
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
