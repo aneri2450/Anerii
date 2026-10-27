@@ -6,7 +6,7 @@
 // Bas yahan changes karein. Agar offer band karna ho toh enabled: false kar dein.
 // ============================================================
 window.AneriiOfferConfig = {
-  enabled: true,                         // true = offer popup active, false = disabled
+  enabled: false,                        // true = offer popup active, false = disabled
   autoShowDelayMs: 2500,                 // Kitne milliseconds baad popup khule (2.5s)
   showOncePerSession: true,              // Ek browser session me ek hi baar auto-open ho
   badgeText: "✦ LIMITED TIME FESTIVE DROP ✦",

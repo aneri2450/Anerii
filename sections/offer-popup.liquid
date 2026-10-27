@@ -3,7 +3,7 @@
   Fully configurable from Shopify Theme Customizer
 {%- endcomment -%}
 
-{%- if section.settings.enable_offer -%}
+{%- if settings.enable_offer_features and section.settings.enable_offer -%}
 <div id="offerModal" class="modal-overlay offer-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="offerTitle" style="display:none;">
   <div class="modal-card-offer">
     <button id="closeOfferBtn" class="modal-close-btn offer-close-btn" aria-label="Close Offer">✕</button>
@@ -90,6 +90,10 @@
     delaySeconds: {{ section.settings.popup_delay | default: 2.5 }},
     expiryHours: {{ section.settings.expiry_hours | default: 48 }}
   };
+</script>
+{%- else -%}
+<script>
+  window.AneriiShopifyOffer = { enabled: false };
 </script>
 {%- endif -%}
 

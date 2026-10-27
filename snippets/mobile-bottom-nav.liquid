@@ -2,12 +2,14 @@
   Anerii Native App-Style Mobile Bottom Dock & Floating Action Buttons
 {%- endcomment -%}
 
+{%- if settings.enable_offer_features and settings.show_floating_offer_pill -%}
 <!-- Floating Special Offer Pill -->
 <button id="floatingOfferBtn" class="floating-offer-fab" aria-label="Open Special Offer" onclick="openOfferModal()">
   <span class="offer-fab-icon">🎁</span>
   <span class="offer-fab-label">Special Offer</span>
   <span class="offer-fab-badge" id="floatingBadgeText">20% OFF</span>
 </button>
+{%- endif -%}
 
 <!-- Floating WhatsApp Stylist Concierge Pill -->
 <a href="https://wa.me/916376829301?text=Hi%20Anerii%20Stylist,%20I%20need%20help%20with%20sizing%20and%20offers" 
@@ -45,6 +47,7 @@
     <span>Shop</span>
   </a>
 
+  {%- if settings.enable_offer_features and settings.show_bottom_nav_offer -%}
   <!-- App Center Action: Special Offer Pulsing Button -->
   <button class="mob-nav-item mob-offer-highlight" id="mobNavOffer" onclick="openOfferModal()" aria-label="View Special Offer">
     <div class="mob-offer-center-circle">
@@ -53,6 +56,7 @@
     </div>
     <span class="mob-offer-txt">Offer</span>
   </button>
+  {%- endif -%}
 
   <a href="#lookbook" class="mob-nav-item" id="mobNavLookbook" onclick="handleMobNavClick(event, 'lookbook')">
     <div class="mob-nav-icon-wrap">

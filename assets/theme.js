@@ -148,12 +148,16 @@ let offerCountdownInterval = null;
 
 function initShopifyOfferPopup() {
   const cfg = window.AneriiShopifyOffer;
-  if (!cfg || !cfg.enabled) return;
-
   const floatingBtn = document.getElementById('floatingOfferBtn');
-  if (floatingBtn) floatingBtn.style.display = 'inline-flex';
-
   const mobNavOffer = document.getElementById('mobNavOffer');
+
+  if (!cfg || !cfg.enabled) {
+    if (floatingBtn) floatingBtn.style.display = 'none';
+    if (mobNavOffer) mobNavOffer.style.display = 'none';
+    return;
+  }
+
+  if (floatingBtn) floatingBtn.style.display = 'inline-flex';
   if (mobNavOffer) mobNavOffer.style.display = 'flex';
 
   // Start live countdown timer

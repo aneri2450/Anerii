@@ -1,7 +1,7 @@
 Add-Type -AssemblyName System.IO.Compression
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 
-$baseDir = "d:\Download\Anerii"
+$baseDir = if ($PSScriptRoot) { $PSScriptRoot } else { "e:\Download\Anerii" }
 $zipPath = "$baseDir\anerii-luxury-shopify-theme.zip"
 $themeFolders = @("assets", "config", "layout", "locales", "sections", "snippets", "templates")
 

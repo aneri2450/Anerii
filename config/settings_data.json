@@ -14,6 +14,9 @@
     "color_accent_gold": "#c6a25e",
     "color_pehrin_maroon": "#5e2c29",
     "free_shipping_threshold": 1299,
+    "enable_offer_features": false,
+    "show_floating_offer_pill": false,
+    "show_bottom_nav_offer": false,
     "sections": {
       "announcement-bar": {
         "type": "announcement-bar",

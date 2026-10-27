@@ -57,5 +57,36 @@
         "default": 1299
       }
     ]
+  },
+  {
+    "name": "Promotions & Offers",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Special Offer Buttons & Popup"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_offer_features",
+        "label": "Enable Special Offer Features",
+        "info": "Master switch to turn ON/OFF the Special Offer popup, floating offer pill, and mobile bottom bar offer tab across the entire store.",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "show_floating_offer_pill",
+        "label": "Show Floating 'Special Offer' Pill",
+        "info": "Floating pill at bottom-left corner with gift icon and discount badge",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "show_bottom_nav_offer",
+        "label": "Show 'Offer' Tab in Mobile Bottom Bar",
+        "info": "Center circular Offer button in mobile bottom navigation bar",
+        "default": false
+      }
+    ]
   }
 ]
+
