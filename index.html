@@ -15,9 +15,13 @@
   <link rel="icon" type="image/png" sizes="32x32" href="finalised_logo.jpg-removebg.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="finalised_logo.jpg-removebg.png" />
   <link rel="apple-touch-icon" href="finalised_logo.jpg-removebg.png" />
+  <meta name="theme-color" content="#1c231a" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
   <!-- Styles -->
-  <link rel="stylesheet" href="styles.css?v=10" />
+  <link rel="stylesheet" href="styles.css?v=11" />
 </head>
 <body>
 
@@ -972,46 +976,165 @@
   <div id="toastNotification" class="toast-notification">Notification</div>
 
   <!-- ==========================================
-       15. MOBILE BOTTOM NAVIGATION
+       15. PROMOTIONAL OFFER & POPUP BANNER MODAL
+       Easily customizable for every festive/seasonal sale
        ========================================== -->
-  <nav class="mobile-bottom-nav">
-    <a href="#" class="mob-nav-item active">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-      </svg>
+  <div id="offerModal" class="modal-overlay offer-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="offerTitle">
+    <div class="modal-card-offer">
+      <button id="closeOfferBtn" class="modal-close-btn offer-close-btn" aria-label="Close Offer">✕</button>
+      
+      <!-- Top Decorative Craft Banner Tag -->
+      <div class="offer-card-top-tag">
+        <span class="offer-sparkle">✦</span>
+        <span id="offerBadgeText">EXCLUSIVE FESTIVE OFFER</span>
+        <span class="offer-sparkle">✦</span>
+      </div>
+
+      <!-- Main Offer Card Body -->
+      <div class="offer-card-body">
+        <div class="offer-visual-col">
+          <div class="offer-img-frame">
+            <img id="offerBannerImg" src="https://cdn.shopify.com/s/files/1/1013/9628/3701/files/aneri008-1.jpg?v=1787815008" alt="Special Offer Anerii" class="offer-img" />
+            <div class="offer-discount-sticker" id="offerDiscountSticker">
+              <span class="sticker-highlight">FLAT</span>
+              <span class="sticker-val" id="offerDiscountText">20% OFF</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="offer-details-col">
+          <span class="offer-eyebrow">🌸 100% Breathable Jaipur Pure Cotton</span>
+          <h2 id="offerTitle" class="offer-title">Summer Festive Drop — Flat 20% OFF</h2>
+          <p id="offerSubtitle" class="offer-subtitle">Celebrate handcrafted luxury with pure 60×60 cotton kurtis, co-ords, and sets tailored for modern grace.</p>
+
+          <!-- Live Countdown Timer -->
+          <div class="offer-timer-box">
+            <span class="timer-label">⚡ HURRY! OFFER EXPIRES IN:</span>
+            <div class="timer-digits-row" id="offerCountdown">
+              <div class="timer-col"><span class="timer-num" id="timerDays">02</span><span class="timer-unit">Days</span></div>
+              <span class="timer-colon">:</span>
+              <div class="timer-col"><span class="timer-num" id="timerHours">14</span><span class="timer-unit">Hours</span></div>
+              <span class="timer-colon">:</span>
+              <div class="timer-col"><span class="timer-num" id="timerMins">36</span><span class="timer-unit">Mins</span></div>
+              <span class="timer-colon">:</span>
+              <div class="timer-col"><span class="timer-num" id="timerSecs">48</span><span class="timer-unit">Secs</span></div>
+            </div>
+          </div>
+
+          <!-- Coupon Code Voucher Box -->
+          <div class="offer-coupon-box">
+            <div class="coupon-code-wrap">
+              <span class="coupon-label">COUPON CODE</span>
+              <span class="coupon-code-text" id="offerCouponCode">ANERII20</span>
+            </div>
+            <button id="copyCouponBtn" class="coupon-copy-btn" onclick="copyOfferCoupon()" title="Click to copy coupon code">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              <span id="copyBtnText">COPY CODE</span>
+            </button>
+          </div>
+          <small class="offer-terms-note" id="offerMinOrder">Valid on orders above ₹1,499 • Auto-applied at checkout</small>
+
+          <!-- Action CTA Buttons -->
+          <div class="offer-action-buttons">
+            <button id="applyOfferCtaBtn" class="offer-primary-btn" onclick="applyAndShopOffer()">
+              <span id="offerCtaText">Apply Coupon & Shop Collection</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+            <button class="offer-dismiss-link" onclick="closeOfferModal(true)">No thanks, I'll browse regular prices</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       16. FLOATING APP ACTION BUTTONS
+       ========================================== -->
+  <!-- Floating Special Offer Pill -->
+  <button id="floatingOfferBtn" class="floating-offer-fab" aria-label="Open Special Offer" onclick="openOfferModal()">
+    <span class="offer-fab-icon">🎁</span>
+    <span class="offer-fab-label">Special Offer</span>
+    <span class="offer-fab-badge" id="floatingBadgeText">20% OFF</span>
+  </button>
+
+  <!-- Floating WhatsApp Stylist Concierge Pill -->
+  <a href="https://wa.me/916376829301?text=Hi%20Anerii%20Stylist,%20I%20need%20help%20with%20sizing%20and%20offers" 
+     target="_blank" 
+     rel="noopener noreferrer" 
+     class="floating-whatsapp-fab" 
+     aria-label="Chat with Jaipur Stylist">
+    <span class="wa-status-dot"></span>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+    </svg>
+    <span class="wa-fab-text">Stylist Chat</span>
+  </a>
+
+  <!-- ==========================================
+       17. NATIVE APP-STYLE FLOATING BOTTOM DOCK NAVIGATION
+       ========================================== -->
+  <nav class="mobile-bottom-nav" aria-label="Mobile App Navigation">
+    <a href="#" class="mob-nav-item active" id="mobNavHome" onclick="handleMobNavClick(event, 'home')">
+      <div class="mob-nav-icon-wrap">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+        </svg>
+      </div>
       <span>Home</span>
     </a>
-    <a href="#collections" class="mob-nav-item">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="3" width="7" height="7"></rect>
-        <rect x="14" y="3" width="7" height="7"></rect>
-        <rect x="14" y="14" width="7" height="7"></rect>
-        <rect x="3" y="14" width="7" height="7"></rect>
-      </svg>
+
+    <a href="#collections" class="mob-nav-item" id="mobNavShop" onclick="handleMobNavClick(event, 'shop')">
+      <div class="mob-nav-icon-wrap">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="7" height="7"></rect>
+          <rect x="14" y="3" width="7" height="7"></rect>
+          <rect x="14" y="14" width="7" height="7"></rect>
+          <rect x="3" y="14" width="7" height="7"></rect>
+        </svg>
+      </div>
       <span>Shop</span>
     </a>
-    <a href="#lookbook" class="mob-nav-item">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <polygon points="23 7 16 12 23 17 23 7"></polygon>
-        <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
-      </svg>
+
+    <!-- App Center Action: Special Offer Pulsing Button -->
+    <button class="mob-nav-item mob-offer-highlight" id="mobNavOffer" onclick="openOfferModal()" aria-label="View Special Offer">
+      <div class="mob-offer-center-circle">
+        <span class="mob-offer-gift">🎁</span>
+        <span class="mob-nav-pulse-ring"></span>
+      </div>
+      <span class="mob-offer-txt">Offer</span>
+    </button>
+
+    <a href="#lookbook" class="mob-nav-item" id="mobNavLookbook" onclick="handleMobNavClick(event, 'lookbook')">
+      <div class="mob-nav-icon-wrap">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="23 7 16 12 23 17 23 7"></polygon>
+          <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+        </svg>
+      </div>
       <span>Lookbook</span>
     </a>
-    <button class="mob-nav-item open-cart-btn">
-      <div style="position:relative;">
+
+    <button class="mob-nav-item open-cart-btn" id="mobNavBag" onclick="openCartDrawer()" aria-label="Shopping Bag">
+      <div class="mob-nav-icon-wrap">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
           <line x1="3" y1="6" x2="21" y2="6"></line>
           <path d="M16 10a4 4 0 0 1-8 0"></path>
         </svg>
-        <span class="icon-badge cart-count-badge" style="top:-6px; right:-8px;">0</span>
+        <span class="icon-badge cart-count-badge">0</span>
       </div>
       <span>Bag</span>
     </button>
   </nav>
 
   <!-- Scripts -->
-  <script src="products.js?v=10"></script>
-  <script src="app.js?v=10"></script>
+  <script src="products.js?v=11"></script>
+  <script src="app.js?v=11"></script>
 </body>
 </html>

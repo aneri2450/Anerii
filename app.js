@@ -1,5 +1,27 @@
 // Anerii Luxury Storefront Application Controller
 
+// ============================================================
+// 🎁 PROMOTIONAL OFFER & POPUP BANNER CONFIGURATION
+// JAB BHI KOI NAYA OFFER AAYE (Festive sale, Diwali, Weekend):
+// Bas yahan changes karein. Agar offer band karna ho toh enabled: false kar dein.
+// ============================================================
+window.AneriiOfferConfig = {
+  enabled: true,                         // true = offer popup active, false = disabled
+  autoShowDelayMs: 2500,                 // Kitne milliseconds baad popup khule (2.5s)
+  showOncePerSession: true,              // Ek browser session me ek hi baar auto-open ho
+  badgeText: "✦ LIMITED TIME FESTIVE DROP ✦",
+  title: "Flat 20% OFF Entire Pure Cotton Collection",
+  subtitle: "Experience Jaipur's finest 60×60 breathable pure cotton luxury. Handcrafted comfort with contemporary silhouettes.",
+  couponCode: "ANERII20",
+  discountText: "20% OFF",
+  discountPercent: 20,
+  minOrderText: "Valid on orders above ₹1,499 • Auto-applied at checkout",
+  expiryHours: 48,                       // Countdown timer (48 hours)
+  bannerImg: "https://cdn.shopify.com/s/files/1/1013/9628/3701/files/aneri008-1.jpg?v=1787815008",
+  ctaText: "Apply Coupon & Shop Collection ↗",
+  ctaLink: "#collections"
+};
+
 // Safe Storage Helper (prevents crashes in restricted file:// or iframe environments)
 const SafeStorage = {
   get(key, fallback) {
@@ -21,6 +43,7 @@ const SafeStorage = {
 const AneriiState = {
   cart: SafeStorage.get('anerii_cart', []),
   wishlist: SafeStorage.get('anerii_wishlist', []),
+  appliedCoupon: SafeStorage.get('anerii_coupon', null),
   currentFilter: 'all',
   freeShippingThreshold: 999,
   activeReelIndex: 0
@@ -59,6 +82,181 @@ function openMobileNav() {
 function closeMobileNav() {
   const drawer = document.getElementById('mobileNavDrawer');
   if (drawer) drawer.classList.remove('open');
+}
+
+// ============================================================
+// 🎁 PROMOTIONAL OFFER MODAL CONTROLLERS
+// ============================================================
+let offerCountdownInterval = null;
+
+function initOfferPopup() {
+  const cfg = window.AneriiOfferConfig;
+  if (!cfg) return;
+
+  const floatingBadge = document.getElementById('floatingBadgeText');
+  if (floatingBadge) floatingBadge.textContent = cfg.discountText || 'OFFER';
+
+  const floatingBtn = document.getElementById('floatingOfferBtn');
+  if (floatingBtn) {
+    floatingBtn.style.display = cfg.enabled ? 'inline-flex' : 'none';
+  }
+
+  const mobNavOffer = document.getElementById('mobNavOffer');
+  if (mobNavOffer) {
+    mobNavOffer.style.display = cfg.enabled ? 'flex' : 'none';
+  }
+
+  if (!cfg.enabled) return;
+
+  const badgeEl = document.getElementById('offerBadgeText');
+  if (badgeEl && cfg.badgeText) badgeEl.textContent = cfg.badgeText;
+
+  const titleEl = document.getElementById('offerTitle');
+  if (titleEl && cfg.title) titleEl.textContent = cfg.title;
+
+  const subEl = document.getElementById('offerSubtitle');
+  if (subEl && cfg.subtitle) subEl.textContent = cfg.subtitle;
+
+  const codeEl = document.getElementById('offerCouponCode');
+  if (codeEl && cfg.couponCode) codeEl.textContent = cfg.couponCode;
+
+  const discountTextEl = document.getElementById('offerDiscountText');
+  if (discountTextEl && cfg.discountText) discountTextEl.textContent = cfg.discountText;
+
+  const minOrderEl = document.getElementById('offerMinOrder');
+  if (minOrderEl && cfg.minOrderText) minOrderEl.textContent = cfg.minOrderText;
+
+  const bannerImgEl = document.getElementById('offerBannerImg');
+  if (bannerImgEl && cfg.bannerImg) bannerImgEl.src = cfg.bannerImg;
+
+  const ctaTextEl = document.getElementById('offerCtaText');
+  if (ctaTextEl && cfg.ctaText) ctaTextEl.textContent = cfg.ctaText;
+
+  startOfferCountdown();
+
+  // Auto trigger after specified delay if not previously dismissed
+  const dismissed = SafeStorage.get('anerii_offer_dismissed', false);
+  if (!dismissed || !cfg.showOncePerSession) {
+    setTimeout(() => {
+      openOfferModal();
+    }, cfg.autoShowDelayMs || 2500);
+  }
+}
+
+function startOfferCountdown() {
+  if (offerCountdownInterval) clearInterval(offerCountdownInterval);
+
+  let targetTime = SafeStorage.get('anerii_offer_target_time', null);
+  if (!targetTime) {
+    const hours = (window.AneriiOfferConfig && window.AneriiOfferConfig.expiryHours) || 48;
+    targetTime = Date.now() + (hours * 60 * 60 * 1000);
+    SafeStorage.set('anerii_offer_target_time', targetTime);
+  }
+
+  function tick() {
+    const now = Date.now();
+    let diff = Math.max(0, targetTime - now);
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    diff -= days * (1000 * 60 * 60 * 24);
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    diff -= hours * (1000 * 60 * 60);
+    const mins = Math.floor(diff / (1000 * 60));
+    diff -= mins * (1000 * 60);
+    const secs = Math.floor(diff / 1000);
+
+    const dEl = document.getElementById('timerDays');
+    const hEl = document.getElementById('timerHours');
+    const mEl = document.getElementById('timerMins');
+    const sEl = document.getElementById('timerSecs');
+
+    if (dEl) dEl.textContent = String(days).padStart(2, '0');
+    if (hEl) hEl.textContent = String(hours).padStart(2, '0');
+    if (mEl) mEl.textContent = String(mins).padStart(2, '0');
+    if (sEl) sEl.textContent = String(secs).padStart(2, '0');
+  }
+
+  tick();
+  offerCountdownInterval = setInterval(tick, 1000);
+}
+
+function openOfferModal() {
+  const modal = document.getElementById('offerModal');
+  if (!modal) return;
+  modal.classList.add('open');
+  document.body.classList.add('modal-open');
+}
+
+function closeOfferModal(rememberDismissal = false) {
+  const modal = document.getElementById('offerModal');
+  if (!modal) return;
+  modal.classList.remove('open');
+  document.body.classList.remove('modal-open');
+
+  if (rememberDismissal) {
+    SafeStorage.set('anerii_offer_dismissed', true);
+  }
+}
+
+function copyOfferCoupon() {
+  const code = (window.AneriiOfferConfig && window.AneriiOfferConfig.couponCode) || 'ANERII20';
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(code).then(() => {
+      const btnText = document.getElementById('copyBtnText');
+      if (btnText) {
+        btnText.textContent = 'COPIED! 🎉';
+        setTimeout(() => {
+          btnText.textContent = 'COPY CODE';
+        }, 2500);
+      }
+      AneriiState.appliedCoupon = code;
+      SafeStorage.set('anerii_coupon', code);
+      showToast(`Coupon "${code}" copied! Discount applied at checkout 🎁`);
+    }).catch(() => {
+      fallbackCopyCoupon(code);
+    });
+  } else {
+    fallbackCopyCoupon(code);
+  }
+}
+
+function fallbackCopyCoupon(code) {
+  AneriiState.appliedCoupon = code;
+  SafeStorage.set('anerii_coupon', code);
+  showToast(`Coupon "${code}" applied to Bag! ✨`);
+}
+
+function applyAndShopOffer() {
+  const code = (window.AneriiOfferConfig && window.AneriiOfferConfig.couponCode) || 'ANERII20';
+  AneriiState.appliedCoupon = code;
+  SafeStorage.set('anerii_coupon', code);
+  closeOfferModal(true);
+  showToast(`Offer Activated! "${code}" applied 🛍️`);
+
+  const collections = document.getElementById('collections');
+  if (collections) {
+    collections.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
+function handleMobNavClick(event, tabName) {
+  document.querySelectorAll('.mob-nav-item').forEach(item => {
+    item.classList.remove('active');
+  });
+
+  if (event && event.currentTarget) {
+    event.currentTarget.classList.add('active');
+  }
+
+  if (tabName === 'home') {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } else if (tabName === 'shop') {
+    const col = document.getElementById('collections');
+    if (col) col.scrollIntoView({ behavior: 'smooth' });
+  } else if (tabName === 'lookbook') {
+    const lb = document.getElementById('lookbook');
+    if (lb) lb.scrollIntoView({ behavior: 'smooth' });
+  }
 }
 
 function updateCartUI() {
@@ -621,6 +819,29 @@ document.addEventListener('DOMContentLoaded', () => {
   infoModal?.addEventListener('click', (e) => {
     if (e.target === infoModal) closeInfoModal();
   });
+
+  // Promotional Offer Modal
+  const offerModal = document.getElementById('offerModal');
+  document.getElementById('closeOfferBtn')?.addEventListener('click', () => closeOfferModal(true));
+  offerModal?.addEventListener('click', (e) => {
+    if (e.target === offerModal) closeOfferModal(true);
+  });
+
+  // Native App Experience: Escape key closes active modals
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeOfferModal();
+      closeCartDrawer();
+      closeMobileNav();
+      closeInfoModal();
+      document.getElementById('quickViewModal')?.classList.remove('open');
+      document.getElementById('reelModal')?.classList.remove('open');
+      document.getElementById('searchDrawer')?.classList.remove('open');
+    }
+  });
+
+  // Initialize Promotional Offer System
+  initOfferPopup();
 
   // Filter Buttons
   document.querySelectorAll('.filter-tab-btn').forEach(btn => {
