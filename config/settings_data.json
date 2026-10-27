@@ -54,7 +54,7 @@
       "offer-popup": {
         "type": "offer-popup",
         "settings": {
-          "enable_offer": false,
+          "enable_offer": true,
           "popup_delay": 2.5,
           "badge_text": "✦ LIMITED TIME FESTIVE DROP ✦",
           "heading": "Flat 20% OFF Entire Pure Cotton Collection",
