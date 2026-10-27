@@ -1,0 +1,176 @@
+{%- comment -%}
+  Anerii Luxury Offer Popup & Promotional Banner Modal
+  Fully configurable from Shopify Theme Customizer
+{%- endcomment -%}
+
+{%- if section.settings.enable_offer -%}
+<div id="offerModal" class="modal-overlay offer-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="offerTitle" style="display:none;">
+  <div class="modal-card-offer">
+    <button id="closeOfferBtn" class="modal-close-btn offer-close-btn" aria-label="Close Offer">✕</button>
+    
+    <!-- Top Decorative Tag -->
+    <div class="offer-card-top-tag">
+      <span class="offer-sparkle">✦</span>
+      <span id="offerBadgeText">{{ section.settings.badge_text | default: 'EXCLUSIVE FESTIVE OFFER' }}</span>
+      <span class="offer-sparkle">✦</span>
+    </div>
+
+    <!-- Main Offer Card Body -->
+    <div class="offer-card-body">
+      <div class="offer-visual-col">
+        <div class="offer-img-frame">
+          {%- if section.settings.banner_image != blank -%}
+            <img id="offerBannerImg" src="{{ section.settings.banner_image | image_url: width: 800 }}" alt="{{ section.settings.heading | escape }}" class="offer-img" loading="eager" />
+          {%- else -%}
+            <img id="offerBannerImg" src="https://cdn.shopify.com/s/files/1/1013/9628/3701/files/aneri008-1.jpg?v=1787815008" alt="Anerii Special Offer" class="offer-img" loading="eager" />
+          {%- endif -%}
+          <div class="offer-discount-sticker">
+            <span class="sticker-highlight">FLAT</span>
+            <span class="sticker-val" id="offerDiscountText">{{ section.settings.discount_badge | default: '20% OFF' }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="offer-details-col">
+        <span class="offer-eyebrow">🌸 100% Breathable Jaipur Pure Cotton</span>
+        <h2 id="offerTitle" class="offer-title">{{ section.settings.heading | default: 'Flat 20% OFF Entire Pure Cotton Collection' }}</h2>
+        <p id="offerSubtitle" class="offer-subtitle">{{ section.settings.subheading | default: 'Celebrate handcrafted luxury with pure 60×60 cotton kurtis, co-ords, and sets tailored for modern grace.' }}</p>
+
+        <!-- Live Countdown Timer -->
+        <div class="offer-timer-box">
+          <span class="timer-label">⚡ HURRY! OFFER EXPIRES IN:</span>
+          <div class="timer-digits-row" id="offerCountdown">
+            <div class="timer-col"><span class="timer-num" id="timerDays">02</span><span class="timer-unit">Days</span></div>
+            <span class="timer-colon">:</span>
+            <div class="timer-col"><span class="timer-num" id="timerHours">14</span><span class="timer-unit">Hours</span></div>
+            <span class="timer-colon">:</span>
+            <div class="timer-col"><span class="timer-num" id="timerMins">36</span><span class="timer-unit">Mins</span></div>
+            <span class="timer-colon">:</span>
+            <div class="timer-col"><span class="timer-num" id="timerSecs">48</span><span class="timer-unit">Secs</span></div>
+          </div>
+        </div>
+
+        <!-- Coupon Code Voucher Box -->
+        <div class="offer-coupon-box">
+          <div class="coupon-code-wrap">
+            <span class="coupon-label">COUPON CODE</span>
+            <span class="coupon-code-text" id="offerCouponCode">{{ section.settings.coupon_code | default: 'ANERII20' }}</span>
+          </div>
+          <button id="copyCouponBtn" class="coupon-copy-btn" onclick="copyOfferCoupon()" title="Click to copy coupon code">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <span id="copyBtnText">COPY CODE</span>
+          </button>
+        </div>
+        <small class="offer-terms-note">{{ section.settings.min_order | default: 'Valid on orders above ₹1,499 • Auto-applied at checkout' }}</small>
+
+        <!-- Action CTA Buttons -->
+        <div class="offer-action-buttons">
+          <button id="applyOfferCtaBtn" class="offer-primary-btn" onclick="applyAndShopOffer()">
+            <span>{{ section.settings.cta_text | default: 'Apply Coupon & Shop Collection' }}</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
+          <button class="offer-dismiss-link" onclick="closeOfferModal(true)">No thanks, I'll browse regular prices</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  window.AneriiShopifyOffer = {
+    enabled: {{ section.settings.enable_offer | json }},
+    couponCode: {{ section.settings.coupon_code | default: 'ANERII20' | json }},
+    discountText: {{ section.settings.discount_badge | default: '20% OFF' | json }},
+    delaySeconds: {{ section.settings.popup_delay | default: 2.5 }},
+    expiryHours: {{ section.settings.expiry_hours | default: 48 }}
+  };
+</script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Promotional Offer Popup",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_offer",
+      "label": "Enable Offer Popup",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "popup_delay",
+      "min": 1,
+      "max": 10,
+      "step": 0.5,
+      "unit": "s",
+      "label": "Popup Delay (Seconds)",
+      "default": 2.5
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Top Badge Text",
+      "default": "✦ LIMITED TIME FESTIVE DROP ✦"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Offer Heading",
+      "default": "Flat 20% OFF Entire Pure Cotton Collection"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Celebrate handcrafted luxury with pure 60×60 cotton kurtis, co-ords, and sets tailored for modern grace."
+    },
+    {
+      "type": "text",
+      "id": "coupon_code",
+      "label": "Coupon Code",
+      "default": "ANERII20"
+    },
+    {
+      "type": "text",
+      "id": "discount_badge",
+      "label": "Discount Sticker Badge",
+      "default": "20% OFF"
+    },
+    {
+      "type": "text",
+      "id": "min_order",
+      "label": "Terms / Min Order Note",
+      "default": "Valid on orders above ₹1,499 • Auto-applied at checkout"
+    },
+    {
+      "type": "number",
+      "id": "expiry_hours",
+      "label": "Countdown Timer Hours",
+      "default": 48
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Banner Image"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Button Text",
+      "default": "Apply Coupon & Shop Collection"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Promotional Offer Popup"
+    }
+  ]
+}
+{% endschema %}

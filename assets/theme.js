@@ -119,4 +119,195 @@ document.addEventListener('DOMContentLoaded', () => {
   cartDrawerOverlay?.addEventListener('click', (e) => {
     if (e.target === cartDrawerOverlay) cartDrawerOverlay.classList.remove('open');
   });
+
+  // Promotional Offer Modal Listeners
+  const offerModal = document.getElementById('offerModal');
+  document.getElementById('closeOfferBtn')?.addEventListener('click', () => closeOfferModal(true));
+  offerModal?.addEventListener('click', (e) => {
+    if (e.target === offerModal) closeOfferModal(true);
+  });
+
+  // Native App Experience: Escape key closes modals
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeOfferModal();
+      cartDrawerOverlay?.classList.remove('open');
+      mobileNavDrawer?.classList.remove('open');
+      document.getElementById('quickViewModal')?.classList.remove('open');
+    }
+  });
+
+  // Initialize Shopify Promotional Offer Popup
+  initShopifyOfferPopup();
 });
+
+// ============================================================
+// 🎁 PROMOTIONAL OFFER & APP CONTROLLERS
+// ============================================================
+let offerCountdownInterval = null;
+
+function initShopifyOfferPopup() {
+  const cfg = window.AneriiShopifyOffer;
+  if (!cfg || !cfg.enabled) return;
+
+  const floatingBtn = document.getElementById('floatingOfferBtn');
+  if (floatingBtn) floatingBtn.style.display = 'inline-flex';
+
+  const mobNavOffer = document.getElementById('mobNavOffer');
+  if (mobNavOffer) mobNavOffer.style.display = 'flex';
+
+  // Start live countdown timer
+  startOfferCountdown(cfg.expiryHours || 48);
+
+  // Auto trigger after delay if not already dismissed in session
+  const dismissed = sessionStorage.getItem('anerii_offer_dismissed');
+  if (!dismissed) {
+    const delay = (cfg.delaySeconds || 2.5) * 1000;
+    setTimeout(() => {
+      openOfferModal();
+    }, delay);
+  }
+}
+
+function startOfferCountdown(hours = 48) {
+  if (offerCountdownInterval) clearInterval(offerCountdownInterval);
+
+  let targetTime = null;
+  try {
+    const stored = localStorage.getItem('anerii_offer_target_time');
+    if (stored) targetTime = parseInt(stored, 10);
+  } catch(e) {}
+
+  if (!targetTime || targetTime < Date.now()) {
+    targetTime = Date.now() + (hours * 60 * 60 * 1000);
+    try {
+      localStorage.setItem('anerii_offer_target_time', targetTime.toString());
+    } catch(e) {}
+  }
+
+  function tick() {
+    const now = Date.now();
+    let diff = Math.max(0, targetTime - now);
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    diff -= days * (1000 * 60 * 60 * 24);
+    const h = Math.floor(diff / (1000 * 60 * 60));
+    diff -= h * (1000 * 60 * 60);
+    const m = Math.floor(diff / (1000 * 60));
+    diff -= m * (1000 * 60);
+    const s = Math.floor(diff / 1000);
+
+    const dEl = document.getElementById('timerDays');
+    const hEl = document.getElementById('timerHours');
+    const mEl = document.getElementById('timerMins');
+    const sEl = document.getElementById('timerSecs');
+
+    if (dEl) dEl.textContent = String(days).padStart(2, '0');
+    if (hEl) hEl.textContent = String(h).padStart(2, '0');
+    if (mEl) mEl.textContent = String(m).padStart(2, '0');
+    if (sEl) sEl.textContent = String(s).padStart(2, '0');
+  }
+
+  tick();
+  offerCountdownInterval = setInterval(tick, 1000);
+}
+
+function openOfferModal() {
+  const modal = document.getElementById('offerModal');
+  if (!modal) return;
+  modal.style.display = 'flex';
+  // Small tick for CSS opacity transition
+  setTimeout(() => {
+    modal.classList.add('open');
+  }, 10);
+  document.body.classList.add('modal-open');
+}
+window.openOfferModal = openOfferModal;
+
+function closeOfferModal(remember = false) {
+  const modal = document.getElementById('offerModal');
+  if (!modal) return;
+  modal.classList.remove('open');
+  setTimeout(() => {
+    modal.style.display = 'none';
+  }, 300);
+  document.body.classList.remove('modal-open');
+
+  if (remember) {
+    try {
+      sessionStorage.setItem('anerii_offer_dismissed', 'true');
+    } catch(e) {}
+  }
+}
+window.closeOfferModal = closeOfferModal;
+
+function copyOfferCoupon() {
+  const code = (window.AneriiShopifyOffer && window.AneriiShopifyOffer.couponCode) || 'ANERII20';
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(code).then(() => {
+      const btnText = document.getElementById('copyBtnText');
+      if (btnText) {
+        btnText.textContent = 'COPIED! 🎉';
+        setTimeout(() => {
+          btnText.textContent = 'COPY CODE';
+        }, 2500);
+      }
+      showShopifyToast(`Coupon "${code}" copied! Discount applied at checkout 🎁`);
+    }).catch(() => {
+      showShopifyToast(`Coupon: ${code}`);
+    });
+  } else {
+    showShopifyToast(`Coupon: ${code}`);
+  }
+}
+window.copyOfferCoupon = copyOfferCoupon;
+
+function applyAndShopOffer() {
+  const code = (window.AneriiShopifyOffer && window.AneriiShopifyOffer.couponCode) || 'ANERII20';
+  closeOfferModal(true);
+  showShopifyToast(`Offer Activated! "${code}" ready for checkout 🛍️`);
+
+  const collections = document.getElementById('collections') || document.querySelector('.collection, .main-collection, #MainContent');
+  if (collections) {
+    collections.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+window.applyAndShopOffer = applyAndShopOffer;
+
+function handleMobNavClick(event, tabName) {
+  document.querySelectorAll('.mob-nav-item').forEach(item => {
+    item.classList.remove('active');
+  });
+
+  if (event && event.currentTarget) {
+    event.currentTarget.classList.add('active');
+  }
+
+  if (tabName === 'home') {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } else if (tabName === 'shop') {
+    const col = document.getElementById('collections') || document.querySelector('.collection, .main-collection');
+    if (col) col.scrollIntoView({ behavior: 'smooth' });
+  } else if (tabName === 'lookbook') {
+    const lb = document.getElementById('lookbook') || document.querySelector('.lookbook-section, [data-section-type="lookbook"]');
+    if (lb) lb.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+window.handleMobNavClick = handleMobNavClick;
+
+function showShopifyToast(message) {
+  let toast = document.getElementById('toastNotification');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'toastNotification';
+    toast.className = 'toast-notification';
+    document.body.appendChild(toast);
+  }
+  toast.textContent = message;
+  toast.classList.add('show');
+  setTimeout(() => {
+    toast.classList.remove('show');
+  }, 2600);
+}
+window.showShopifyToast = showShopifyToast;
+
