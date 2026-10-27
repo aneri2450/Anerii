@@ -47,6 +47,21 @@
           "facebook": "https://www.facebook.com/share/1SeKUHD2Rr/",
           "pinterest": "https://pin.it/6pZK4WJaH"
         }
+      },
+      "offer-popup": {
+        "type": "offer-popup",
+        "settings": {
+          "enable_offer": false,
+          "popup_delay": 2.5,
+          "badge_text": "✦ LIMITED TIME FESTIVE DROP ✦",
+          "heading": "Flat 20% OFF Entire Pure Cotton Collection",
+          "subheading": "Celebrate handcrafted luxury with pure 60×60 cotton kurtis, co-ords, and sets tailored for modern grace.",
+          "coupon_code": "ANERII20",
+          "discount_badge": "20% OFF",
+          "min_order": "Valid on orders above ₹1,499 • Auto-applied at checkout",
+          "expiry_hours": 48,
+          "cta_text": "Apply Coupon & Shop Collection"
+        }
       }
     },
     "content_for_index": []
