@@ -27,25 +27,28 @@ function filterCategory(cat, shouldScroll = false) {
   // Filter Product Cards in the grid
   const cards = document.querySelectorAll('#collections .product-card-wrap');
   cards.forEach(card => {
-    const cardCat = card.dataset.category || '';
-    const cardColl = card.dataset.collection || '';
+    const cardCat = (card.dataset.category || '').toLowerCase();
+    const cardColl = (card.dataset.collection || '').toLowerCase();
+    const cardHandle = (card.dataset.handle || '').toLowerCase();
+    const cardTags = (card.dataset.tags || '').toLowerCase();
     const cardTitle = (card.querySelector('.product-title')?.textContent || '').toLowerCase();
+    const combined = `${cardCat} ${cardColl} ${cardHandle} ${cardTags} ${cardTitle}`.toLowerCase();
     
     let match = false;
     if (cat === 'all') {
       match = true;
     } else if (cat === 'co-ords') {
-      match = cardCat === 'co-ords' || cardTitle.includes('cord') || cardTitle.includes('co-ord');
+      match = cardCat === 'co-ords' || combined.includes('cord') || combined.includes('co-ord');
     } else if (cat === 'kurta-sets') {
-      match = cardCat === 'kurta-sets' || (cardTitle.includes('kurta') && !cardTitle.includes('short'));
+      match = cardCat === 'kurta-sets' || (combined.includes('kurta') && !combined.includes('short'));
     } else if (cat === 'kurtis') {
-      match = cardCat === 'kurtis' || cardTitle.includes('short') || cardTitle.includes('top');
+      match = cardCat === 'kurtis' || combined.includes('kurti') || combined.includes('top') || combined.includes('short') || combined.includes('coral');
     } else if (cat === 'noor-e-neel') {
-      match = cardColl === 'noor-e-neel' || cardTitle.includes('noor');
+      match = cardColl === 'noor-e-neel' || combined.includes('noor');
     } else if (cat === 'rangrez') {
-      match = cardColl === 'rangrez' || cardTitle.includes('rangrez') || cardTitle.includes('rani') || cardTitle.includes('coral');
+      match = cardColl === 'rangrez' || combined.includes('rangrez') || combined.includes('rani') || combined.includes('coral');
     } else if (cat === 'gulnaaz') {
-      match = cardColl === 'gulnaaz' || cardTitle.includes('gulnaaz');
+      match = cardColl === 'gulnaaz' || combined.includes('gulnaaz');
     }
     
     card.style.display = match ? '' : 'none';
@@ -67,7 +70,103 @@ function filterCategory(cat, shouldScroll = false) {
 }
 window.filterCategory = filterCategory;
 
+
+// ==========================================================================
+// STORIES FULL-SCREEN SLIDER & CONTINUOUS FLOW CONTROLLER
+// ==========================================================================
+window.scrollStoriesTrack = function(direction) {
+  const container = document.getElementById('storiesContainer') || document.querySelector('.stories-container');
+  if (container) {
+    const step = 380;
+    container.scrollBy({ left: direction * step, behavior: 'smooth' });
+  }
+};
+
+function initStoriesSlider() {
+  const container = document.getElementById('storiesContainer') || document.querySelector('.stories-container');
+  if (!container) return;
+
+  const originalItems = Array.from(container.querySelectorAll('.story-item:not([data-clone])'));
+  if (originalItems.length === 0) return;
+
+  function populateClones() {
+    if (window.innerWidth > 768) {
+      container.querySelectorAll('.story-item[data-clone]').forEach(el => el.remove());
+      
+      const singleSetWidth = originalItems.reduce((acc, el) => acc + (el.offsetWidth || 90) + 28, 0);
+      const neededSets = Math.max(2, Math.ceil((window.innerWidth * 2.5) / (singleSetWidth || 700)));
+      
+      for (let s = 1; s <= neededSets; s++) {
+        originalItems.forEach(item => {
+          const clone = item.cloneNode(true);
+          clone.setAttribute('data-clone', 'true');
+          container.appendChild(clone);
+        });
+      }
+    }
+  }
+
+  populateClones();
+
+  // Handle clicks dynamically on any story item (delegated on container)
+  container.addEventListener('click', (e) => {
+    const item = e.target.closest('.story-item');
+    if (!item) return;
+    const story = item.getAttribute('data-story') || (item.getAttribute('onclick') || '').match(/filterCategory\('([^']+)'/)?.[1];
+    if (story && typeof window.filterCategory === 'function') {
+      window.filterCategory(story, true);
+    }
+  });
+
+  // Continuous auto-glide on desktop
+  let isHovered = false;
+  let isDragging = false;
+  let startX = 0;
+  let scrollLeftStart = 0;
+
+  container.addEventListener('mouseenter', () => { isHovered = true; });
+  container.addEventListener('mouseleave', () => { isHovered = false; });
+  container.addEventListener('touchstart', () => { isHovered = true; }, { passive: true });
+  container.addEventListener('touchend', () => { isHovered = false; }, { passive: true });
+
+  // Mouse drag support on desktop
+  container.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    isHovered = true;
+    startX = e.pageX - container.offsetLeft;
+    scrollLeftStart = container.scrollLeft;
+  });
+  window.addEventListener('mouseup', () => {
+    isDragging = false;
+    isHovered = false;
+  });
+  container.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = e.pageX - container.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    container.scrollLeft = scrollLeftStart - walk;
+  });
+
+  // Animation frame loop for continuous auto-glide across full screen
+  function glide() {
+    if (!isHovered && !isDragging && window.innerWidth > 768) {
+      container.scrollLeft += 0.8;
+      if (container.scrollLeft >= (container.scrollWidth / 2)) {
+        container.scrollLeft = 0;
+      }
+    }
+    requestAnimationFrame(glide);
+  }
+  requestAnimationFrame(glide);
+
+  window.addEventListener('resize', () => {
+    populateClones();
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+  initStoriesSlider();
   // Story circles click listeners
   document.querySelectorAll('.story-item').forEach(item => {
     item.addEventListener('click', (e) => {

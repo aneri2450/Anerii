@@ -569,30 +569,99 @@ button {
 }
 
 /* ==========================================================================
-   4. STORY CIRCLE HIGHLIGHTS
+   4. STORY CIRCLE HIGHLIGHTS & DESKTOP FULL-SCREEN SLIDER
    ========================================================================== */
 .stories-section {
-  padding: 28px 0 16px;
+  position: relative;
+  width: 100%;
+  padding: 24px 0 16px;
   background-color: var(--color-bg-main);
   border-bottom: 1px solid var(--border-light);
+  overflow: hidden;
+}
+
+.stories-slider-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 46px;
 }
 
 .stories-container {
-  max-width: 1400px;
+  width: 100%;
+  max-width: 100%;
   margin: 0 auto;
-  padding: 0 16px;
+  padding: 6px 10px;
   display: flex;
   align-items: center;
-  gap: 22px;
+  gap: 28px;
   overflow-x: auto;
+  scroll-behavior: smooth;
   scrollbar-width: none;
   -ms-overflow-style: none;
   -webkit-overflow-scrolling: touch;
-  padding-bottom: 6px;
+  cursor: grab;
+}
+
+.stories-container:active {
+  cursor: grabbing;
 }
 
 .stories-container::-webkit-scrollbar {
   display: none;
+}
+
+.stories-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(198, 162, 94, 0.35);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary-dark, #1c231a);
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.25s ease;
+  user-select: none;
+  backdrop-filter: blur(8px);
+}
+
+.stories-nav-btn:hover {
+  background: var(--color-accent-gold, #c6a25e);
+  color: #ffffff;
+  border-color: var(--color-accent-gold, #c6a25e);
+  box-shadow: 0 6px 18px rgba(198, 162, 94, 0.45);
+  transform: translateY(-50%) scale(1.08);
+}
+
+.stories-nav-btn.prev {
+  left: 8px;
+}
+
+.stories-nav-btn.next {
+  right: 8px;
+}
+
+@media (max-width: 768px) {
+  .stories-slider-wrapper {
+    padding: 0;
+  }
+  .stories-nav-btn {
+    display: none !important;
+  }
+  .stories-container {
+    padding: 4px 16px;
+    gap: 16px;
+    cursor: default;
+  }
 }
 
 .story-item {
@@ -3990,8 +4059,7 @@ button {
   -webkit-backdrop-filter: blur(20px);
   border-top: 1px solid rgba(198, 162, 94, 0.25);
   box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.25);
-  display: none;
-  display: flex;
+  display: none !important;
   justify-content: space-around;
   align-items: center;
   z-index: 99998;
@@ -4218,3 +4286,13 @@ button:active, .btn-primary:active, .btn-secondary-glass:active {
 
 
 
+
+/* Ensure Native App Bottom Dock is Strictly Hidden on Desktop Screens */
+@media (min-width: 769px) {
+  .mobile-bottom-nav {
+    display: none !important;
+  }
+  body {
+    padding-bottom: 0 !important;
+  }
+}

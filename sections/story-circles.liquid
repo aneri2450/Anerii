@@ -1,5 +1,16 @@
 <section class="stories-section">
-  <div class="stories-container">
+  <div class="stories-slider-wrapper">
+    <button type="button" class="stories-nav-btn prev" id="storiesPrevBtn" aria-label="Previous Stories" onclick="scrollStoriesTrack(-1)">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
+    </button>
+    <button type="button" class="stories-nav-btn next" id="storiesNextBtn" aria-label="Next Stories" onclick="scrollStoriesTrack(1)">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="9 18 15 12 9 6"></polyline>
+      </svg>
+    </button>
+    <div class="stories-container" id="storiesContainer">
     {%- for block in section.blocks -%}
       <a href="{{ block.settings.link | default: '#collections' }}" class="story-item">
         <div class="story-avatar-wrap">
@@ -55,6 +66,7 @@
         <span class="story-label">Gulnaaz</span>
       </a>
     {%- endfor -%}
+    </div>
   </div>
 </section>
 

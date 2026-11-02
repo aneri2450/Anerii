@@ -4,25 +4,42 @@
 {%- endcomment -%}
 
 {%- assign title_l = product_card_product.title | downcase -%}
+{%- assign handle_l = product_card_product.handle | downcase -%}
+{%- assign type_l = product_card_product.type | downcase -%}
+{%- assign tags_l = product_card_product.tags | join: ' ' | downcase -%}
+{%- assign combined_meta = title_l | append: ' ' | append: handle_l | append: ' ' | append: type_l | append: ' ' | append: tags_l -%}
+
 {%- assign p_cat = '' -%}
-{%- if title_l contains 'cord' or title_l contains 'co-ord' -%}
+{%- if combined_meta contains 'cord' or combined_meta contains 'co-ord' -%}
   {%- assign p_cat = 'co-ords' -%}
-{%- elsif title_l contains 'kurta set' or title_l contains 'kurta' -%}
+{%- elsif combined_meta contains 'kurta set' or (combined_meta contains 'kurta' and combined_meta contains 'set') -%}
   {%- assign p_cat = 'kurta-sets' -%}
-{%- elsif title_l contains 'kurti' or title_l contains 'top' -%}
+{%- elsif combined_meta contains 'kurti' or combined_meta contains 'top' or combined_meta contains 'short' or combined_meta contains 'coral' -%}
   {%- assign p_cat = 'kurtis' -%}
+{%- elsif combined_meta contains 'kurta' -%}
+  {%- assign p_cat = 'kurta-sets' -%}
 {%- endif -%}
 
 {%- assign p_coll = '' -%}
-{%- if title_l contains 'gulnaaz' -%}
+{%- if combined_meta contains 'gulnaaz' -%}
   {%- assign p_coll = 'gulnaaz' -%}
-{%- elsif title_l contains 'noor-e-neel' or title_l contains 'noor' -%}
+{%- elsif combined_meta contains 'noor-e-neel' or combined_meta contains 'noor' -%}
   {%- assign p_coll = 'noor-e-neel' -%}
-{%- elsif title_l contains 'rangrez' or title_l contains 'rani' or title_l contains 'coral' -%}
+{%- elsif combined_meta contains 'rangrez' or combined_meta contains 'rani' or combined_meta contains 'coral' -%}
   {%- assign p_coll = 'rangrez' -%}
 {%- endif -%}
 
-<div class="product-card-wrap" data-category="{{ p_cat }}" data-collection="{{ p_coll }}">
+{%- for c in product_card_product.collections -%}
+  {%- assign c_title = c.title | downcase -%}
+  {%- if c_title contains 'rangrez' or c_title contains 'rani' or c_title contains 'coral' -%}{%- assign p_coll = 'rangrez' -%}{%- endif -%}
+  {%- if c_title contains 'gulnaaz' -%}{%- assign p_coll = 'gulnaaz' -%}{%- endif -%}
+  {%- if c_title contains 'noor' -%}{%- assign p_coll = 'noor-e-neel' -%}{%- endif -%}
+  {%- if c_title contains 'kurti' or c_title contains 'top' -%}{%- assign p_cat = 'kurtis' -%}{%- endif -%}
+  {%- if c_title contains 'co-ord' or c_title contains 'cord' -%}{%- assign p_cat = 'co-ords' -%}{%- endif -%}
+  {%- if c_title contains 'kurta' -%}{%- assign p_cat = 'kurta-sets' -%}{%- endif -%}
+{%- endfor -%}
+
+<div class="product-card-wrap" data-category="{{ p_cat }}" data-collection="{{ p_coll }}" data-handle="{{ product_card_product.handle }}" data-tags="{{ tags_l }}">
   <div class="product-card" onclick="window.location.href='{{ product_card_product.url }}'">
     
     {%- if product_card_product.compare_at_price > product_card_product.price -%}
