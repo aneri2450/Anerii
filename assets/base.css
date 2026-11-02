@@ -1293,21 +1293,39 @@ button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  background: rgba(255, 255, 255, 0.92);
-  color: var(--color-primary-dark);
+  gap: 8px;
+  width: 100%;
+  margin-top: 6px;
+  background: linear-gradient(135deg, #ffffff 0%, #f7f3ea 100%);
+  color: #1c231a;
+  border: 1px solid rgba(198, 162, 94, 0.45);
   font-family: var(--font-body);
   font-size: 0.74rem;
   font-weight: 700;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  padding: 7px 10px;
-  border-radius: var(--radius-pill);
-  transition: all var(--transition-fast);
+  padding: 10px 14px;
+  border-radius: 50px;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+  transition: all 0.25s ease;
+  cursor: pointer;
 }
 
 .reel-shop-btn:hover {
-  background: var(--color-accent-gold);
+  background: linear-gradient(135deg, #dfc38d 0%, #c6a25e 100%);
+  color: #141b13;
+  border-color: #dfc38d;
+  box-shadow: 0 6px 20px rgba(198, 162, 94, 0.5);
+  transform: translateY(-2px);
+}
+
+.reel-shop-btn .arrow-svg {
+  transition: transform 0.2s ease;
+}
+
+.reel-shop-btn:hover .arrow-svg {
+  transform: translateX(3px);
 }
 
 /* ==========================================================================
@@ -1447,18 +1465,22 @@ button {
 .insta-post-header {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 14px;
-  background-color: #fdf6f7;
-  border-bottom: 1px solid rgba(214, 122, 132, 0.2);
+  gap: 12px;
+  padding: 11px 16px;
+  background-color: #ffffff;
+  border-bottom: 1px solid rgba(198, 162, 94, 0.2);
 }
 
 .insta-avatar {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  object-fit: cover;
-  border: 1px solid #d67a84;
+  background: #1c231a !important;
+  padding: 4px;
+  object-fit: contain !important;
+  border: 1.5px solid var(--color-accent-gold, #c6a25e) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  flex-shrink: 0;
 }
 
 .insta-meta {
@@ -3137,18 +3159,22 @@ button {
 .insta-post-header {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 14px;
-  background-color: #fdf6f7;
-  border-bottom: 1px solid rgba(214, 122, 132, 0.2);
+  gap: 12px;
+  padding: 11px 16px;
+  background-color: #ffffff;
+  border-bottom: 1px solid rgba(198, 162, 94, 0.2);
 }
 
 .insta-avatar {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  object-fit: cover;
-  border: 1px solid #d67a84;
+  background: #1c231a !important;
+  padding: 4px;
+  object-fit: contain !important;
+  border: 1.5px solid var(--color-accent-gold, #c6a25e) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  flex-shrink: 0;
 }
 
 .insta-meta {
@@ -4051,4 +4077,167 @@ button:active, .btn-primary:active, .btn-secondary-glass:active {
   body {
     padding-bottom: 0 !important;
   }
+}
+
+/* ==========================================================================
+   LOOKBOOK REELS LUXURY AESTHETIC UPGRADE
+   ========================================================================== */
+.reel-card {
+  flex: 0 0 250px !important;
+  height: 420px !important;
+  border-radius: 18px !important;
+  overflow: hidden !important;
+  position: relative !important;
+  background-color: #141b13 !important;
+  cursor: pointer !important;
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.35s ease !important;
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.45) !important;
+  border: 1px solid rgba(223, 195, 141, 0.28) !important;
+}
+
+.reel-card:hover {
+  transform: translateY(-8px) scale(1.02) !important;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6), 0 0 24px rgba(198, 162, 94, 0.35) !important;
+  border-color: rgba(198, 162, 94, 0.65) !important;
+}
+
+.reel-card:hover .reel-video {
+  transform: scale(1.03);
+}
+
+.reel-video {
+  transition: transform 0.5s ease;
+}
+
+.reel-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(14, 20, 13, 0.5) 0%,
+    rgba(14, 20, 13, 0.05) 25%,
+    rgba(14, 20, 13, 0.2) 55%,
+    rgba(14, 20, 13, 0.94) 100%
+  ) !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px;
+  z-index: 2;
+  transition: background 0.3s ease;
+}
+
+.reel-card:hover .reel-overlay {
+  background: linear-gradient(
+    180deg,
+    rgba(14, 20, 13, 0.6) 0%,
+    rgba(14, 20, 13, 0.1) 25%,
+    rgba(14, 20, 13, 0.28) 50%,
+    rgba(14, 20, 13, 0.97) 100%
+  ) !important;
+}
+
+.reel-top-bar {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  width: 100% !important;
+}
+
+.reel-sound-badge {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  background: rgba(20, 27, 19, 0.8) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(223, 195, 141, 0.35) !important;
+  color: #dfc38d !important;
+  font-family: var(--font-body) !important;
+  font-size: 0.68rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.03em !important;
+  padding: 5px 11px !important;
+  border-radius: 20px !important;
+  transition: all 0.25s ease !important;
+}
+
+.reel-sound-badge.active {
+  background: rgba(198, 162, 94, 0.95) !important;
+  color: #141b13 !important;
+  border-color: #dfc38d !important;
+  box-shadow: 0 0 12px rgba(198, 162, 94, 0.5) !important;
+}
+
+.reel-quality-pill {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+  font-family: var(--font-body);
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 4px 9px;
+  border-radius: 12px;
+}
+
+.reel-center-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  pointer-events: none;
+}
+
+.reel-play-circle {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(20, 27, 19, 0.82);
+  border: 1.5px solid #dfc38d;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 16px rgba(198, 162, 94, 0.4);
+  color: #dfc38d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 3px;
+}
+
+.reel-card:hover .reel-center-play {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.reel-bottom-info {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+  width: 100% !important;
+}
+
+.reel-collection {
+  font-family: var(--font-body) !important;
+  font-size: 0.72rem !important;
+  font-weight: 600 !important;
+  color: #dfc38d !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+}
+
+.reel-title {
+  font-family: var(--font-heading, "Cormorant Garamond", Georgia, serif) !important;
+  font-size: 1.18rem !important;
+  font-weight: 600 !important;
+  color: #ffffff !important;
+  line-height: 1.25 !important;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6) !important;
 }

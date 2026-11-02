@@ -618,20 +618,38 @@ function renderReels() {
       <div class="reel-overlay">
         <div class="reel-top-bar">
           <span class="reel-sound-badge">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="sound-icon-svg">
               <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <line x1="23" y1="9" x2="17" y2="15"></line>
+              <line x1="17" y1="9" x2="23" y2="15"></line>
             </svg>
+            <span class="sound-text">Sound Off</span>
           </span>
-          <span style="font-size: 0.74rem; color: #fff; font-weight:600;">
-            ♥ ${reel.likes}
-          </span>
+          <span class="reel-quality-pill">Pure 60×60</span>
+        </div>
+
+        <div class="reel-center-play">
+          <div class="reel-play-circle">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+          </div>
         </div>
 
         <div class="reel-bottom-info">
-          <div class="reel-title">${reel.title}</div>
           <div class="reel-collection">${reel.collectionName}</div>
+          <div class="reel-title">${reel.title}</div>
           <button class="reel-shop-btn" onclick="event.stopPropagation(); openQuickView('${product.id}')">
-            <span>Shop Look • Rs. ${product.price}</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <path d="M16 10a4 4 0 0 1-8 0"></path>
+            </svg>
+            <span>Shop This Look • Rs. ${product.price}</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="arrow-svg">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
           </button>
         </div>
       </div>
